@@ -5,7 +5,11 @@ const CustomerLayout = () => {
   return (
     <div>
       <Navbar />
-      <Outlet />
+      <div className="mx-20">
+        <div className="container mx-auto">
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 };
