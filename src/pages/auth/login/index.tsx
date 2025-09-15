@@ -1,8 +1,13 @@
+import { LoginForm } from "./login-form";
 
-const LoginPage = () => {
+export default function LoginPage() {
   return (
-    <div>LoginPage</div>
-  )
+    <div className="grid min-h-svh ">
+       <div className="flex flex-1 items-center justify-center">
+          <div className="w-full max-w-xs">
+            <LoginForm />
+          </div>
+        </div>
+    </div>
+  );
 }
-
-export default LoginPage
