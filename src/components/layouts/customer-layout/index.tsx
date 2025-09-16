@@ -5,8 +5,8 @@ const CustomerLayout = () => {
   return (
     <div>
       <Navbar />
-      <div className="mx-20">
-        <div className="container mx-auto">
+      <div className="">
+        <div className=" justify-items-center">
           <Outlet />
         </div>
       </div>

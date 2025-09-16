@@ -25,7 +25,6 @@ const useApiService = () => {
         } else {
           throw new Error(`Unsupported method: ${method}`);
         }
-
         console.log(response);
         return response.data;
       } catch (e: any) {

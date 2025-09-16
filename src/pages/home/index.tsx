@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import HomeService from "./services"
 import HomeCategories from "./categories";
+import { Spinner } from "@/components/spinner";
 
 const HomePage = () => {
-  const {getCategories} = HomeService()
+  const {getCategories, loading} = HomeService()
   const [cates, setCates] = useState<Cate[]>([]);
-
+  console.log('loading: ', loading)
   useEffect(()=>{
     fetchCates()
   }, [])
@@ -17,8 +18,10 @@ const HomePage = () => {
     }
   }
 
+
   return (
-    <div>
+    <div className="w-[1200px]">
+        <Spinner show={true} size='small'/>
         <HomeCategories cates={cates}/>
     </div>
   )
