@@ -6,8 +6,10 @@ const CustomerLayout = () => {
     <div>
       <Navbar />
       <div className="">
-        <div className=" justify-items-center">
-          <Outlet />
+        <div className="justify-items-center">
+          <div className="w-[1200px] mt-5">
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>
