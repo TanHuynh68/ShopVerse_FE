@@ -6,6 +6,7 @@ import { BrandService } from "@/services";
 import { Spinner } from "@/components/spinner";
 import ProductsGrid from "./products-grid";
 import { useProductContext } from "@/hooks/useProductContext ";
+import DataNotFound from "@/components/data-not-found";
 
 const ProductsPage = () => {
   const { getBrandByCategoryId, loading } = BrandService();
@@ -39,7 +40,13 @@ const ProductsPage = () => {
         <div className="w-[200px]">
           <CategoriesBar brands={brands} />
         </div>
-        <ProductsGrid products={products} />
+        {products.length > 0 ? (
+          <ProductsGrid products={products} />
+        ) : (
+         <div className="w-full">
+           <DataNotFound />
+         </div>
+        )}
       </div>
     </div>
   );
