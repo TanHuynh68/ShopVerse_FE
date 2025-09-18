@@ -1,6 +1,6 @@
 import Title from "@/components/title";
 import { Logs } from "lucide-react";
-import { Brand } from "../type/brand";
+import { Brand } from "../../../../type/brand.type";
 import Brands from "./brands";
 
 interface CategoriesBarProps {
@@ -12,13 +12,9 @@ const CategoriesBar = ({ brands }: CategoriesBarProps) => {
       {/* Title */}
       <div className="flex gap-2 ">
         <Logs />
-        <Title title="Tất cả danh mục" />
+        <Title title="Tất cả danh mục" className="cursor-pointer"/>
       </div>
-      <div className="border-t border-solid my-2.5"></div>
-      <div className="flex gap-2 ">
-        <Logs />
-        <Title title="Tất cả danh mục" />
-      </div>
+
       <div className="border-t border-solid my-2.5"></div>
       <div>
         <Brands brands={brands} />

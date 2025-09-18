@@ -3,7 +3,7 @@ import useApiService from "@/hooks/useApi";
 import { useCallback } from "react";
 import { toast } from "sonner";
 
-const HomeService = () => {
+const CategoryService = () => {
     const { callApi, loading, setIsLoading } = useApiService();
 
     const getCategories = useCallback(
@@ -18,7 +18,7 @@ const HomeService = () => {
         [callApi]
     );
 
-    return { getCategories, loading, setIsLoading };
+    return { loading, setIsLoading, getCategories };
 };
 
-export default HomeService;
+export default CategoryService;

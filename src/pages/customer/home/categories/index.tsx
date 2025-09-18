@@ -1,4 +1,5 @@
 import Title from "@/components/title";
+import { Cate } from "@/type/category.type";
 import { Link } from "react-router-dom";
 
 interface HomeCategoriesProps {

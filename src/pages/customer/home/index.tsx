@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import HomeService from "./services";
 import HomeCategories from "./categories";
 import { Spinner } from "@/components/spinner";
+import { CategoryService } from "@/services";
+import { Cate } from "@/type/category.type";
 
 const HomePage = () => {
-  const { getCategories, loading } = HomeService();
+  const { getCategories, loading } = CategoryService();
   const [cates, setCates] = useState<Cate[]>([]);
-  console.log("loading: ", loading);
+
   useEffect(() => {
     fetchCates();
   }, []);

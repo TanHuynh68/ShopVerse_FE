@@ -1,10 +1,6 @@
-interface Brand {
-    _id: string;
-    name: string;
-    description: string;
-}
+import { Brand } from "./brand.type";
 
-interface Cate {
+export interface Cate {
     _id: string;
     name: string;
     description: string;

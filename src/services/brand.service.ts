@@ -3,7 +3,7 @@ import useApiService from "@/hooks/useApi";
 import { useCallback } from "react";
 import { toast } from "sonner";
 
-const ProductByCateService = () => {
+const BrandService = () => {
     const { callApi, loading, setIsLoading } = useApiService();
 
     const getBrandByCategoryId = useCallback(
@@ -18,7 +18,7 @@ const ProductByCateService = () => {
         [callApi]
     );
 
-    return { getBrandByCategoryId, loading, setIsLoading };
+    return { getBrandByCategoryId, loading, setIsLoading, };
 };
 
-export default ProductByCateService;
+export default BrandService;
