@@ -1,4 +1,4 @@
-import { ProductByCategoriesPage } from "@/pages";
+import { ProductByCategoriesPage, ProductDetailPage } from "@/pages";
 import { CUSTOMER_PATH } from "./customerPath";
 import { CustomerLayout } from "@/components/layouts";
 import { ProductProvider } from "@/hooks/useProductContext ";
@@ -14,6 +14,12 @@ export const customerRoutes = [
           <ProductProvider>
             <ProductByCategoriesPage />
           </ProductProvider>
+        ),
+      },
+      {
+        path: CUSTOMER_PATH.PRODUCT_DETAIL,
+        element: (
+          <ProductDetailPage />
         ),
       },
     ],
