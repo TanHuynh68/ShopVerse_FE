@@ -9,7 +9,6 @@ import { useProductContext } from "@/hooks/useProductContext ";
 import { Spinner } from "@/components/common/spinner";
 import DataNotFound from "@/components/common/data-not-found";
 
-
 const ProductsPage = () => {
   const { getBrandByCategoryId, loading } = BrandService();
   const { id } = useParams();
@@ -45,9 +44,9 @@ const ProductsPage = () => {
         {products.length > 0 ? (
           <ProductsGrid products={products} />
         ) : (
-         <div className="w-full">
-           <DataNotFound />
-         </div>
+          <div className="w-full">
+            <DataNotFound />
+          </div>
         )}
       </div>
     </div>

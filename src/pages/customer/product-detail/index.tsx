@@ -6,9 +6,9 @@ const ProductDetailPage = () => {
   const {product} = useProduct()
 
   return (
-    <div className="grid grid-cols-12">
+    <div className="grid grid-cols-12 gap-10">
       <LeftSection product={product} className="col-span-5" />
-      <RightSection className="col-span-7"/>
+      <RightSection product={product} className="col-span-7"/>
     </div>
   );
 };

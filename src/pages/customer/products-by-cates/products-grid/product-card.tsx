@@ -1,4 +1,5 @@
 import { Product } from "@/type/product.type";
+import { formatVND } from "@/utils/format";
 import { Link } from "react-router-dom";
 
 interface ProductCardProps {
@@ -15,7 +16,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             src="https://plus.unsplash.com/premium_photo-1666286163385-abe05f0326c4?q=80&w=1975&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Nature scene"
           />
-          <div className="absolute top-0 right-0 bg-teal-500 text-white px-2 py-1 m-2 rounded-md text-sm font-semibold"></div>
+          <div className="absolute top-0 right-0 bg-teal-500 text-white px-2 py-1 m-2 rounded-md text-sm font-semibold">{product.brand_id.name}</div>
         </div>
         <div className="p-6">
           <h2 className="text-lg font-bold mb-2 text-gray-800 line-clamp-2">
@@ -32,7 +33,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <span className="text-gray-600 ml-1">4.9</span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-2xl font-bold text-gray-800">$299</span>
+            <span className="text-2xl font-bold text-gray-800">{formatVND(product.price)}</span>
           </div>
         </div>
       </div>
