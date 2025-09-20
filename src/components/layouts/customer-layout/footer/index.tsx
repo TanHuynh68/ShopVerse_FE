@@ -97,16 +97,16 @@ const Footer = () => {
               </a>
             </div>
             <h3 className="text-xl sm:text-2xl md:text-3xl text-center pt-4">
-              themedevhub@gmail.com
+              huynhphuoctan2003@gmail.com
             </h3>
             <p className="text-center pt-4">
               © 2025{" "}
               <a
-                href="https://www.themedevhub.com"
+                href="https://github.com/TanHuynh68"
                 target="_blank"
                 className="underline hover:text-[#00a68e]"
               >
-                ThemeDevHub
+                ShopVerse
               </a>
               . All rights reserved.
             </p>

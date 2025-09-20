@@ -3,10 +3,12 @@ import CategoriesBar from "./categories-bar";
 import { useEffect, useState } from "react";
 import { Brand } from "../../../type/brand.type";
 import { BrandService } from "@/services";
-import { Spinner } from "@/components/spinner";
+
 import ProductsGrid from "./products-grid";
 import { useProductContext } from "@/hooks/useProductContext ";
-import DataNotFound from "@/components/data-not-found";
+import { Spinner } from "@/components/common/spinner";
+import DataNotFound from "@/components/common/data-not-found";
+
 
 const ProductsPage = () => {
   const { getBrandByCategoryId, loading } = BrandService();

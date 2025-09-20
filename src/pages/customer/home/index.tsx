@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import HomeCategories from "./categories";
-import { Spinner } from "@/components/spinner";
+import { Spinner } from "@/components/common/spinner";
 import { CategoryService } from "@/services";
 import { Cate } from "@/type/category.type";
 

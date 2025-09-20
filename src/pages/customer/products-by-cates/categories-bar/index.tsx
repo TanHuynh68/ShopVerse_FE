@@ -1,4 +1,4 @@
-import Title from "@/components/title";
+import Title from "@/components/common/title";
 import { Logs } from "lucide-react";
 import { Brand } from "../../../../type/brand.type";
 import Brands from "./brands";
