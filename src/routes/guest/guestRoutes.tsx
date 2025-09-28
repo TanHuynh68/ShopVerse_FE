@@ -1,6 +1,4 @@
-
-
-
+import { CartProvider } from "@/hooks/useCartContext";
 import { CustomerLayout } from "../../components/layouts";
 import { HomePage } from "../../pages";
 import { USER_PATH } from "./guestPath";
@@ -8,14 +6,16 @@ import { USER_PATH } from "./guestPath";
 export const guestRoutes = [
   {
     path: USER_PATH.HOME,
-    element: <CustomerLayout />,
+    element: (
+      <CartProvider>
+        <CustomerLayout />
+      </CartProvider>
+    ),
     children: [
       {
         index: true,
-        element: (
-          <HomePage />
-        ),
-      }
+        element: <HomePage />,
+      },
     ],
   },
 ];

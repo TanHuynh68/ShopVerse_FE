@@ -15,6 +15,7 @@ const ProductsPage = () => {
   const { id } = useParams();
   const [brands, setBrands] = useState<Brand[]>([]);
   const { products, productLoading } = useProductContext();
+  
   const navigate = useNavigate();
   useEffect(() => {
     fetchBrandByCate();
