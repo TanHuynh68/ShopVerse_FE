@@ -21,11 +21,11 @@ const Brands = ({ brands }: BrandsProps) => {
   return (
     <div className="">
       <SubTitle className="" title="Thương hiệu"></SubTitle>
-      {brands.length === 0 ? (
+      {!brands ||  brands.length === 0 ? (
         "Chưa có nhãn hàng nào"
       ) : (
         <>
-          {brands.map((brand) => (
+          {brands?.map((brand) => (
             <div className="flex gap-3 items-center">
               <Checkbox
                 onCheckedChange={(checked) => handleAddId(checked, brand._id)}

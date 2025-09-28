@@ -3,6 +3,7 @@ import HomeCategories from "./categories";
 import { Spinner } from "@/components/common/spinner";
 import { CategoryService } from "@/services";
 import { Cate } from "@/type/category.type";
+import { HomeCarousel } from "./carousel";
 
 const HomePage = () => {
   const { getCategories, loading } = CategoryService();
@@ -15,7 +16,7 @@ const HomePage = () => {
   const fetchCates = async () => {
     const response = await getCategories();
     if (response) {
-      setCates(response);
+      setCates(response.data);
     }
   };
 
@@ -29,6 +30,7 @@ const HomePage = () => {
 
   return (
     <div >
+      <HomeCarousel/>
       <HomeCategories cates={cates} />
     </div>
   );

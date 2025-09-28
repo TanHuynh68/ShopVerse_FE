@@ -18,7 +18,7 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-  (response) => response.data,
+  (response) => response,
   async (error) => {
     if (error.response) {
       const { status, data, 

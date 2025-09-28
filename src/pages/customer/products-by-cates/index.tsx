@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CategoriesBar from "./categories-bar";
 import { useEffect, useState } from "react";
 import { Brand } from "../../../type/brand.type";
@@ -8,13 +8,14 @@ import ProductsGrid from "./products-grid";
 import { useProductContext } from "@/hooks/useProductContext ";
 import { Spinner } from "@/components/common/spinner";
 import DataNotFound from "@/components/common/data-not-found";
+import { USER_PATH } from "@/routes/guest/guestPath";
 
 const ProductsPage = () => {
   const { getBrandByCategoryId, loading } = BrandService();
   const { id } = useParams();
   const [brands, setBrands] = useState<Brand[]>([]);
   const { products, productLoading } = useProductContext();
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetchBrandByCate();
   }, []);
@@ -23,7 +24,11 @@ const ProductsPage = () => {
   const fetchBrandByCate = async () => {
     if (id) {
       const response = await getBrandByCategoryId(id);
-      setBrands(response);
+      if (response) {
+        setBrands(response.data);
+      } else {
+        navigate(USER_PATH.HOME);
+      }
     }
   };
 
@@ -41,7 +46,7 @@ const ProductsPage = () => {
         <div className="w-[200px]">
           <CategoriesBar brands={brands} />
         </div>
-        {products.length > 0 ? (
+        {products && products.length > 0 ? (
           <ProductsGrid products={products} />
         ) : (
           <div className="w-full">

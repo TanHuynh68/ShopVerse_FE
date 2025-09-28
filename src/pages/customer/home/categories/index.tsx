@@ -9,7 +9,7 @@ const HomeCategories = ({ cates }: HomeCategoriesProps) => {
   console.log('HomeCategories: ', cates)
   return (
     <div className="">
-      <Title title="Categories" className="mt-2" />
+      <Title title="Danh mục" className="mt-2" />
       <div className="grid grid-cols-10 mt-5">
         {cates.map((item) => (
           <Link to={`/${item._id}`} key={item._id}>

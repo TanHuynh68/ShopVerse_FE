@@ -1,9 +1,8 @@
-// export enum USER_PATH {
-//   HOME = "/",
-// }
+const auth = '/auth'
 
 export enum AUTH_PATH {
-  LOGIN = "login",
+  LOGIN = `${auth}/login`,
+  REGISTER = `${auth}/register`,
 }
 
 

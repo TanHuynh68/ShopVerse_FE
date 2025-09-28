@@ -31,7 +31,7 @@ const useProduct = () => {
     const fetchProducts = async () => {
         const response = await getProducts();
         if (response) {
-            setProducts(response)
+            setProducts(response.data)
         }
     }
 
@@ -40,7 +40,7 @@ const useProduct = () => {
         if (product_id) {
             const response = await getProduct(product_id)
             if (response) {
-                setProduct(response)
+                setProduct(response.data)
             }
         }
     }
