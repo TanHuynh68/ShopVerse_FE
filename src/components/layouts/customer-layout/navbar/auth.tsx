@@ -45,7 +45,7 @@ const NavAuth = () => {
       ) : (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <User />
+            <User className="h-6 w-6 cursor-pointer"/>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="start">
             <DropdownMenuLabel>Tài khoản của tôi</DropdownMenuLabel>

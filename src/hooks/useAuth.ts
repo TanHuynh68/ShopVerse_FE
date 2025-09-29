@@ -13,7 +13,7 @@ const useAuth = () => {
         toast.error('Tài khoản hoặc mật khẩu không đúng!')
     }
 
-    return { productLoading: loading, handleLogin }
+    return { isLoading: loading, handleLogin }
 }
 
 export default useAuth;
