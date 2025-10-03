@@ -1,4 +1,11 @@
-import { CartPage, ProductByCategoriesPage, ProductDetailPage } from "@/pages";
+import {
+  CartPage,
+  PaymentFailedPage,
+  PaymentProcessPage,
+  PaymentSuccessPage,
+  ProductByCategoriesPage,
+  ProductDetailPage,
+} from "@/pages";
 import { CUSTOMER_PATH } from "./customerPath";
 import { CustomerLayout } from "@/components/layouts";
 import { ProductProvider } from "@/hooks/useProductContext ";
@@ -28,6 +35,18 @@ export const customerRoutes = [
       {
         path: CUSTOMER_PATH.CART_PAGE,
         element: <CartPage />,
+      },
+      {
+        path: CUSTOMER_PATH.PAYMENT_PROCESS_PAGE,
+        element: <PaymentProcessPage />,
+      },
+      {
+        path: CUSTOMER_PATH.PAYMENT_SUCCESS_PAGE,
+        element: <PaymentSuccessPage />,
+      },
+      {
+        path: CUSTOMER_PATH.PAYMENT_FAILED_PAGE,
+        element: <PaymentFailedPage />,
       },
     ],
   },

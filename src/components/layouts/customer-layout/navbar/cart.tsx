@@ -30,7 +30,7 @@ const NavCart = () => {
           </div>
         </HoverCardTrigger>
         <HoverCardContent className="w-[400px]">
-          {cart.length > 0 &&
+          {cart.length > 0 ?
             cart[0].items.length &&
             cart[0].items.map((item) => (
               <div>
@@ -50,7 +50,9 @@ const NavCart = () => {
                   </div>
                 </div>
               </div>
-            ))}
+            ))
+          : <div className="text-center">Chưa có sản phẩm nào trong giỏ hàng!</div>
+          }
         </HoverCardContent>
       </HoverCard>
     </Link>

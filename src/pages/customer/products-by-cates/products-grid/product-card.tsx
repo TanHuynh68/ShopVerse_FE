@@ -13,8 +13,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <div className="relative">
           <img
             className="w-full h-64 object-cover"
-            src="https://plus.unsplash.com/premium_photo-1666286163385-abe05f0326c4?q=80&w=1975&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="Nature scene"
+            src={product.images[0]}
+            alt="ảnh sản phẩm"
           />
           <div className="absolute top-0 right-0 bg-teal-500 text-white px-2 py-1 m-2 rounded-md text-sm font-semibold">{product.brand_id.name}</div>
         </div>

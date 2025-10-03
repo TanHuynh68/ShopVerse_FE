@@ -3,3 +3,6 @@ export { default as ProductByCategoriesPage } from "./customer/products-by-cates
 export { default as LoginPage } from "./auth/login";
 export { default as ProductDetailPage } from "./customer/product-detail"
 export { default as CartPage } from "./customer/cart";
+export { default as PaymentProcessPage } from "./customer/payment/payment-process"
+export { default as PaymentSuccessPage } from "./customer/payment/payment-success"
+export { default as PaymentFailedPage } from "./customer/payment/payment-failed"

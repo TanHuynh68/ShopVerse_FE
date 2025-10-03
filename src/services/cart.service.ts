@@ -18,7 +18,19 @@ const CartService = () => {
         [callApi]
     );
 
-    return { getMyCart, loading };
+    const addItemIntoCart = useCallback(
+        async (values: any) => {
+            try {
+                const response = await callApi(HTTP_METHOD.POST, `carts`, values);
+                return response;
+            } catch (e: any) {
+                toast.error(e?.response?.data);
+            }
+        },
+        [callApi]
+    );
+
+    return { getMyCart, addItemIntoCart, loading };
 };
 
 export default CartService;
