@@ -6,3 +6,4 @@ export { default as CartPage } from "./customer/cart";
 export { default as PaymentProcessPage } from "./customer/payment/payment-process"
 export { default as PaymentSuccessPage } from "./customer/payment/payment-success"
 export { default as PaymentFailedPage } from "./customer/payment/payment-failed"
+export { default as CustomerOrdersPage } from "./customer/orders"

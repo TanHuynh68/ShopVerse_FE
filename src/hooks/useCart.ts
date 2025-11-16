@@ -3,6 +3,7 @@ import { Cart } from "@/type/cart.type";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
+
 const useCart = () => {
     const { getMyCart, addItemIntoCart, loading } = CartService();
     const [cart, setCart] = useState<Cart[]>([])
@@ -22,9 +23,9 @@ const useCart = () => {
         const response = await addItemIntoCart(values)
         if (response && response.status_code === 200) {
             toast.success('Thêm sản phẩm vào giỏ hàng thành công')
+            return response
         }
-
-        fetchMyCart();
+        return null
     }
 
     return { cart, isLoading: loading, handLeAddToCart, fetchMyCart }

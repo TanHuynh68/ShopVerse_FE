@@ -12,7 +12,7 @@ export interface Cart {
     updatedAt: string; // ISO date string
 }
 
-interface CartItem {
+export interface CartItem {
     productId: Product;
     name: string;
     price: number;

@@ -9,7 +9,7 @@ const OrderService = () => {
     const createOrder = useCallback(
         async (cartId: string) => {
             try {
-                const response = await callApi(HTTP_METHOD.POST, `orders`, {cartId: cartId});
+                const response = await callApi(HTTP_METHOD.POST, `orders`, { cartId: cartId });
                 return response;
             } catch (e: any) {
                 toast.error(e?.response?.data);
@@ -18,7 +18,18 @@ const OrderService = () => {
         [callApi]
     );
 
-    return { createOrder, loading };
+    const getMyOrders = useCallback(
+        async () => {
+            try {
+                const response = await callApi(HTTP_METHOD.GET, `orders`);
+                return response;
+            } catch (e: any) {
+                toast.error(e?.response?.data);
+            }
+        },
+        [callApi]
+    );
+    return { createOrder, getMyOrders, loading };
 };
 
 export default OrderService;

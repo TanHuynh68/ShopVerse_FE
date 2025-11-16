@@ -6,6 +6,7 @@ export enum CUSTOMER_PATH {
   PAYMENT_PROCESS_PAGE = "/api/v1/payments/vnpay-return",
   PAYMENT_SUCCESS_PAGE = "/payment-success",
   PAYMENT_FAILED_PAGE = "/payment-failed",
+  CUSTOMER_ORDERS_PAGE = "/orders",
 }
 
 

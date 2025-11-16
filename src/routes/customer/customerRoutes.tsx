@@ -1,5 +1,6 @@
 import {
   CartPage,
+  CustomerOrdersPage,
   PaymentFailedPage,
   PaymentProcessPage,
   PaymentSuccessPage,
@@ -47,6 +48,10 @@ export const customerRoutes = [
       {
         path: CUSTOMER_PATH.PAYMENT_FAILED_PAGE,
         element: <PaymentFailedPage />,
+      },
+      {
+        path: CUSTOMER_PATH.CUSTOMER_ORDERS_PAGE,
+        element: <CustomerOrdersPage />,
       },
     ],
   },

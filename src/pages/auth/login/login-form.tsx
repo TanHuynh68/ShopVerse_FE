@@ -60,7 +60,7 @@ export function LoginForm({ handleLogin }: LoginFormProps) {
                 <FormItem>
                   <FormLabel>Mật khẩu</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} />
+                    <Input type="password" placeholder="shadcn" {...field} />
                   </FormControl>
                 </FormItem>
               )}

@@ -1,22 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";
-import { useState } from "react";
+
 interface CountButtonProps {
   quantity: number;
-  handle?: (values: any) => void;
+  handle?: any;
 }
-const CountButton = ({ quantity }: CountButtonProps) => {
-  const [number, setNumber] = useState<number>(quantity);
+const CountButton = ({ quantity, handle }: CountButtonProps) => {
 
-  const handleMinus = (number: number) => {
-    if (number != 1) {
-      setNumber(number - 1);
+
+  const handleMinus = (quantity: number) => {
+    if (quantity != 1) {
+      handle(quantity - 1);
     }
   };
 
-  const handlePlus = (number: number) => {
-    if (number != 1) {
-      setNumber(number + 1);
+  const handlePlus = (quantity: number) => {
+    console.log('a')
+    if (quantity ) {
+      handle(quantity + 1);
     }
   };
 
@@ -25,16 +26,16 @@ const CountButton = ({ quantity }: CountButtonProps) => {
       <Button
         variant={"outline"}
         className="rounded-none"
-        disabled={number === 1}
-        onClick={() => handleMinus(number)}
+        disabled={quantity === 1}
+        onClick={() => handleMinus(quantity)}
       >
         <Minus />
       </Button>
       <div className="w-[60px] flex justify-center items-center border-t border-b border-solid h-[36px]">
-        {number}
+        {quantity}
       </div>
       <Button
-        onClick={() => handlePlus(number)}
+        onClick={() => handlePlus(quantity)}
         variant={"outline"}
         className="rounded-none"
       >

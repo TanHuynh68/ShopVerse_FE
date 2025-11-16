@@ -1,4 +1,4 @@
-import CountButton from "@/components/common/counter";
+import ProductItem from "@/components/common/product-item";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useCartContext } from "@/hooks/useCartContext";
@@ -34,24 +34,7 @@ const CartPage = () => {
             </div>
             <div className="border border-solid p-5 mb-5">
               {myCart?.items.map((item) => (
-                <div className="grid grid-cols-12 gap-2">
-                  <div className="col-span-1">
-                    <img src={item.image} alt={item.productId.name} />
-                  </div>
-                  <div className="col-span-4 ">{item.productId.name}</div>
-                  <div className="col-span-2 flex justify-center items-center">
-                    {formatVND(item.price)}
-                  </div>
-                  <div className="col-span-2 flex justify-center items-center">
-                    <CountButton quantity={item.quantity} />
-                  </div>
-                  <div className="col-span-2 flex justify-center items-center">
-                    {formatVND(item.quantity * item.productId.price)}
-                  </div>
-                  <div className="col-span-1  flex justify-center items-center">
-                    Xóa
-                  </div>
-                </div>
+                <ProductItem item={item} />
               ))}
             </div>
           </div>
@@ -87,21 +70,7 @@ const CartPage = () => {
                   </div>
                   <div className="border border-solid p-5 mb-5">
                     {myCart?.items.map((item) => (
-                      <div className="grid grid-cols-12 gap-2">
-                        <div className="col-span-1">
-                          <img src={item.image} alt={item.productId.name} />
-                        </div>
-                        <div className="col-span-5 ">{item.productId.name}</div>
-                        <div className="col-span-2 flex justify-center items-center">
-                          {formatVND(item.price)}
-                        </div>
-                        <div className="col-span-2 flex justify-center items-center">
-                          <CountButton quantity={item.quantity} />
-                        </div>
-                        <div className="col-span-2 flex justify-center items-center">
-                          {formatVND(item.quantity * item.productId.price)}
-                        </div>
-                      </div>
+                      <ProductItem item={item} />
                     ))}
                   </div>
 
