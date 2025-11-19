@@ -3,10 +3,12 @@ import { formatVND } from "@/utils/format";
 import CountButton from "../counter";
 
 interface ProductItemProps{
-    item: CartItem
+    item: CartItem,
+    handle?: any;
+    cartId?: string;
 }
 
-const ProductItem = ({item}: ProductItemProps) => {
+const ProductItem = ({item, handle, cartId}: ProductItemProps) => {
   return (
     <div>
       <div className="grid grid-cols-12 gap-2 mt-5">
@@ -18,7 +20,7 @@ const ProductItem = ({item}: ProductItemProps) => {
           {formatVND(item.price)}
         </div>
         <div className="col-span-2 flex justify-center items-center">
-          <CountButton   quantity={item.quantity} />
+          <CountButton handle={handle} item={item} cartId={cartId}  quantityProduct={item.quantity} />
         </div>
         <div className="col-span-2 flex justify-center items-center">
           {formatVND(item.quantity * item.productId.price)}

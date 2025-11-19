@@ -17,7 +17,7 @@ const CartService = () => {
         },
         [callApi]
     );
-//
+
     const addItemIntoCart = useCallback(
         async (values: any) => {
             try {
@@ -30,7 +30,40 @@ const CartService = () => {
         [callApi]
     );
 
-    return { getMyCart, addItemIntoCart, loading };
+    const getTotalPrice = useCallback(
+        async (cartId: string) => {
+            const valuesSubmit = {
+                cartId: cartId
+            }
+            try {
+                const response = await callApi(HTTP_METHOD.POST, `carts/caculate-total-price`, valuesSubmit);
+                return response;
+            } catch (e: any) {
+                toast.error(e?.response?.data);
+            }
+        },
+        [callApi]
+    );
+
+    const updateQuantity = useCallback(
+        async (cartId: string, quantity: string, itemID: string) => {
+            const valuesSubmit = {
+                cartId: cartId,
+                quantity,
+                itemID
+            }
+            console.log('valuesSubmit: ', valuesSubmit)
+            try {
+                const response = await callApi(HTTP_METHOD.PATCH, `carts/update-quantity`, {...valuesSubmit});
+                return response;
+            } catch (e: any) {
+                toast.error(e?.response?.data);
+            }
+        },
+        [callApi]
+    );
+
+    return { getMyCart, addItemIntoCart, getTotalPrice, updateQuantity, loading };
 };
 
 export default CartService;

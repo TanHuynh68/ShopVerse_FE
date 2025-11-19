@@ -20,7 +20,6 @@ const AuthService = () => {
                      console.log("response: ",response)
                 if (response?.status_code === 200) {
                     const token = response?.data?.accessToken;
-               
                     if (token) {
                         localStorage.setItem("token", token);
                         const decoded = jwtDecode<DecodedUserRaw>(token);

@@ -4,11 +4,19 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useCartContext } from "@/hooks/useCartContext";
 import useOrder from "@/hooks/useOrder";
 import { formatVND } from "@/utils/format";
+import { useEffect } from "react";
 
 const CartPage = () => {
-  const { cart } = useCartContext();
+  const { cart, totalPrice, fetchTotalPrice, handleUpdateQuantity } = useCartContext();
   const { handleCreateOrder } = useOrder();
+  
   const myCart = cart[0];
+
+  useEffect(() => {
+    if (myCart) {
+      fetchTotalPrice(myCart._id);
+    }
+  }, [myCart]);
 
   return (
     <>
@@ -34,7 +42,7 @@ const CartPage = () => {
             </div>
             <div className="border border-solid p-5 mb-5">
               {myCart?.items.map((item) => (
-                <ProductItem item={item} />
+                <ProductItem handle={handleUpdateQuantity} cartId={myCart._id} item={item} />
               ))}
             </div>
           </div>
@@ -43,7 +51,7 @@ const CartPage = () => {
             <div className="border border-solid mt-5"></div>
             <div className="flex justify-between mt-5">
               <div>Sản phẩm: {myCart?.items.length}</div>
-              <div>{myCart && formatVND(myCart.subTotal)}</div>
+              <div>{myCart && formatVND(totalPrice)}</div>
             </div>
             <div className="flex justify-between mt-5">
               <Button variant={"destructive"}>Hủy</Button>

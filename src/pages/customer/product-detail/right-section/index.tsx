@@ -19,7 +19,7 @@ interface AddProductToCartProps {
 }
 const RightSection = ({ className, product }: RightSectionProps) => {
   const { handLeAddToCart, fetchMyCart } = useCartContext();
-  const [quantity, setQuantity] = useState<number>(1)
+  const [quantity, setQuantity] = useState<number>(1);
   const refetchMyCart = async (values: AddProductToCartProps) => {
     const response = await handLeAddToCart(values);
     if (response) {
@@ -32,7 +32,11 @@ const RightSection = ({ className, product }: RightSectionProps) => {
       <div className="  line-clamp-2">{product?.name}</div>
       <div className="mt-2">{formatVND(product?.price || 0)}</div>
       <div className="flex gap-2 mt-2">
-        <CountButton quantity={quantity} handle={setQuantity}/>
+        <CountButton
+          item={null}
+          quantityProduct={quantity}
+          handle={setQuantity}
+        />
         <Button
           onClick={() =>
             refetchMyCart({
