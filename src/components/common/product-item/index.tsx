@@ -1,14 +1,23 @@
 import { CartItem } from "@/type/cart.type";
 import { formatVND } from "@/utils/format";
 import CountButton from "../counter";
+import { useState } from "react";
 
-interface ProductItemProps{
-    item: CartItem,
-    handle?: any;
-    cartId?: string;
+interface ProductItemProps {
+  item: CartItem;
+  handle?: any;
+  cartId?: string;
+  isDisableCountQuantity?: boolean;
 }
 
-const ProductItem = ({item, handle, cartId}: ProductItemProps) => {
+const ProductItem = ({
+  item,
+  handle,
+  cartId,
+  isDisableCountQuantity, // disable in preview card order
+}: ProductItemProps) => {
+
+  const [quantityNow, setQuantityNow] = useState<number>(item.quantity);
   return (
     <div>
       <div className="grid grid-cols-12 gap-2 mt-5">
@@ -20,10 +29,17 @@ const ProductItem = ({item, handle, cartId}: ProductItemProps) => {
           {formatVND(item.price)}
         </div>
         <div className="col-span-2 flex justify-center items-center">
-          <CountButton handle={handle} item={item} cartId={cartId}  quantityProduct={item.quantity} />
+          <CountButton
+            setQuantityNow={setQuantityNow}
+            quantityNow={quantityNow}
+            isDisableCountQuantity={isDisableCountQuantity}
+            handle={handle}
+            item={item}
+            cartId={cartId}
+          />
         </div>
         <div className="col-span-2 flex justify-center items-center">
-          {formatVND(item.quantity * item.productId.price)}
+          {formatVND(quantityNow * item.productId.price)}
         </div>
         <div className="col-span-1  flex justify-center items-center">Xóa</div>
       </div>

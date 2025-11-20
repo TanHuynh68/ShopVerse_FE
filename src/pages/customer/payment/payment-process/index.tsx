@@ -38,6 +38,7 @@ const PaymentProcess = () => {
   const returnPage = async () => {
     if (vnp_ResponseCode === "00" && vnpParams) {
       const query = new URLSearchParams(vnpParams).toString();
+      // process
       navigate(`/payment-success?${query}`);
     }else{
       const query = new URLSearchParams(vnpParams).toString();

@@ -78,7 +78,7 @@ const CartPage = () => {
                   </div>
                   <div className="border border-solid p-5 mb-5">
                     {myCart?.items.map((item) => (
-                      <ProductItem item={item} />
+                      <ProductItem isDisableCountQuantity={true} item={item} />
                     ))}
                   </div>
 

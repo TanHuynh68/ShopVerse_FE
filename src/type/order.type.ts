@@ -9,14 +9,22 @@ export interface Payment {
 
 // Một item trong giỏ/đơn
 export interface OrderItem {
-  productId: string;
+  productId: ProductInOrder;
   name: string;
   price: number;
   quantity: number;
   image?: string;      // optional (một số item có, có item chỉ có totalPrice)
   totalPrice: number;  // tổng cho item = price * quantity hoặc giá hiển thị
 }
-
+export interface ProductInOrder {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  stock: number;
+  category_id: string;
+  images: string[];
+}
 // Object chính (order / transaction)
 export interface Order {
   payment: Payment;

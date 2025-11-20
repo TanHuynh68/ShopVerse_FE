@@ -34,7 +34,7 @@ const RightSection = ({ className, product }: RightSectionProps) => {
       <div className="flex gap-2 mt-2">
         <CountButton
           item={null}
-          quantityProduct={quantity}
+
           handle={setQuantity}
         />
         <Button

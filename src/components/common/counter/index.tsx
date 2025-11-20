@@ -1,17 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { CartItem } from "@/type/cart.type";
 import { Minus, Plus } from "lucide-react";
-import { useState } from "react";
 
 interface CountButtonProps {
-  quantityProduct: number;
   handle?: any;
   item: CartItem | null;
   cartId?: string;
+  isDisableCountQuantity?: boolean;
+  quantityNow?: number;
+  setQuantityNow?: any;
 }
-const CountButton = ({ quantityProduct, handle, item, cartId}: CountButtonProps) => {
-  const [quantityNow, setQuantityNow] = useState<number>(quantityProduct)
-
+const CountButton = ({ quantityNow ,setQuantityNow,  handle, item, cartId, isDisableCountQuantity}: CountButtonProps) => {
+ 
   const handleMinus = (quan: number) => {
     if (quan) {
       setQuantityNow(quan-1)
@@ -31,8 +31,8 @@ const CountButton = ({ quantityProduct, handle, item, cartId}: CountButtonProps)
       <Button
         variant={"outline"}
         className="rounded-none"
-        disabled={quantityNow === 1}
-        onClick={() => handleMinus(quantityNow)}
+        disabled={quantityNow === 1 || isDisableCountQuantity}
+        onClick={() => handleMinus(quantityNow || 1)}
       >
         <Minus />
       </Button>
@@ -40,9 +40,10 @@ const CountButton = ({ quantityProduct, handle, item, cartId}: CountButtonProps)
         {quantityNow}
       </div>
       <Button
-        onClick={() => handlePlus(quantityNow)}
+        onClick={() => handlePlus(quantityNow || 1)}
         variant={"outline"}
         className="rounded-none"
+        disabled={isDisableCountQuantity}
       >
         <Plus />
       </Button>

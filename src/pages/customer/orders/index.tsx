@@ -6,6 +6,7 @@ const CustomerOrders = () => {
 
   return (
     <div>
+      <p className="text-center font-semibold text-2xl">Quản lý đơn hàng</p>
         {orders.map(order=>(
           <OrderCard order={order}/>
         ))}
