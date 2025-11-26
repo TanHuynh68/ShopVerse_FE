@@ -1,11 +1,15 @@
 import { Button } from "@/components/ui/button";
+import ENV from "@/config/env";
+import { createPaymentValues } from "@/hooks/usePayment";
 import { Order } from "@/type/order.type";
 import { formatVND } from "@/utils/format";
 
 interface OrderCardProps {
   order: Order;
+  handleCreatePayment: (values: createPaymentValues) => void;
 }
-const OrderCard = ({ order }: OrderCardProps) => {
+
+const OrderCard = ({ order, handleCreatePayment }: OrderCardProps) => {
   return (
     <div className="p-2 border border-solid mt-2 grid grid-cols-12 ">
       <div className="col-span-9 ">
@@ -25,7 +29,21 @@ const OrderCard = ({ order }: OrderCardProps) => {
         ))}
       </div>
       <div className="col-span-3 flex justify-center items-center">
-        <Button>Thanh toán</Button>
+        {(order.status === "PENDING" || order.status === "FAILED") && (
+          <Button
+            onClick={() =>
+              handleCreatePayment({
+                amount: order.subTotal,
+                bankCode: "NCB",
+                orderId: order._id,
+                returnUrl: ENV.VITE_VNP_RETURN_URL,
+              })
+            }
+          >
+            Thanh toán
+          </Button>
+        )}
+        {order.status === "PAID" && <Button disabled>Đã thanh toán</Button>}
       </div>
     </div>
   );

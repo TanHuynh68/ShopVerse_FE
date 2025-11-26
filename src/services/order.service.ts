@@ -29,7 +29,20 @@ const OrderService = () => {
         },
         [callApi]
     );
-    return { createOrder, getMyOrders, loading };
+
+    const getMyOrderDetail = useCallback(
+        async (id: string) => {
+            try {
+                const response = await callApi(HTTP_METHOD.GET, `orders/${id}`);
+                return response;
+            } catch (e: any) {
+                toast.error(e?.response?.data);
+            }
+        },
+        [callApi]
+    );
+
+    return { createOrder, getMyOrders, getMyOrderDetail, loading };
 };
 
 export default OrderService;

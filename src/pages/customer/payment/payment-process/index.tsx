@@ -1,8 +1,11 @@
 import { Spinner } from "@/components/common/spinner";
+import ENV from "@/config/env";
+import useTransaction from "@/hooks/useTransaction";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 const PaymentProcess = () => {
+  const { handleCreateTransaction } = useTransaction();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const vnp_Amount = searchParams.get("vnp_Amount");
@@ -17,18 +20,20 @@ const PaymentProcess = () => {
   const vnp_TransactionStatus = searchParams.get("vnp_TransactionStatus");
   const vnp_TxnRef = searchParams.get("vnp_TxnRef");
 
+  const returnAmount = vnp_Amount ? Number(vnp_Amount) / 100 : 0;
+
   const vnpParams = {
-    vnp_Amount: vnp_Amount || "",
-    vnp_BankCode: vnp_BankCode || "",
-    vnp_BankTranNo: vnp_BankTranNo || "",
-    vnp_CardType: vnp_CardType || "",
-    vnp_OrderInfo: vnp_OrderInfo || "",
-    vnp_PayDate: vnp_PayDate || "",
-    vnp_ResponseCode: vnp_ResponseCode || "",
-    vnp_TmnCode: vnp_TmnCode || "",
-    vnp_TransactionNo: vnp_TransactionNo || "",
-    vnp_TransactionStatus: vnp_TransactionStatus || "",
-    vnp_TxnRef: vnp_TxnRef || "",
+    vnp_Amount: returnAmount + "" || "",
+    vnp_BankCode: vnp_BankCode ?? "",
+    vnp_BankTranNo: vnp_BankTranNo ?? "",
+    vnp_CardType: vnp_CardType ?? "",
+    vnp_OrderInfo: vnp_OrderInfo ?? "",
+    vnp_PayDate: vnp_PayDate ?? "",
+    vnp_ResponseCode: vnp_ResponseCode ?? "",
+    vnp_TmnCode: vnp_TmnCode ?? "",
+    vnp_TransactionNo: vnp_TransactionNo ?? "",
+    vnp_TransactionStatus: vnp_TransactionStatus ?? "",
+    vnp_TxnRef: vnp_TxnRef ?? "",
   };
 
   useEffect(() => {
@@ -38,11 +43,20 @@ const PaymentProcess = () => {
   const returnPage = async () => {
     if (vnp_ResponseCode === "00" && vnpParams) {
       const query = new URLSearchParams(vnpParams).toString();
-      // process
-      navigate(`/payment-success?${query}`);
-    }else{
+      const response = await handleCreateTransaction({
+        link: `${ENV.VITE_VNP_RETURN_URL}/payment-success?${query}`,
+      });
+      if (response) {
+        navigate(`/payment-success?${query}`);
+      }
+    } else {
       const query = new URLSearchParams(vnpParams).toString();
-      navigate(`/payment-failed?${query}`);
+      const response = await handleCreateTransaction({
+        link: `${ENV.VITE_VNP_RETURN_URL}/payment-failed?${query}`,
+      });
+      if (response) {
+        navigate(`/payment-failed?${query}`);
+      }
     }
   };
 

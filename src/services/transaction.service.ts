@@ -1,0 +1,40 @@
+import { HTTP_METHOD } from "@/constants/enum";
+import useApiService from "@/hooks/useApi";
+import { useCallback } from "react";
+
+export interface createTransactionValues{
+    link: string;
+}
+
+const TransactionService = () => {
+    
+    const { callApi, loading, setIsLoading } = useApiService();
+
+    const createTransaction = useCallback(
+        async (values: createTransactionValues) => {
+            try {
+                const response = await callApi(HTTP_METHOD.POST, '/transactions', values);
+                return response;
+            } catch (e: any) {
+                console.log(e?.response?.data)
+            }
+        },
+        [callApi]
+    );
+
+    const getProduct = useCallback(
+        async (id: string) => {
+            try {
+                const response = await callApi(HTTP_METHOD.GET, `products/${id}`);
+                return response;
+            } catch (e: any) {
+                console.log(e?.response?.data)
+            }
+        },
+        [callApi]
+    );
+
+    return { loading, setIsLoading, createTransaction, getProduct };
+};
+
+export default TransactionService;
