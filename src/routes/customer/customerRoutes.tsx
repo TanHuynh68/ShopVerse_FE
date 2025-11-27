@@ -8,10 +8,11 @@ import {
   ProductByCategoriesPage,
   ProductDetailPage,
 } from "@/pages";
-import { CUSTOMER_PATH } from "./customerPath";
+
 import { CustomerLayout } from "@/components/layouts";
 import { ProductProvider } from "@/hooks/useProductContext ";
 import { CartProvider } from "@/hooks/useCartContext";
+import { CUSTOMER_PATH } from "./customerPath";
 
 export const customerRoutes = [
   {

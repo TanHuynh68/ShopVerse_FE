@@ -9,7 +9,3 @@ export enum CUSTOMER_PATH {
   CUSTOMER_ORDERS_PAGE = "/orders",
   CUSTOMER_TRANSACTIONS_PAGE = "/transactions",
 }
-
-
-
-
