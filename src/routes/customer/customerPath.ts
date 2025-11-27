@@ -7,6 +7,7 @@ export enum CUSTOMER_PATH {
   PAYMENT_SUCCESS_PAGE = "/payment-success",
   PAYMENT_FAILED_PAGE = "/payment-failed",
   CUSTOMER_ORDERS_PAGE = "/orders",
+  CUSTOMER_TRANSACTIONS_PAGE = "/transactions",
 }
 
 

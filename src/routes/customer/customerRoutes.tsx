@@ -1,6 +1,7 @@
 import {
   CartPage,
   CustomerOrdersPage,
+  MyTransactions,
   PaymentFailedPage,
   PaymentProcessPage,
   PaymentSuccessPage,
@@ -52,6 +53,10 @@ export const customerRoutes = [
       {
         path: CUSTOMER_PATH.CUSTOMER_ORDERS_PAGE,
         element: <CustomerOrdersPage />,
+      },
+      {
+        path: CUSTOMER_PATH.CUSTOMER_TRANSACTIONS_PAGE,
+        element: <MyTransactions />,
       },
     ],
   },

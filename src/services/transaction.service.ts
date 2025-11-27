@@ -22,10 +22,10 @@ const TransactionService = () => {
         [callApi]
     );
 
-    const getProduct = useCallback(
-        async (id: string) => {
+    const getMyTransactions = useCallback(
+        async () => {
             try {
-                const response = await callApi(HTTP_METHOD.GET, `products/${id}`);
+                const response = await callApi(HTTP_METHOD.GET, `transactions`);
                 return response;
             } catch (e: any) {
                 console.log(e?.response?.data)
@@ -34,7 +34,7 @@ const TransactionService = () => {
         [callApi]
     );
 
-    return { loading, setIsLoading, createTransaction, getProduct };
+    return { loading, setIsLoading, createTransaction, getMyTransactions };
 };
 
 export default TransactionService;

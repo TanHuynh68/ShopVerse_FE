@@ -45,11 +45,19 @@ const NavAuth = () => {
       ) : (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <User className="h-6 w-6 cursor-pointer"/>
+            <User className="h-6 w-6 cursor-pointer" />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="start">
-            <DropdownMenuLabel>Tài khoản của tôi</DropdownMenuLabel>
-            <DropdownMenuItem onClick={handleLogout}>
+            <DropdownMenuLabel className="cursor-pointer">
+              Tài khoản của tôi
+            </DropdownMenuLabel>
+            <DropdownMenuLabel
+              className="cursor-pointer"
+              onClick={() => navigate("/transactions")}
+            >
+              Lịch sử giao dịch
+            </DropdownMenuLabel>
+            <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
               Đăng xuất
             </DropdownMenuItem>
           </DropdownMenuContent>

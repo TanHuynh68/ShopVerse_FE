@@ -7,3 +7,4 @@ export { default as PaymentProcessPage } from "./customer/payment/payment-proces
 export { default as PaymentSuccessPage } from "./customer/payment/payment-success"
 export { default as PaymentFailedPage } from "./customer/payment/payment-failed"
 export { default as CustomerOrdersPage } from "./customer/orders"
+export { default as MyTransactions } from "./customer/transactions"
