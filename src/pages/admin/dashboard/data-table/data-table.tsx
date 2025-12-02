@@ -71,6 +71,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
 
 export const schema = z.object({
   id: z.number(),
@@ -220,6 +221,7 @@ export function DataTable({
           </TabsTrigger>
           <TabsTrigger value="focus-documents">Focus Documents</TabsTrigger>
         </TabsList>
+
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -260,6 +262,13 @@ export function DataTable({
           </Button>
         </div>
       </div>
+      {/* filter */}
+      <Input
+        placeholder="Search by email or name"
+        value={(table.getState().globalFilter as string) ?? ""}
+        onChange={(event) => table.setGlobalFilter(event.target.value)}
+        className="max-w-sm mx-6"
+      />
       {/* show data with table */}
       <TabsContent
         value={tab}

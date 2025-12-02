@@ -1,3 +1,4 @@
+ import { format } from "date-fns";
 export const formatVND = (value: any) => {
     value = value.toString().replace(/\./g, "");
     const formatted = new Intl.NumberFormat("it-IT", {
@@ -23,3 +24,8 @@ export function formatDateTime(raw: string) {
 
   return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 }
+
+export function formatDateMonthYearVN(date: string){
+  const customFormattedDate = format(date, "MM/dd/yyyy");
+  return customFormattedDate;
+};

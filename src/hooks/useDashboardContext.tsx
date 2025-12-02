@@ -51,7 +51,7 @@ export const DashboardProvider = ({
   return <Context.Provider value={state}>{children}</Context.Provider>;
 };
 
-export const useDasboardContext = () => {
+export const useDashboardContext = () => {
   const context = useContext(Context);
   if (!context)
     throw new Error("useDasboardContext must be used inside CartProvider");

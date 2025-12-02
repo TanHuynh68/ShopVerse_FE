@@ -7,7 +7,7 @@ import { outlineColumn } from "./comluns/outline-column";
 import { pastPersonal } from "./comluns/past-performance";
 import { focusDocuments } from "./comluns/focus-documents";
 import { keyPersonal } from "./comluns/key-personal";
-import { useDasboardContext } from "@/hooks/useDashboardContext";
+import { useDashboardContext } from "@/hooks/useDashboardContext";
 
 export default function Page() {
   const {
@@ -16,7 +16,7 @@ export default function Page() {
     dashboardData,
     fetchDashboard,
     fetchUsers,
-  } = useDasboardContext();
+  } = useDashboardContext();
 
   useEffect(() => {
     fetchDashboard({ startDate: null, endDate: null });
