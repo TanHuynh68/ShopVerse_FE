@@ -17,6 +17,18 @@ const ProductService = () => {
         [callApi]
     );
 
+    const getBestSellingProducts = useCallback(
+        async () => {
+            try {
+                const response = await callApi(HTTP_METHOD.GET, 'products/best-selling');
+                return response;
+            } catch (e: any) {
+                console.log(e?.response?.data)
+            }
+        },
+        [callApi]
+    );
+
     const getProduct = useCallback(
         async (id: string) => {
             try {
@@ -29,7 +41,7 @@ const ProductService = () => {
         [callApi]
     );
 
-    return { loading, setIsLoading, getProducts, getProduct };
+    return { loading, setIsLoading, getProducts, getProduct, getBestSellingProducts };
 };
 
 export default ProductService;

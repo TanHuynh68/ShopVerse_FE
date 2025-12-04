@@ -25,7 +25,6 @@ import {
   IconChevronsLeft,
   IconChevronsRight,
   IconLayoutColumns,
-  IconPlus,
 } from "@tabler/icons-react";
 import {
   ColumnFiltersState,
@@ -43,7 +42,6 @@ import {
 } from "@tanstack/react-table";
 
 import { z } from "zod";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -213,13 +211,9 @@ export function DataTable({
         </Select>
         <TabsList className="**:data-[slot=badge]:bg-muted-foreground/30 hidden **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:px-1 @4xl/main:flex">
           <TabsTrigger value="outline">Người dùng</TabsTrigger>
-          <TabsTrigger value="past-performance">
-            Past Performance <Badge variant="secondary">3</Badge>
-          </TabsTrigger>
-          <TabsTrigger value="key-personnel">
-            Key Personnel <Badge variant="secondary">2</Badge>
-          </TabsTrigger>
-          <TabsTrigger value="focus-documents">Focus Documents</TabsTrigger>
+          <TabsTrigger value="past-performance">Nhãn hiệu</TabsTrigger>
+          <TabsTrigger value="key-personnel">Sản phẩm</TabsTrigger>
+          <TabsTrigger value="focus-documents">Danh mục</TabsTrigger>
         </TabsList>
 
         <div className="flex items-center gap-2">
@@ -256,10 +250,6 @@ export function DataTable({
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button variant="outline" size="sm">
-            <IconPlus />
-            <span className="hidden lg:inline">Add Section</span>
-          </Button>
         </div>
       </div>
       {/* filter */}
@@ -272,6 +262,7 @@ export function DataTable({
       {/* show data with table */}
       <TabsContent
         value={tab}
+        forceMount
         className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"
       >
         <div className="overflow-hidden rounded-lg border">

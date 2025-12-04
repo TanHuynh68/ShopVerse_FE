@@ -4,10 +4,13 @@ import { Spinner } from "@/components/common/spinner";
 import { CategoryService } from "@/services";
 import { Cate } from "@/type/category.type";
 import { HomeCarousel } from "./carousel";
+import ProductsBestSellings from "./product-best-sellings";
+import { useProduct } from "@/hooks";
 
 const HomePage = () => {
   const { getCategories, loading } = CategoryService();
   const [cates, setCates] = useState<Cate[]>([]);
+  const {productBestSellings} = useProduct()
 
   useEffect(() => {
     fetchCates();
@@ -32,6 +35,7 @@ const HomePage = () => {
     <div >
       <HomeCarousel/>
       <HomeCategories cates={cates} />
+      <ProductsBestSellings products={productBestSellings}/>
     </div>
   );
 };

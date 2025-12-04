@@ -64,3 +64,20 @@ interface Brand {
   category_id: string;
   img: string;
 }
+
+export interface DashboardProduct {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  stock: number;
+  category_id: DashboardCategory;
+  images: string[];
+  isActive: boolean;
+  isDeleted: boolean;
+  discount: number;
+  sku: string;
+  brand_id: Brand;
+  createdAt: string;
+  updatedAt: string;
+}

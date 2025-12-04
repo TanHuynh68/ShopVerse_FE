@@ -1,4 +1,5 @@
 import { Brand } from "./brand.type";
+import { DashboardCategory } from "./dashboard";
 import { User } from "./user.type";
 
 export interface Product {
@@ -7,7 +8,7 @@ export interface Product {
   description: string;
   price: number;
   stock: number;
-  category_id: string;
+  category_id: DashboardCategory;
   images: string[];
   isActive: boolean;
   isDeleted: boolean;
@@ -15,6 +16,7 @@ export interface Product {
   sku: string;
   brand_id: Brand;
   shop_id: User;
+  sold: number;
   createdAt: string; // ISO date string
   updatedAt: string; // ISO date string
 }

@@ -29,7 +29,7 @@ export const brandColumn: ColumnDef<z.infer<typeof brandSchema>>[] = [
     header: "Image",
     cell: ({ row }) => {
       return(
-        <ImagePreview img={row.original.img}/>
+        <ImagePreview alt={row.original.name} img={row.original.img}/>
       )
     }
   },

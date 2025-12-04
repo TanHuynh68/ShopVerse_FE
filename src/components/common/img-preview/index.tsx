@@ -3,17 +3,17 @@ import { ImageZoom } from "@/components/ui/shadcn-io/image-zoom";
 
 interface ImagePreviewProps {
   img: string;
+  alt: string;  
+  className?: string;
 }
-const ImagePreview = ({ img }: ImagePreviewProps) => {
+const ImagePreview = ({ img, alt, className }: ImagePreviewProps) => {
   console.log("img: ", img);
   return (
-    <ImageZoom className="flex justify-center">
+    <ImageZoom className={`flex justify-center`}>
       <img
-        alt="Placeholder image"
-        className="h-auto w-36"
-        src={
-          "https://down-bs-vn.img.susercontent.com/f8288c425d9891c4b3b92a7fc37e52e7_tn.webp"
-        }
+        className={!className ?`h-auto w-36`: `h-auto`}
+        src={img}
+        alt={alt}
         //   unoptimized
         width={1200}
       />

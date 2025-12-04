@@ -1,5 +1,5 @@
 import { Product } from "@/type/product.type";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import ImagePreview from "@/components/common/img-preview";
 
 interface LeftSectionProps {
   className?: string;
@@ -9,19 +9,22 @@ interface LeftSectionProps {
 const LeftSection = ({ className, product }: LeftSectionProps) => {
   return (
     <div className={className}>
-      <Dialog>
-        <DialogTrigger>
-          <img src={product?.images[0]} alt="ảnh" />
+      {product && (
+        <div>
+          <ImagePreview
+            className="w-full"
+            alt={product?.name + ""}
+            img={product?.images[0] + ""}
+          />
           <div className="grid grid-cols-5 gap-3 mt-2">
             {product?.images.map((img, index) => (
               <div key={index}>
-                <img className="w-[85px] h-[85px]" src={img} alt={`ảnh ${index + 1}`} />
+                <ImagePreview alt={product.name} img={img} />
               </div>
             ))}
           </div>
-        </DialogTrigger>
-        <DialogContent></DialogContent>
-      </Dialog>
+        </div>
+      )}
     </div>
   );
 };
