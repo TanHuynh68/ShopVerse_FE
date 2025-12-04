@@ -1,7 +1,7 @@
 'use client'
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/pages/admin/dashboard/app-sidebar"
-import { SiteHeader } from "@/pages/admin/dashboard/site-header"
+import { AppSidebar } from "@/components/layouts/admin-layout/app-sidebar"
+import { SiteHeader } from "@/components/layouts/admin-layout/site-header"
 import { Outlet } from "react-router-dom"
 import './theme.css'
 

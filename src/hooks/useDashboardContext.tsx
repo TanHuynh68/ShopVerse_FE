@@ -1,17 +1,19 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import useDashboard from "./useDasboard";
 
-import { outlineColumn } from "@/pages/admin/dashboard/comluns/outline-column";
+import { userColumn } from "@/pages/admin/dashboard/columns/user-column";
 
-interface useDasboardContextValues {
+interface useDashboardContextValues {
   dataTable: dataTableValues;
   setDataTable: any;
   fetchDashboard: any;
   dashboardData: any;
   users: any;
+  brands: any;
   fetchUsers: any;
+  fetchBrands: any
 }
-const Context = createContext<useDasboardContextValues | undefined>(undefined);
+const Context = createContext<useDashboardContextValues | undefined>(undefined);
 
 interface dataTableValues {
   data: any;
@@ -24,28 +26,26 @@ export const DashboardProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { fetchDashboard, dashboardData, fetchUsers, users } = useDashboard();
-
+  const { users } = useDashboard();
+  const useDashboardValues = useDashboard();
   const [dataTable, setDataTable] = useState<dataTableValues>({
     data: users,
-    column: outlineColumn,
+    column: userColumn,
     tab: "outline",
   });
 
   useEffect(() => {
     setDataTable({
       data: users,
-      column: outlineColumn,
+      column: userColumn,
       tab: "outline",
     });
   }, [users]);
-  const state: useDasboardContextValues = {
+
+  const state: useDashboardContextValues = {
     dataTable,
     setDataTable,
-    fetchDashboard,
-    dashboardData,
-    fetchUsers,
-    users,
+    ...useDashboardValues
   };
 
   return <Context.Provider value={state}>{children}</Context.Provider>;

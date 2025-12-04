@@ -1,7 +1,7 @@
 import DashboardService, {
   getDashboardValues,
 } from "@/services/dashboard.service";
-import { DashboardStats } from "@/type/dashboard";
+import { DashboardBrand, DashboardStats } from "@/type/dashboard";
 import { useEffect, useState } from "react";
 
 export interface User {
@@ -20,12 +20,48 @@ const useDashboard = () => {
     null
   );
   const [users, setUsers] = useState<User[]>([]);
-
-  const { getDashboard, loading, getUers } = DashboardService();
+   const [brands, setBrands] = useState<DashboardBrand[]>([]);
+  const { getDashboard, getUsers, getBrands, getProducts, getOrders, getTransactions, getCategories, loading } = DashboardService();
 
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  const fetchBrands = async (values: getDashboardValues) => {
+    const response = await getBrands(values);
+    if (response.status_code === 200) {
+      setBrands(response.data);
+      return response;
+    }
+    return null;
+  };
+
+  const fetchProducts = async (values: getDashboardValues) => {
+    const response = await getProducts(values);
+    if (response.status_code === 200) {
+      setDashboardData(response.data);
+      return response;
+    }
+    return null;
+  };
+
+  const fetchTransactions = async (values: getDashboardValues) => {
+    const response = await getTransactions(values);
+    if (response.status_code === 200) {
+      setDashboardData(response.data);
+      return response;
+    }
+    return null;
+  };
+
+  const fetchOrders = async (values: getDashboardValues) => {
+    const response = await getOrders(values);
+    if (response.status_code === 200) {
+      setDashboardData(response.data);
+      return response;
+    }
+    return null;
+  };
 
   const fetchDashboard = async (values: getDashboardValues) => {
     const response = await getDashboard(values);
@@ -36,8 +72,17 @@ const useDashboard = () => {
     return null;
   };
 
+  const fetchCategories= async (values: getDashboardValues) => {
+    const response = await getCategories(values);
+    if (response.status_code === 200) {
+      setDashboardData(response.data);
+      return response;
+    }
+    return null;
+  };
+
   const fetchUsers = async () => {
-    const response = await getUers();
+    const response = await getUsers();
     if (response.status_code === 200) {
       setUsers(response.data);
       return response;
@@ -46,11 +91,17 @@ const useDashboard = () => {
   };
 
   return {
+    users,
     isLoading: loading,
     dashboardData,
+    brands,
     fetchDashboard,
     fetchUsers,
-    users,
+    fetchBrands,
+    fetchOrders,
+    fetchProducts,
+    fetchTransactions,
+    fetchCategories
   };
 };
 

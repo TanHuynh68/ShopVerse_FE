@@ -18,7 +18,7 @@ export const userSchema = z.object({
   isDeleted: z.boolean(),
 });
 
-export const outlineColumn: ColumnDef<z.infer<typeof userSchema>>[] = [
+export const userColumn: ColumnDef<z.infer<typeof userSchema>>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {

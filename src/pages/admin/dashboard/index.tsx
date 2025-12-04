@@ -1,12 +1,12 @@
 import { ChartAreaInteractive } from "@/pages/admin/dashboard/chart-area-interactive";
 import { DataTable } from "@/pages/admin/dashboard/data-table/data-table";
-import { SectionCards } from "@/pages/admin/dashboard/section-cards";
+import { SectionCards } from "@/components/layouts/admin-layout/section-cards";
 import data3 from "./data2.json";
 import { useEffect } from "react";
-import { outlineColumn } from "./comluns/outline-column";
-import { pastPersonal } from "./comluns/past-performance";
-import { focusDocuments } from "./comluns/focus-documents";
-import { keyPersonal } from "./comluns/key-personal";
+import { userColumn } from "./columns/user-column";
+import { brandColumn } from "./columns/brand-column";
+import { focusDocuments } from "./columns/focus-documents";
+import { keyPersonal } from "./columns/key-personal";
 import { useDashboardContext } from "@/hooks/useDashboardContext";
 
 export default function Page() {
@@ -16,32 +16,34 @@ export default function Page() {
     dashboardData,
     fetchDashboard,
     fetchUsers,
+    fetchBrands,
   } = useDashboardContext();
+  const values = { startDate: null, endDate: null }
 
   useEffect(() => {
-    fetchDashboard({ startDate: null, endDate: null });
+    fetchDashboard(values);
   }, []);
 
-
   const handleSetDataTable = async (key: string) => {
-    console.log("key: ", key);
-    console.log("dataTable: ", dataTable);
     if (key === "outline") {
-      const response = await fetchUsers();     
+      const response = await fetchUsers();
       if (response) {
-         console.log('response: ', response)
         setDataTable({
           data: response.data,
-          column: outlineColumn,
+          column: userColumn,
           tab: key,
         });
       }
     } else if (key === "past-performance") {
-      setDataTable({
-        data: data3,
-        column: pastPersonal,
-        tab: key,
-      });
+      const response = await fetchBrands(values);
+      if (response) {
+        console.log("response: ", response);
+        setDataTable({
+          data: response.data,
+          column: brandColumn,
+          tab: key,
+        });
+      }
     } else if (key === "focus-documents") {
       setDataTable({
         data: data3,
