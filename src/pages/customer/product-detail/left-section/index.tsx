@@ -10,19 +10,21 @@ const LeftSection = ({ className, product }: LeftSectionProps) => {
   return (
     <div className={className}>
       {product && (
-        <div>
-          <ImagePreview
+        <div className="grid grid-cols-12 gap-4">
+          <div className="col-span-2">
+            {product?.images.map((img, index) => (
+              <div className="mb-4" key={index}>
+                <ImagePreview className="" alt={product.name} img={img} />
+              </div>
+            ))}
+          </div>
+         <div className="col-span-10">
+           <ImagePreview
             className="w-full"
             alt={product?.name + ""}
             img={product?.images[0] + ""}
           />
-          <div className="grid grid-cols-5 gap-3 mt-2">
-            {product?.images.map((img, index) => (
-              <div key={index}>
-                <ImagePreview alt={product.name} img={img} />
-              </div>
-            ))}
-          </div>
+         </div>
         </div>
       )}
     </div>

@@ -10,10 +10,11 @@ import { useProduct } from "@/hooks";
 const HomePage = () => {
   const { getCategories, loading } = CategoryService();
   const [cates, setCates] = useState<Cate[]>([]);
-  const {productBestSellings} = useProduct()
+  const {productBestSellings, fetchProductBestSellings} = useProduct()
 
   useEffect(() => {
     fetchCates();
+    fetchProductBestSellings()
   }, []);
 
   const fetchCates = async () => {

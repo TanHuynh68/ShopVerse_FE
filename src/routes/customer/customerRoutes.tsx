@@ -7,6 +7,7 @@ import {
   PaymentSuccessPage,
   ProductByCategoriesPage,
   ProductDetailPage,
+  Profile,
 } from "@/pages";
 
 import { CustomerLayout } from "@/components/layouts";
@@ -30,6 +31,10 @@ export const customerRoutes = [
             <ProductByCategoriesPage />
           </ProductProvider>
         ),
+      },
+       {
+        path: CUSTOMER_PATH.CUSTOMER_PROFILE_PAGE,
+        element: <Profile />,
       },
       {
         path: CUSTOMER_PATH.PRODUCT_DETAIL,

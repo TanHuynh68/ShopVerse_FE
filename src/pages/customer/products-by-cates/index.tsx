@@ -1,25 +1,28 @@
 import { useNavigate, useParams } from "react-router-dom";
-import CategoriesBar from "./categories-bar";
+import CategoriesBar from "./brands-bar";
 import { useEffect, useState } from "react";
 import { Brand } from "../../../type/brand.type";
 import { BrandService } from "@/services";
-
-import ProductsGrid from "./products-grid";
 import { useProductContext } from "@/hooks/useProductContext ";
 import { Spinner } from "@/components/common/spinner";
-import DataNotFound from "@/components/common/data-not-found";
 import { USER_PATH } from "@/routes/guest/guestPath";
+import ProductFilterBar from "./filter-bar";
 
 const ProductsPage = () => {
   const { getBrandByCategoryId, loading } = BrandService();
   const { id } = useParams();
   const [brands, setBrands] = useState<Brand[]>([]);
-  const { products, productLoading } = useProductContext();
-  
+  const { products, sort, setSort, fetchProducts, productLoading } =
+    useProductContext();
+
   const navigate = useNavigate();
+
   useEffect(() => {
     fetchBrandByCate();
-  }, []);
+    if (id) {
+      fetchProducts({ category_id: id, sort: "popular" });
+    }
+  }, [id]);
 
   //fetch brand to filter for product
   const fetchBrandByCate = async () => {
@@ -47,13 +50,18 @@ const ProductsPage = () => {
         <div className="w-[200px]">
           <CategoriesBar brands={brands} />
         </div>
-        {products && products.length > 0 ? (
-          <ProductsGrid products={products} />
-        ) : (
-          <div className="w-full">
-            <DataNotFound />
-          </div>
-        )}
+        <div>
+          {id && (
+            <ProductFilterBar
+              sort={sort}
+              setSort={setSort}
+              products={products}
+              category_id={id}
+              fetchProducts={fetchProducts}
+            />
+          )}
+          <div className="mb-5"></div>
+        </div>
       </div>
     </div>
   );

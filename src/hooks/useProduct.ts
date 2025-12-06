@@ -1,4 +1,5 @@
 import { ProductService } from "@/services";
+import { getProductsValues } from "@/services/product.service";
 import { Product } from "@/type/product.type";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -6,18 +7,15 @@ import { useParams } from "react-router-dom";
 const useProduct = () => {
   const { getProducts, getProduct, getBestSellingProducts, loading } = ProductService();
   const [products, setProducts] = useState<Product[]>([]);
+  const [sort, setSort] = useState<
+    "newest" | "popular" | "oldest" | "highest" | "lowest"
+  >("popular");
   const [productBestSellings, setProductBestSellings] = useState<Product[]>([]);
   const [brandIds, setBrandIds] = useState<string[]>([]);
   const [filterProducts, setFilterProducts] = useState<Product[]>([]);
   //product detail
   const [product, setProduct] = useState<Product | null>(null);
   const { product_id } = useParams();
-
-  // fetch product
-  useEffect(() => {
-    fetchProducts();
-    fetchProductBestSellings();
-  }, []);
 
   // fetch product detail if have product_id
   useEffect(() => {
@@ -34,8 +32,8 @@ const useProduct = () => {
   }, [brandIds, products]);
 
   // fetch all product
-  const fetchProducts = async () => {
-    const response = await getProducts();
+  const fetchProducts = async (query: getProductsValues) => {
+    const response = await getProducts(query);
     if (response) {
       setProducts(response.data);
     }
@@ -64,10 +62,12 @@ const useProduct = () => {
     product,
     brandIds,
     productBestSellings,
+    sort,
     setBrandIds,
     fetchProducts,
     fetchProduct,
-    fetchProductBestSellings
+    fetchProductBestSellings,
+    setSort
   };
 };
 

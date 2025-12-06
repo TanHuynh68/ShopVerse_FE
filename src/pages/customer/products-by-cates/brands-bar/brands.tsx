@@ -9,7 +9,6 @@ interface BrandsProps {
 const Brands = ({ brands }: BrandsProps) => {
   const { brandIds, setBrandIds } = useProductContext();
 
-
   const handleAddId = (checked: boolean | string, id: string) => {
     if (!brandIds.includes(id) && checked) {
       setBrandIds([...brandIds, id]);
@@ -28,6 +27,7 @@ const Brands = ({ brands }: BrandsProps) => {
           {brands?.map((brand) => (
             <div className="flex gap-3 items-center">
               <Checkbox
+                checked={brandIds.includes(brand._id)}
                 onCheckedChange={(checked) => handleAddId(checked, brand._id)}
               />{" "}
               {brand.name}
