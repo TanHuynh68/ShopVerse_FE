@@ -51,6 +51,9 @@ export interface DashboardProduct {
   discount: number;
   sku: string;
   brand_id: Brand;        // nested object
+  createdAt: string,
+  updatedAt: string,
+  sold: number
 }
 
 interface Brand {
@@ -65,19 +68,19 @@ interface Brand {
   img: string;
 }
 
-export interface DashboardProduct {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  stock: number;
-  category_id: DashboardCategory;
-  images: string[];
-  isActive: boolean;
-  isDeleted: boolean;
-  discount: number;
-  sku: string;
-  brand_id: Brand;
-  createdAt: string;
-  updatedAt: string;
-}
+// export interface DashboardProduct {
+//   _id: string;
+//   name: string;
+//   description: string;
+//   price: number;
+//   stock: number;
+//   category_id: DashboardCategory;
+//   images: string[];
+//   isActive: boolean;
+//   isDeleted: boolean;
+//   discount: number;
+//   sku: string;
+//   brand_id: Brand;
+//   createdAt: string;
+//   updatedAt: string;
+// }

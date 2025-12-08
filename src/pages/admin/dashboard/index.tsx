@@ -3,10 +3,10 @@ import { DataTable } from "@/pages/admin/dashboard/data-table/data-table";
 import { SectionCards } from "@/components/layouts/admin-layout/section-cards";
 import data3 from "./data2.json";
 import { useEffect } from "react";
-import { userColumn } from "./columns/user-column";
+import { userColumn } from "./columns/user/user-column";
 import { brandColumn } from "./columns/brand-column";
 import { focusDocuments } from "./columns/focus-documents";
-import { keyPersonal } from "./columns/key-personal";
+import { productColumns } from "./columns/product/product-column";
 import { useDashboardContext } from "@/hooks/useDashboardContext";
 
 export default function Page() {
@@ -17,8 +17,9 @@ export default function Page() {
     fetchDashboard,
     fetchUsers,
     fetchBrands,
+    fetchProducts,
   } = useDashboardContext();
-  const values = { startDate: null, endDate: null }
+  const values = { startDate: null, endDate: null };
 
   useEffect(() => {
     fetchDashboard(values);
@@ -37,7 +38,6 @@ export default function Page() {
     } else if (key === "past-performance") {
       const response = await fetchBrands(values);
       if (response) {
-        console.log("response: ", response);
         setDataTable({
           data: response.data,
           column: brandColumn,
@@ -51,11 +51,14 @@ export default function Page() {
         tab: key,
       });
     } else if (key === "key-personnel") {
-      setDataTable({
-        data: data3,
-        column: keyPersonal,
-        tab: key,
-      });
+      const response = await fetchProducts(values);
+      if (response) {
+        setDataTable({
+          data: response.data,
+          column: productColumns,
+          tab: key,
+        });
+      }
     }
   };
 

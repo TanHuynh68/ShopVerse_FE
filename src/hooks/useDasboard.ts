@@ -1,7 +1,7 @@
 import DashboardService, {
   getDashboardValues,
 } from "@/services/dashboard.service";
-import { DashboardBrand, DashboardStats } from "@/type/dashboard";
+import { DashboardBrand, DashboardProduct, DashboardStats } from "@/type/dashboard";
 import { useEffect, useState } from "react";
 
 export interface User {
@@ -20,9 +20,9 @@ const useDashboard = () => {
     null
   );
   const [users, setUsers] = useState<User[]>([]);
-   const [brands, setBrands] = useState<DashboardBrand[]>([]);
+  const [brands, setBrands] = useState<DashboardBrand[]>([]);
   const { getDashboard, getUsers, getBrands, getProducts, getOrders, getTransactions, getCategories, loading } = DashboardService();
-
+  const [products, setProducts] = useState<DashboardProduct[]>([])
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -39,7 +39,7 @@ const useDashboard = () => {
   const fetchProducts = async (values: getDashboardValues) => {
     const response = await getProducts(values);
     if (response.status_code === 200) {
-      setDashboardData(response.data);
+      setProducts(response.data);
       return response;
     }
     return null;
@@ -72,7 +72,7 @@ const useDashboard = () => {
     return null;
   };
 
-  const fetchCategories= async (values: getDashboardValues) => {
+  const fetchCategories = async (values: getDashboardValues) => {
     const response = await getCategories(values);
     if (response.status_code === 200) {
       setDashboardData(response.data);

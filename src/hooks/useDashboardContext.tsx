@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import useDashboard from "./useDasboard";
 
-import { userColumn } from "@/pages/admin/dashboard/columns/user-column";
+import { userColumn } from "@/pages/admin/dashboard/columns/user/user-column";
+import { getDashboardValues } from "@/services/dashboard.service";
 
 interface useDashboardContextValues {
   dataTable: dataTableValues;
@@ -11,7 +12,8 @@ interface useDashboardContextValues {
   users: any;
   brands: any;
   fetchUsers: any;
-  fetchBrands: any
+  fetchBrands:  (values: getDashboardValues) => Promise<any>;
+  fetchProducts: (values: getDashboardValues) => Promise<any>;
 }
 const Context = createContext<useDashboardContextValues | undefined>(undefined);
 
