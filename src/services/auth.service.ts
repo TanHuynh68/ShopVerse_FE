@@ -1,4 +1,4 @@
-import { HTTP_METHOD } from "@/constants/enum";
+import { HTTP_METHOD, ROLE } from "@/constants/enum";
 import useApiService from "@/hooks/useApi";
 import { LoginFormsData } from "@/pages/auth/login/login.schema";
 import { useCallback } from "react";
@@ -7,7 +7,8 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "@/redux/userSlice";
-import { DecodedUserRaw, NormalizedUser } from "@/type/auth.type";
+import { DecodedUserRaw} from "@/type/auth.type";
+import { ADMIN_PATH } from "@/routes/admin/adminPath";
 const AuthService = () => {
     const { callApi, loading, setIsLoading } = useApiService();
     const navigate = useNavigate();
@@ -23,14 +24,14 @@ const AuthService = () => {
                     if (token) {
                         localStorage.setItem("token", token);
                         const decoded = jwtDecode<DecodedUserRaw>(token);
-                        console.log("decoded: ", decoded)
-                        const user = normalizeDecodedUser(decoded);
-                        dispatch(loginSuccess(user));
+                        dispatch(loginSuccess(decoded.data));
                         toast.success("Đăng nhập thành công!");
-                        switch (user.role) {
-                            // case ROLE.ADMIN:
-                            //     navigate(PATH.ADMIN_DASHBOARD);
-                            //     break;
+                        switch (decoded.data.role) {
+                            case ROLE.ADMIN:
+                                console.log('admin')
+                                 console.log('user: ', decoded)
+                                navigate('/admin/'+ADMIN_PATH.ADMIN_DASHBOARD);
+                                break;
                             default:
                                 navigate("/");
                                 break;
@@ -48,14 +49,6 @@ const AuthService = () => {
     return { login, loading, setIsLoading, };
 };
 
- function normalizeDecodedUser(decoded: DecodedUserRaw): NormalizedUser {
-  return {
-    name: decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
-    id: decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
-    role: decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"],
-    exp: decoded.exp,
-    avatar: decoded.Avatar,
-  };
-}
+
 
 export default AuthService;

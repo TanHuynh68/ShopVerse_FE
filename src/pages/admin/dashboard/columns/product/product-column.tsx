@@ -15,7 +15,7 @@ import CreateNewProduct from "./create-product-form";
 import { useState } from "react";
 
 export const productColumns: ColumnDef<DashboardProduct>[] = [
-  // Product Name
+  
   {
     accessorKey: "name",
     header: "Product Name",
@@ -111,7 +111,7 @@ export const productColumns: ColumnDef<DashboardProduct>[] = [
         </DropdownMenu>
         <Dialog open={open} >
           <DialogContent className="min-w-[1600px]">
-            <CreateNewProduct onclose={()=>setOpen(false)}/>
+            <CreateNewProduct  onclose={()=>setOpen(false)}/>
           </DialogContent>
         </Dialog>
       </>

@@ -1,8 +1,16 @@
+
+import { ProductFormData } from "@/pages/admin/dashboard/columns/product/validation";
 import DashboardService, {
   getDashboardValues,
 } from "@/services/dashboard.service";
-import { DashboardBrand, DashboardProduct, DashboardStats } from "@/type/dashboard";
+import {
+  DashboardBrand,
+  DashboardCategory,
+  DashboardProduct,
+  DashboardStats,
+} from "@/type/dashboard";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export interface User {
   _id: string;
@@ -20,13 +28,36 @@ const useDashboard = () => {
     null
   );
   const [users, setUsers] = useState<User[]>([]);
+  const [cates, setCates] = useState<DashboardCategory[]>([]);
   const [brands, setBrands] = useState<DashboardBrand[]>([]);
-  const { getDashboard, getUsers, getBrands, getProducts, getOrders, getTransactions, getCategories, loading } = DashboardService();
-  const [products, setProducts] = useState<DashboardProduct[]>([])
+  const {
+    craeteProducts,
+    getDashboard,
+    getUsers,
+    getBrands,
+    getProducts,
+    getOrders,
+    getTransactions,
+    getCategories,
+    loading,
+  } = DashboardService();
+  const [products, setProducts] = useState<DashboardProduct[]>([]);
+
   useEffect(() => {
     fetchUsers();
   }, []);
 
+  const adminCreateProduct = async (values: ProductFormData) => {
+    console.log('useDashboard: ',values )
+    const response = await craeteProducts(values);
+    if (response.status_code === 200) {
+      toast.success("Tạo sản phẩm thành công");
+      fetchProducts({ startDate: null, endDate: null })
+      return response;
+    }
+    return null;
+  };
+ 
   const fetchBrands = async (values: getDashboardValues) => {
     const response = await getBrands(values);
     if (response.status_code === 200) {
@@ -75,7 +106,7 @@ const useDashboard = () => {
   const fetchCategories = async (values: getDashboardValues) => {
     const response = await getCategories(values);
     if (response.status_code === 200) {
-      setDashboardData(response.data);
+      setCates(response.data);
       return response;
     }
     return null;
@@ -95,13 +126,16 @@ const useDashboard = () => {
     isLoading: loading,
     dashboardData,
     brands,
+    cates,
+    products,
     fetchDashboard,
     fetchUsers,
     fetchBrands,
     fetchOrders,
     fetchProducts,
     fetchTransactions,
-    fetchCategories
+    fetchCategories,
+    adminCreateProduct
   };
 };
 

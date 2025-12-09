@@ -14,6 +14,9 @@ export default function Page() {
     dataTable,
     setDataTable,
     dashboardData,
+    products,
+    brands,
+    users,
     fetchDashboard,
     fetchUsers,
     fetchBrands,
@@ -23,27 +26,58 @@ export default function Page() {
 
   useEffect(() => {
     fetchDashboard(values);
+    fetchProducts(values);
+    fetchUsers();
+    fetchBrands(values);
   }, []);
+
+  useEffect(() => {
+    if (dataTable.tab === "outline") {
+      setDataTable({
+        data: users,
+        column: userColumn,
+        tab: "outline",
+      });
+    }
+
+    if (dataTable.tab === "past-performance") {
+      setDataTable({
+        data: brands,
+        column: brandColumn,
+        tab: "past-performance",
+      });
+    }
+
+    if (dataTable.tab === "focus-documents") {
+      setDataTable({
+        data: data3,
+        column: focusDocuments,
+        tab: "focus-documents",
+      });
+    }
+
+    if (dataTable.tab === "key-personnel") {
+      setDataTable({
+        data: products,
+        column: productColumns,
+        tab: "key-personnel",
+      });
+    }
+  }, [products, users, brands]);
 
   const handleSetDataTable = async (key: string) => {
     if (key === "outline") {
-      const response = await fetchUsers();
-      if (response) {
-        setDataTable({
-          data: response.data,
-          column: userColumn,
-          tab: key,
-        });
-      }
+      setDataTable({
+        data: users,
+        column: userColumn,
+        tab: key,
+      });
     } else if (key === "past-performance") {
-      const response = await fetchBrands(values);
-      if (response) {
-        setDataTable({
-          data: response.data,
-          column: brandColumn,
-          tab: key,
-        });
-      }
+      setDataTable({
+        data: brands,
+        column: brandColumn,
+        tab: key,
+      });
     } else if (key === "focus-documents") {
       setDataTable({
         data: data3,
@@ -51,14 +85,11 @@ export default function Page() {
         tab: key,
       });
     } else if (key === "key-personnel") {
-      const response = await fetchProducts(values);
-      if (response) {
-        setDataTable({
-          data: response.data,
-          column: productColumns,
-          tab: key,
-        });
-      }
+      setDataTable({
+        data: products,
+        column: productColumns,
+        tab: key,
+      });
     }
   };
 

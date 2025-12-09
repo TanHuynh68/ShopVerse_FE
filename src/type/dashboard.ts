@@ -34,7 +34,7 @@ export interface DashboardCategory {
   img: string;
   createdAt: string;
   updatedAt: string;
-  __v: number;
+  __v?: number;
 }
 
 

@@ -1,38 +1,61 @@
-"use client";
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { Check, ChevronsUpDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { productFormSchema, type ProductFormData } from "./validation";
-import { PlusIcon } from "lucide-react";
+import { ProductFormData, productFormSchema } from "./validation";
 import { ImageUpload } from "./upload-images";
+import { useDashboardContext } from "@/hooks/useDashboardContext";
+
 interface CreateNewProductProps {
   onclose: any;
 }
+
 export default function CreateNewProduct({ onclose }: CreateNewProductProps) {
-  const [categories, setCategories] = useState<string[]>(["Headphones"]);
-  const [newCategory, setNewCategory] = useState("");
+  const [open, setOpen] = useState(false);
+  const [valueCate, setValueCate] = useState("");
+  const [openBrand, setOpenBrand] = useState(false);
+  const [valueBrand, setValueBrand] = useState("");
   const [files, setFiles] = useState<File[]>([]);
+  const { fetchCategories, adminCreateProduct, fetchBrands, brands, cates, isLoading } = useDashboardContext();
+
+  useEffect(() => {
+    fetchCategories({ endDate: "", startDate: "" });
+    fetchBrands({ endDate: "", startDate: "" });
+  }, []);
+
+
+  const onSubmit = async(data: ProductFormData) => {
+    const response = await adminCreateProduct(data)
+    if(response){
+      onclose();
+    }
+  };
+
+  // Hàm xử lý cập nhật files và đồng bộ với form
+  const handleSetfiles = (newFiles: any) => {
+    setFiles(newFiles);
+    setValue("images", newFiles); // Đồng bộ với form
+  };
+
   const {
     register,
     handleSubmit,
@@ -43,40 +66,19 @@ export default function CreateNewProduct({ onclose }: CreateNewProductProps) {
     defaultValues: {
       name: "",
       description: "",
-      status: "published",
-      categories: ["Headphones"],
-      tags: [],
-      variations: [],
-      basePrice: "",
-      discountType: "none",
-      template: "default",
-      taxClass: "standard",
-      vatAmount: "",
+      discount: 0,
+      images: [], // Sửa lỗi cú pháp: thay `files || ,` thành `[]`
+      price: 0,
+      sku: "",
+      stock: 0,
+      category_id: "", // Thêm mặc định
+      brand_id: "",
     },
   });
 
-  const onSubmit = (data: ProductFormData) => {
-    console.log("Form submitted:", data);
-    // Handle form submission here
-  };
-
-  const addCategory = () => {
-    if (newCategory && !categories.includes(newCategory)) {
-      const updatedCategories = [...categories, newCategory];
-      setCategories(updatedCategories);
-      setValue("categories", updatedCategories);
-      setNewCategory("");
-    }
-  };
-
-  const removeCategory = (category: string) => {
-    const updatedCategories = categories.filter((c) => c !== category);
-    setCategories(updatedCategories);
-    setValue("categories", updatedCategories);
-  };
 
   return (
-    <div className="mx-auto max-w-7xl space-y-8 p-6">
+    <div className="w-full space-y-8 p-6">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Left Column - Main Content */}
@@ -129,115 +131,224 @@ export default function CreateNewProduct({ onclose }: CreateNewProductProps) {
                 <CardTitle>Media</CardTitle>
               </CardHeader>
               <CardContent>
-                <ImageUpload files={files} setFiles={setFiles} />
+                <ImageUpload files={files} setFiles={handleSetfiles} />
+                {errors.images && (
+                  <p className="text-sm text-red-500">
+                    {errors.images.message}
+                  </p>
+                )}
               </CardContent>
             </Card>
 
             {/* Pricing Section */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Pricing</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="basePrice">
-                    Base Price <span className="text-red-500">*</span>
-                  </Label>
-                  <Input
-                    id="basePrice"
-                    placeholder="Product Price"
-                    {...register("basePrice")}
-                  />
-                  {errors.basePrice && (
-                    <p className="text-sm text-red-500">
-                      {errors.basePrice.message}
-                    </p>
-                  )}
-                  <p className="text-muted-foreground text-sm">
-                    Set the product price.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
           </div>
 
           {/* Right Column - Sidebar */}
           <div className="space-y-4">
             {/* Status Section */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  Status
-                  <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                </CardTitle>
-                <CardDescription>Set the product status.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <Select defaultValue="published">
-                  <SelectTrigger className="w-full">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="published">Published</SelectItem>
-                    <SelectItem value="draft">Draft</SelectItem>
-                    <SelectItem value="archived">Archived</SelectItem>
-                  </SelectContent>
-                </Select>
-              </CardContent>
-            </Card>
-
+            <Label>Chọn nhãn hiệu </Label>
+            <Popover open={openBrand} onOpenChange={setOpenBrand}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={openBrand}
+                  className="w-full justify-between"
+                >
+                  {valueBrand
+                    ? brands.find((brand) => brand._id === valueBrand)?.name
+                    : "Chọn nhãn hàng..."}
+                  <ChevronsUpDown className="opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[200px] p-0">
+                <Command>
+                  <CommandInput
+                    placeholder="Tìm nhãn hàng..."
+                    className="h-9"
+                  />
+                  <CommandList>
+                    <CommandEmpty>Không tìm thấy nhãn hàng nào.</CommandEmpty>
+                    <CommandGroup>
+                      {brands.map((brand) => (
+                        <CommandItem
+                          key={brand._id}
+                          value={brand.name}
+                          onSelect={() => {
+                            setValueBrand(brand._id);
+                            setValue("brand_id", brand._id);
+                            setOpenBrand(false); // Sửa: setOpenBrand thay vì setOpen
+                          }}
+                        >
+                          {brand.name}
+                          <Check
+                            className={cn(
+                              "ml-auto",
+                              valueBrand === brand._id
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+              {errors.brand_id && (
+                <p className="text-sm text-red-500">
+                  {errors.brand_id.message}
+                </p>
+              )}
+            </Popover>
             {/* Product Details Section */}
             <Card>
               <CardHeader>
-                <CardTitle>Product Details</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div>
-                  <Label className="text-sm font-medium">Categories</Label>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {categories.map((category) => (
-                      <Badge
-                        key={category}
-                        variant="secondary"
-                        className="bg-purple-100 text-purple-700"
-                      >
-                        <span
-                          className="mr-1 cursor-pointer"
-                          onClick={() => removeCategory(category)}
-                        >
-                          ×
-                        </span>
-                        {category}
-                      </Badge>
-                    ))}
+                <CardTitle>Chi tiết sản phẩm</CardTitle>
+                <div className="space-y-2 mt-2">
+                  {/* category */}
+                  <div className="flex gap-2 ">
+                    <div className="space-y-2 w-full">
+                      <Label>Danh mục sản phẩm </Label>
+                      <Popover open={open} onOpenChange={setOpen}>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            role="combobox"
+                            aria-expanded={open}
+                            className="w-full justify-between"
+                          >
+                            {valueCate
+                              ? cates.find((cate) => cate._id === valueCate)
+                                  ?.name
+                              : "Chọn danh mục..."}
+                            <ChevronsUpDown className="opacity-50" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-[200px] p-0">
+                          <Command>
+                            <CommandInput
+                              placeholder="Search framework..."
+                              className="h-9"
+                            />
+                            <CommandList>
+                              <CommandEmpty>
+                                Không tìm thấy danh mục nào.
+                              </CommandEmpty>
+                              <CommandGroup>
+                                {cates.map((cate) => (
+                                  <CommandItem
+                                    key={cate._id}
+                                    value={cate.name}
+                                    onSelect={() => {
+                                      setValueCate(cate._id);
+                                      setValue("category_id", cate._id);
+                                      setOpen(false);
+                                    }}
+                                  >
+                                    {cate.name}
+                                    <Check
+                                      className={cn(
+                                        "ml-auto",
+                                        valueCate === cate._id
+                                          ? "opacity-100"
+                                          : "opacity-0"
+                                      )}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </PopoverContent>
+                        {errors.category_id && (
+                          <p className="text-sm text-red-500">
+                            {errors.category_id.message}
+                          </p>
+                        )}
+                      </Popover>
+                    </div>
+                    {/* Price */}
+                    <div className="space-y-2 w-full">
+                      <Label htmlFor="price">
+                        Giá <span className="text-red-500">*</span>
+                      </Label>
+                      <Input
+                        id="price"
+                        type="number"
+                        placeholder="Product Price"
+                        {...register("price", { valueAsNumber: true })} // Thêm register và valueAsNumber cho number
+                      />
+                      {errors.price && (
+                        <p className="text-sm text-red-500">
+                          {errors.price.message}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                  <p className="text-muted-foreground mt-1 text-xs">
-                    Add product to a category.
-                  </p>
-                  <div className="mt-2 flex gap-2">
+
+                  <div className="flex gap-2 mt-5">
+                    {/* Stock */}
+                    <div className="space-y-2 w-full">
+                      <Label htmlFor="stock">
+                        Hàng tồn kho <span className="text-red-500">*</span>
+                      </Label>
+                      <Input
+                        id="stock"
+                        type="number"
+                        placeholder="Nhập số hàng tồn kho"
+                        {...register("stock", { valueAsNumber: true })} // Thêm register
+                      />
+                      {errors.stock && (
+                        <p className="text-sm text-red-500">
+                          {errors.stock.message}
+                        </p>
+                      )}
+                    </div>
+                    <div className="space-y-2 w-full">
+                      <Label htmlFor="discount">
+                        Nhập % giảm giá (%)
+                        <span className="text-red-500">*</span>
+                      </Label>
+                      <Input
+                        id="discount"
+                        type="number"
+                        placeholder="Nhập % giảm giá"
+                        {...register("discount", { valueAsNumber: true })} // Thêm register
+                      />
+                      {errors.discount && (
+                        <p className="text-sm text-red-500">
+                          {errors.discount.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="space-y-2 w-full">
+                    <Label htmlFor="sku">
+                      Mã sản phẩm
+                      <span className="text-red-500">*</span>
+                    </Label>
                     <Input
-                      placeholder="New category"
-                      value={newCategory}
-                      onChange={(e) => setNewCategory(e.target.value)}
-                      className="flex-1"
+                      id="sku"
+                      type="text"
+                      placeholder="Nhập mã sản phẩm"
+                      {...register("sku")} // Thêm register
                     />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={addCategory}
-                    >
-                      <PlusIcon /> Create New Category
-                    </Button>
+                    {errors.sku && (
+                      <p className="text-sm text-red-500">
+                        {errors.sku.message}
+                      </p>
+                    )}
                   </div>
                 </div>
-              </CardContent>
+              </CardHeader>
             </Card>
           </div>
         </div>
 
         <div className="flex gap-3">
-          <Button type="submit">Save changes</Button>
-          <Button onClick={onclose} type="button" variant="destructive">
+          <Button disabled={isLoading} type="submit">Save changes</Button>
+          <Button disabled={isLoading} onClick={onclose} type="button" variant="destructive">
             Cancel
           </Button>
         </div>

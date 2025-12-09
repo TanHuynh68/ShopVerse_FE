@@ -7,15 +7,15 @@ export const adminRoutes = [
   {
     path: "/admin",
     element: (
-      <DashboardLayout />
+      <DashboardProvider>
+           <DashboardLayout />
+          </DashboardProvider>
     ),
     children: [
       {
         path: ADMIN_PATH.ADMIN_DASHBOARD,
         element: (
-          <DashboardProvider>
-            <AdminDasboard />
-          </DashboardProvider>
+          <AdminDasboard />
         ),
       },
     ],
