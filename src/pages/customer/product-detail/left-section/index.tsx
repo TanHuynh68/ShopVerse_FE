@@ -1,4 +1,4 @@
-import { Product } from "@/type/product.type";
+import { Product } from "@/types/product.type";
 import ImagePreview from "@/components/common/img-preview";
 
 interface LeftSectionProps {

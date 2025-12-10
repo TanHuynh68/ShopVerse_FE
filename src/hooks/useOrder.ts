@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useCartContext } from "./useCartContext";
 import { useEffect, useState } from "react";
-import { Order } from "@/type/order.type";
+import { Order } from "@/types/order.type";
 
 const useOrder = () => {
   const [orders, setOrders] = useState<Order[]>([]);

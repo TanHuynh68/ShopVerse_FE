@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Product } from "@/type/product.type";
+import { Product } from "@/types/product.type";
 import { formatVND } from "@/utils/format";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useCartContext } from "@/hooks/useCartContext";

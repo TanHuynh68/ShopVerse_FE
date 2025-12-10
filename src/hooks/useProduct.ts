@@ -1,6 +1,6 @@
 import { ProductService } from "@/services";
 import { getProductsValues } from "@/services/product.service";
-import { Product } from "@/type/product.type";
+import { Product } from "@/types/product.type";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 

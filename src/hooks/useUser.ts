@@ -1,5 +1,5 @@
 import UserService, { updateProfileValue, uploadAvatarValues } from "@/services/user.service";
-import { User } from "@/type/user.type";
+import { User } from "@/types/user.type";
 import { useState } from "react";
 
 const useUser = () => {

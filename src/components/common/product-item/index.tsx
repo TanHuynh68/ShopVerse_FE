@@ -1,4 +1,4 @@
-import { CartItem } from "@/type/cart.type";
+import { CartItem } from "@/types/cart.type";
 import { formatVND } from "@/utils/format";
 import CountButton from "../counter";
 import { useState } from "react";

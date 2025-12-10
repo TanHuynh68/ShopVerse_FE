@@ -1,5 +1,5 @@
-import ProfileHeader from "./profile-header";
-import ProfileContent from "./profile-content";
+import ProfileHeader from "./profile-header/profile-header";
+import ProfileContent from "./profile-content/profile-content";
 import useUser from "@/hooks/useUser";
 import { useEffect } from "react";
 

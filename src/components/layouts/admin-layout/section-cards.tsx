@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-import { DashboardStats } from "@/type/dashboard";
+import { DashboardStats } from "@/types/dashboard";
 interface SectionCardsProps{
   dashboardData: DashboardStats | null;
 }

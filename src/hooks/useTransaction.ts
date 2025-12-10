@@ -1,5 +1,5 @@
 import TransactionService, { createTransactionValues } from "@/services/transaction.service";
-import { Transaction } from "@/type/transaction";
+import { Transaction } from "@/types/transaction";
 import { useState } from "react";
 
 const useTransaction = () => {

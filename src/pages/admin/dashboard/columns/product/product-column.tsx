@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { DashboardProduct } from "@/type/dashboard";
+import { DashboardProduct } from "@/types/dashboard";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import CreateNewProduct from "./create-product-form";
 import { useState } from "react";

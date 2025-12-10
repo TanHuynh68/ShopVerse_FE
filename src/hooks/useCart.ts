@@ -1,5 +1,5 @@
 import CartService from "@/services/cart.service";
-import { Cart } from "@/type/cart.type";
+import { Cart } from "@/types/cart.type";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 

@@ -14,9 +14,10 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { User } from "@/type/user.type";
+import { User } from "@/types/user.type";
 import { useState } from "react";
 import { updateProfileValue } from "@/services/user.service";
+import { DataTableDemo2 } from "@/components/common/data-table";
 
 interface ProfileContentProps {
   info: User;
@@ -250,67 +251,7 @@ export default function ProfileContent({
 
       {/* Notification Settings */}
       <TabsContent value="notifications" className="space-y-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Notification Preferences</CardTitle>
-            <CardDescription>
-              Choose what notifications you want to receive.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <Label className="text-base">Email Notifications</Label>
-                  <p className="text-muted-foreground text-sm">
-                    Receive notifications via email
-                  </p>
-                </div>
-                <Switch defaultChecked />
-              </div>
-              <Separator />
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <Label className="text-base">Push Notifications</Label>
-                  <p className="text-muted-foreground text-sm">
-                    Receive push notifications in your browser
-                  </p>
-                </div>
-                <Switch />
-              </div>
-              <Separator />
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <Label className="text-base">Marketing Emails</Label>
-                  <p className="text-muted-foreground text-sm">
-                    Receive emails about new features and updates
-                  </p>
-                </div>
-                <Switch defaultChecked />
-              </div>
-              <Separator />
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <Label className="text-base">Weekly Summary</Label>
-                  <p className="text-muted-foreground text-sm">
-                    Get a weekly summary of your activity
-                  </p>
-                </div>
-                <Switch defaultChecked />
-              </div>
-              <Separator />
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <Label className="text-base">Security Alerts</Label>
-                  <p className="text-muted-foreground text-sm">
-                    Important security notifications (always enabled)
-                  </p>
-                </div>
-                <Switch checked disabled />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+       <DataTableDemo2/>
       </TabsContent>
     </Tabs>
   );

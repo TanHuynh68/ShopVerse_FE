@@ -1,4 +1,4 @@
-import { Product } from "@/type/product.type";
+import { Product } from "@/types/product.type";
 import { formatVND } from "@/utils/format";
 import { Link } from "react-router-dom";
 

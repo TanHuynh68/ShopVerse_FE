@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { CartItem } from "@/type/cart.type";
+import { CartItem } from "@/types/cart.type";
 import { Minus, Plus } from "lucide-react";
 
 interface CountButtonProps {

@@ -3,13 +3,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Camera, Mail } from "lucide-react";
-import { User } from "@/type/user.type";
+import { User } from "@/types/user.type";
 import AvatarUpload from "./upload-avatar";
 
 interface ProfileHeaderProps {
   info: User;
   handleUploadAvatar: any;
-
 }
 
 export default function ProfileHeader({

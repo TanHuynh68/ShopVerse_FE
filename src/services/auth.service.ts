@@ -7,7 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "@/redux/userSlice";
-import { DecodedUserRaw} from "@/type/auth.type";
+import { DecodedUserRaw} from "@/types/auth.type";
 import { ADMIN_PATH } from "@/routes/admin/adminPath";
 const AuthService = () => {
     const { callApi, loading, setIsLoading } = useApiService();

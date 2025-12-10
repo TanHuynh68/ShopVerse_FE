@@ -1,6 +1,6 @@
 import Title from "@/components/common/title";
 import { Logs } from "lucide-react";
-import { Brand } from "../../../../type/brand.type";
+import { Brand } from "../../../../types/brand.type";
 import Brands from "./brands";
 
 interface CategoriesBarProps {

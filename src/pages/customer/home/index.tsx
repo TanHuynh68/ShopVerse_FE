@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import HomeCategories from "./categories";
 import { Spinner } from "@/components/common/spinner";
 import { CategoryService } from "@/services";
-import { Cate } from "@/type/category.type";
+import { Cate } from "@/types/category.type";
 import { HomeCarousel } from "./carousel";
 import ProductsBestSellings from "./product-best-sellings";
 import { useProduct } from "@/hooks";

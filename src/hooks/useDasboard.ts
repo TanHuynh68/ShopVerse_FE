@@ -8,7 +8,7 @@ import {
   DashboardCategory,
   DashboardProduct,
   DashboardStats,
-} from "@/type/dashboard";
+} from "@/types/dashboard";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 

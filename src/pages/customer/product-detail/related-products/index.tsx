@@ -1,5 +1,5 @@
 import Title from "@/components/common/title";
-import { Product } from "@/type/product.type";
+import { Product } from "@/types/product.type";
 import ProductCard from "../../products-by-cates/products-grid/product-card";
 
 interface RelatedProductsProps {

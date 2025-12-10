@@ -1,4 +1,4 @@
-import { Brand } from "../../../../type/brand.type";
+import { Brand } from "../../../../types/brand.type";
 import { Checkbox } from "@/components/ui/checkbox";
 import SubTitle from "@/components/common/sub-title";
 import { useProductContext } from "@/hooks/useProductContext ";

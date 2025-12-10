@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import CategoriesBar from "./brands-bar";
 import { useEffect, useState } from "react";
-import { Brand } from "../../../type/brand.type";
+import { Brand } from "../../../types/brand.type";
 import { BrandService } from "@/services";
 import { useProductContext } from "@/hooks/useProductContext ";
 import { Spinner } from "@/components/common/spinner";
