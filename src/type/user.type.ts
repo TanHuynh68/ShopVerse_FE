@@ -4,7 +4,9 @@ export interface User {
   email: string;
   isActive: boolean;
   isDeleted: boolean;
-  role: "SHOP";         // literal type vì luôn là SHOP
+  phone?: string,
+  role: "USER" | "ADMIN";         // literal type vì luôn là SHOP
   createdAt: string;    // ISO date string
   updatedAt: string;    // ISO date string
+  avatar?: string,
 }

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { AUTH_PATH } from "@/routes/auth/authPath";
 import { isLoggedIn } from "@/utils/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -49,7 +49,9 @@ const NavAuth = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="start">
             <DropdownMenuLabel className="cursor-pointer">
+              <Link to={'profile'}>
               Tài khoản của tôi
+              </Link>
             </DropdownMenuLabel>
             <DropdownMenuLabel
               className="cursor-pointer"

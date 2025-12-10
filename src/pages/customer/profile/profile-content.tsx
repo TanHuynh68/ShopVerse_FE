@@ -1,20 +1,41 @@
 import { Shield, Key, Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { User } from "@/type/user.type";
+import { useState } from "react";
+import { updateProfileValue } from "@/services/user.service";
 
-export default function ProfileContent() {
+interface ProfileContentProps {
+  info: User;
+  handleUploadProfile: (values: updateProfileValue) => Promise<any>;
+}
+
+export default function ProfileContent({
+  info,
+  handleUploadProfile,
+}: ProfileContentProps) {
+  const [data, setData] = useState<updateProfileValue>({
+    name: info.name,
+    phone: info.phone || "",
+  });
+  console.log("data: ", data);
   return (
     <Tabs defaultValue="personal" className="space-y-6">
       <TabsList className="grid w-full grid-cols-4">
-        <TabsTrigger value="personal">Personal</TabsTrigger>
+        <TabsTrigger value="personal">Thông tin cá nhân</TabsTrigger>
         <TabsTrigger value="account">Account</TabsTrigger>
         <TabsTrigger value="security">Security</TabsTrigger>
         <TabsTrigger value="notifications">Notifications</TabsTrigger>
@@ -24,48 +45,52 @@ export default function ProfileContent() {
       <TabsContent value="personal" className="space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle>Personal Information</CardTitle>
-            <CardDescription>Update your personal details and profile information.</CardDescription>
+            <CardTitle>Thông tin cá nhân</CardTitle>
+            <CardDescription>
+              Cập nhật thông tin cá nhân và thông tin hồ sơ của bạn.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="firstName">First Name</Label>
-                <Input id="firstName" defaultValue="John" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="lastName">Last Name</Label>
-                <Input id="lastName" defaultValue="Doe" />
+                <Label htmlFor="name">Họ và tên</Label>
+                <Input
+                  onChange={(e) =>
+                    setData({
+                      name: e.target.value,
+                      phone: data.phone,
+                    })
+                  }
+                  id="name"
+                  defaultValue={info.name}
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" defaultValue="john.doe@example.com" />
+                <Input id="email" type="email" defaultValue={info.email} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone</Label>
-                <Input id="phone" defaultValue="+1 (555) 123-4567" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="jobTitle">Job Title</Label>
-                <Input id="jobTitle" defaultValue="Senior Product Designer" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="company">Company</Label>
-                <Input id="company" defaultValue="Acme Inc." />
+                <Input
+                  id="text"
+                  onChange={(e) =>
+                    setData({
+                      name: data.name,
+                      phone: e.target.value,
+                    })
+                  }
+                  defaultValue={info.phone === "" ? "Chưa có" : info.phone}
+                />
               </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="bio">Bio</Label>
-              <Textarea
-                id="bio"
-                placeholder="Tell us about yourself..."
-                defaultValue="Passionate product designer with 8+ years of experience creating user-centered digital experiences. I love solving complex problems and turning ideas into beautiful, functional products."
-                rows={4}
-              />
-            </div>
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <Label htmlFor="location">Location</Label>
               <Input id="location" defaultValue="San Francisco, CA" />
+            </div> */}
+            <div className="flex justify-end">
+              <Button onClick={() => handleUploadProfile(data)}>
+                Cập nhật
+              </Button>
             </div>
           </CardContent>
         </Card>
@@ -76,15 +101,22 @@ export default function ProfileContent() {
         <Card>
           <CardHeader>
             <CardTitle>Account Settings</CardTitle>
-            <CardDescription>Manage your account preferences and subscription.</CardDescription>
+            <CardDescription>
+              Manage your account preferences and subscription.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <Label className="text-base">Account Status</Label>
-                <p className="text-muted-foreground text-sm">Your account is currently active</p>
+                <p className="text-muted-foreground text-sm">
+                  Your account is currently active
+                </p>
               </div>
-              <Badge variant="outline" className="border-green-200 bg-green-50 text-green-700">
+              <Badge
+                variant="outline"
+                className="border-green-200 bg-green-50 text-green-700"
+              >
                 Active
               </Badge>
             </div>
@@ -92,7 +124,9 @@ export default function ProfileContent() {
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <Label className="text-base">Subscription Plan</Label>
-                <p className="text-muted-foreground text-sm">Pro Plan - $29/month</p>
+                <p className="text-muted-foreground text-sm">
+                  Pro Plan - $29/month
+                </p>
               </div>
               <Button variant="outline">Manage Subscription</Button>
             </div>
@@ -110,7 +144,9 @@ export default function ProfileContent() {
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <Label className="text-base">Data Export</Label>
-                <p className="text-muted-foreground text-sm">Download a copy of your data</p>
+                <p className="text-muted-foreground text-sm">
+                  Download a copy of your data
+                </p>
               </div>
               <Button variant="outline">Export Data</Button>
             </div>
@@ -120,7 +156,9 @@ export default function ProfileContent() {
         <Card className="border-destructive/50">
           <CardHeader>
             <CardTitle className="text-destructive">Danger Zone</CardTitle>
-            <CardDescription>Irreversible and destructive actions</CardDescription>
+            <CardDescription>
+              Irreversible and destructive actions
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between">
@@ -144,14 +182,18 @@ export default function ProfileContent() {
         <Card>
           <CardHeader>
             <CardTitle>Security Settings</CardTitle>
-            <CardDescription>Manage your account security and authentication.</CardDescription>
+            <CardDescription>
+              Manage your account security and authentication.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <Label className="text-base">Password</Label>
-                  <p className="text-muted-foreground text-sm">Last changed 3 months ago</p>
+                  <p className="text-muted-foreground text-sm">
+                    Last changed 3 months ago
+                  </p>
                 </div>
                 <Button variant="outline">
                   <Key className="mr-2 h-4 w-4" />
@@ -167,7 +209,10 @@ export default function ProfileContent() {
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge variant="outline" className="border-green-200 bg-green-50 text-green-700">
+                  <Badge
+                    variant="outline"
+                    className="border-green-200 bg-green-50 text-green-700"
+                  >
                     Enabled
                   </Badge>
                   <Button variant="outline" size="sm">
@@ -208,14 +253,18 @@ export default function ProfileContent() {
         <Card>
           <CardHeader>
             <CardTitle>Notification Preferences</CardTitle>
-            <CardDescription>Choose what notifications you want to receive.</CardDescription>
+            <CardDescription>
+              Choose what notifications you want to receive.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <Label className="text-base">Email Notifications</Label>
-                  <p className="text-muted-foreground text-sm">Receive notifications via email</p>
+                  <p className="text-muted-foreground text-sm">
+                    Receive notifications via email
+                  </p>
                 </div>
                 <Switch defaultChecked />
               </div>
