@@ -3,28 +3,28 @@ interface ProductFilterBarProps {
   category_id: string;
   products: any;
   setSort: any;
-  sort: any
+  sort: any;
 }
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProductsGrid from "../products-grid";
 import DataNotFound from "@/components/common/data-not-found";
 import { getProductsValues } from "@/services/product.service";
+import PaginationComponent from "@/components/common/pagination";
+import { useProductContext } from "@/hooks/api/useProductContext ";
 
 const ProductFilterBar = ({
   fetchProducts,
   category_id,
   products,
   setSort,
-  sort
+  sort,
 }: ProductFilterBarProps) => {
-  
-
+  const { pagination, setPagination, totalPages, brandIds } = useProductContext();
   const handle = (query: getProductsValues) => {
     fetchProducts(query);
     setSort(query.sort);
   };
-  console.log('sort: ', sort)
   return (
     <div>
       Sắp xếp theo
@@ -32,35 +32,75 @@ const ProductFilterBar = ({
         <TabsList>
           <TabsTrigger
             value="popular"
-            onClick={() => handle({ category_id, sort: "popular" })}
+            onClick={() =>
+              handle({
+                category_id,
+                sort: "popular",
+                page: pagination.page,
+                size: pagination.size,
+                brand_id: brandIds
+              })
+            }
           >
             Phổ biến
           </TabsTrigger>
 
           <TabsTrigger
             value="newest"
-            onClick={() => handle({ category_id, sort: "newest" })}
+            onClick={() =>
+              handle({
+                category_id,
+                sort: "newest",
+                page: pagination.page,
+                size: pagination.size,
+                brand_id: brandIds
+              })
+            }
           >
             Mới nhất
           </TabsTrigger>
 
           <TabsTrigger
             value="oldest"
-            onClick={() => handle({ category_id, sort: "oldest" })}
+            onClick={() =>
+              handle({
+                category_id,
+                sort: "oldest",
+                page: pagination.page,
+                size: pagination.size,
+                brand_id: brandIds
+              })
+            }
           >
             Cũ nhất
           </TabsTrigger>
 
           <TabsTrigger
             value="lowest"
-            onClick={() => handle({ category_id, sort: "lowest" })}
+            onClick={() =>
+              handle({
+                category_id,
+                sort: "lowest",
+                page: pagination.page,
+                size: pagination.size,
+                brand_id: brandIds
+              })
+            }
           >
             Giá thấp đến cao
           </TabsTrigger>
 
           <TabsTrigger
             value="highest"
-            onClick={() => handle({ category_id, sort: "highest" })}
+            onClick={() =>
+              handle({
+                category_id,
+                sort: "highest",
+                page: pagination.page,
+                size: pagination.size,
+                brand_id: brandIds
+              })
+            }
           >
             Giá cao đến thấp
           </TabsTrigger>
@@ -75,6 +115,9 @@ const ProductFilterBar = ({
               <DataNotFound />
             </div>
           )}
+          <div className="mt-10">
+            <PaginationComponent numberOfItems={`${products.length} sản phẩm`} totalPages={totalPages} pagination={pagination} setPagination={setPagination}/>
+          </div>
         </TabsContent>
       </Tabs>
     </div>

@@ -1,5 +1,3 @@
-import { Shield, Key, Trash2 } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,8 +8,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
-import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { User } from "@/types/user.type";
@@ -22,15 +18,15 @@ import { Transaction } from "@/types/transaction";
 
 interface ProfileContentProps {
   info: User;
+  isLoading: boolean;
   handleUploadProfile: (values: updateProfileValue) => Promise<any>;
   transactions: Transaction[];
-  fetchMyTransactions: () => Promise<any>;
 }
 
 export default function ProfileContent({
   info,
+  isLoading,
   handleUploadProfile,
-  fetchMyTransactions,
   transactions,
 }: ProfileContentProps) {
   const [data, setData] = useState<updateProfileValue>({
@@ -40,10 +36,10 @@ export default function ProfileContent({
 
   return (
     <Tabs defaultValue="personal" className="space-y-6">
-      <TabsList className="grid w-full grid-cols-4">
+      <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="personal">Thông tin cá nhân</TabsTrigger>
-        <TabsTrigger value="account">Tài khoản=</TabsTrigger>
-        <TabsTrigger value="security">Bảo mật</TabsTrigger>
+        <TabsTrigger value="account">Tài khoản</TabsTrigger>
+        {/* <TabsTrigger value="security">Bảo mật</TabsTrigger> */}
         <TabsTrigger value="notifications">Lịch sử giao dịch</TabsTrigger>
       </TabsList>
 
@@ -72,11 +68,16 @@ export default function ProfileContent({
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" defaultValue={info.email} />
+                <Label htmlFor="email">Địa chỉ email</Label>
+                <Input
+                  disabled
+                  id="email"
+                  type="email"
+                  defaultValue={info.email}
+                />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone</Label>
+                <Label htmlFor="phone">Số điện thoại</Label>
                 <Input
                   id="text"
                   onChange={(e) =>
@@ -94,7 +95,10 @@ export default function ProfileContent({
               <Input id="location" defaultValue="San Francisco, CA" />
             </div> */}
             <div className="flex justify-end">
-              <Button onClick={() => handleUploadProfile(data)}>
+              <Button
+                disabled={isLoading}
+                onClick={() => handleUploadProfile(data)}
+              >
                 Cập nhật
               </Button>
             </div>
@@ -106,85 +110,34 @@ export default function ProfileContent({
       <TabsContent value="account" className="space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle>Account Settings</CardTitle>
+            <CardTitle>Cài đặt tài khoản</CardTitle>
             <CardDescription>
-              Manage your account preferences and subscription.
+              Quản lý tùy chọn tài khoản và đăng ký của bạn.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <Label className="text-base">Account Status</Label>
+                <Label className="text-base">Trạng thái tài khoản</Label>
                 <p className="text-muted-foreground text-sm">
-                  Your account is currently active
+                  Tài khoản của bạn hiện đang hoạt động
                 </p>
               </div>
               <Badge
                 variant="outline"
                 className="border-green-200 bg-green-50 text-green-700"
               >
-                Active
+                {info.isActive === true
+                  ? "Đang hoạt động"
+                  : "Đã bị ngưng hoạt động"}
               </Badge>
-            </div>
-            <Separator />
-            <div className="flex items-center justify-between">
-              <div className="space-y-1">
-                <Label className="text-base">Subscription Plan</Label>
-                <p className="text-muted-foreground text-sm">
-                  Pro Plan - $29/month
-                </p>
-              </div>
-              <Button variant="outline">Manage Subscription</Button>
-            </div>
-            <Separator />
-            <div className="flex items-center justify-between">
-              <div className="space-y-1">
-                <Label className="text-base">Account Visibility</Label>
-                <p className="text-muted-foreground text-sm">
-                  Make your profile visible to other users
-                </p>
-              </div>
-              <Switch defaultChecked />
-            </div>
-            <Separator />
-            <div className="flex items-center justify-between">
-              <div className="space-y-1">
-                <Label className="text-base">Data Export</Label>
-                <p className="text-muted-foreground text-sm">
-                  Download a copy of your data
-                </p>
-              </div>
-              <Button variant="outline">Export Data</Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-destructive/50">
-          <CardHeader>
-            <CardTitle className="text-destructive">Danger Zone</CardTitle>
-            <CardDescription>
-              Irreversible and destructive actions
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between">
-              <div className="space-y-1">
-                <Label className="text-base">Delete Account</Label>
-                <p className="text-muted-foreground text-sm">
-                  Permanently delete your account and all data
-                </p>
-              </div>
-              <Button variant="destructive">
-                <Trash2 className="mr-2 h-4 w-4" />
-                Delete Account
-              </Button>
             </div>
           </CardContent>
         </Card>
       </TabsContent>
 
       {/* Security Settings */}
-      <TabsContent value="security" className="space-y-6">
+      {/* <TabsContent value="security" className="space-y-6">
         <Card>
           <CardHeader>
             <CardTitle>Security Settings</CardTitle>
@@ -252,11 +205,11 @@ export default function ProfileContent({
             </div>
           </CardContent>
         </Card>
-      </TabsContent>
+      </TabsContent> */}
 
       {/* Notification Settings */}
       <TabsContent value="notifications" className="space-y-6">
-        <TransactionTable fetchMyTransactions={fetchMyTransactions} transactions={transactions} />
+        <TransactionTable transactions={transactions} />
       </TabsContent>
     </Tabs>
   );

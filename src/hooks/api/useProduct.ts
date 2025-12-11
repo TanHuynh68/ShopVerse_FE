@@ -3,16 +3,27 @@ import { getProductsValues } from "@/services/product.service";
 import { Product } from "@/types/product.type";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+export interface paginationProducts {
+  size: number;
+  page: number;
+}
+// export interface totalPages{
+//   totalPages: number
+// }
 const useProduct = () => {
-  const { getProducts, getProduct, getBestSellingProducts, loading } = ProductService();
+  const { getProducts, getProduct, getBestSellingProducts, loading } =
+    ProductService();
   const [products, setProducts] = useState<Product[]>([]);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [pagination, setPagination] = useState<paginationProducts>({
+    size: 8,
+    page: 1,
+  });
   const [sort, setSort] = useState<
     "newest" | "popular" | "oldest" | "highest" | "lowest"
   >("popular");
   const [productBestSellings, setProductBestSellings] = useState<Product[]>([]);
   const [brandIds, setBrandIds] = useState<string[]>([]);
-  const [filterProducts, setFilterProducts] = useState<Product[]>([]);
   //product detail
   const [product, setProduct] = useState<Product | null>(null);
   const { product_id } = useParams();
@@ -22,20 +33,12 @@ const useProduct = () => {
     fetchProduct();
   }, [product_id]);
 
-  // filter product by brandId
-  useEffect(() => {
-    setFilterProducts(
-      brandIds.length > 0
-        ? products.filter((product) => brandIds.includes(product.brand_id._id))
-        : products
-    );
-  }, [brandIds, products]);
-
   // fetch all product
   const fetchProducts = async (query: getProductsValues) => {
     const response = await getProducts(query);
     if (response) {
       setProducts(response.data);
+      setTotalPages(response.totalPages);
     }
   };
 
@@ -51,23 +54,27 @@ const useProduct = () => {
 
   const fetchProductBestSellings = async () => {
     const response = await getBestSellingProducts();
-      if (response) {
-        setProductBestSellings(response.data);
-      }
+    if (response) {
+      setProductBestSellings(response.data);
+    }
   };
 
   return {
     productLoading: loading,
-    products: filterProducts,
+    products: products,
     product,
     brandIds,
     productBestSellings,
     sort,
+    pagination,
+    totalPages,
     setBrandIds,
     fetchProducts,
     fetchProduct,
     fetchProductBestSellings,
-    setSort
+    setSort,
+    setPagination,
+    setTotalPages,
   };
 };
 

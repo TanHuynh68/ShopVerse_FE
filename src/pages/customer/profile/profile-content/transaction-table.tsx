@@ -24,11 +24,9 @@ import { formatVND } from "@/utils/format";
 
 interface TransactionTableProps {
   transactions: Transaction[];
-  fetchMyTransactions: () => Promise<any>;
 }
 
 export function TransactionTable({
-  fetchMyTransactions,
   transactions,
 }: TransactionTableProps) {
   const [title] = useQueryState("title", parseAsString.withDefault(""));
@@ -36,12 +34,10 @@ export function TransactionTable({
     "status",
     parseAsArrayOf(parseAsString).withDefault([])
   );
-  React.useEffect(() => {
-    fetchMyTransactions();
-  }, []);
+
   // Ideally we would filter the data server-side, but for the sake of this example, we'll filter the data client-side
   const filteredData = React.useMemo(() => {
-    return transactions.filter((transaction) => {
+    return transactions?.filter((transaction) => {
       const matchesTitle =
         title === "" ||
         transaction.orderId.items.some((item) =>

@@ -12,17 +12,30 @@ const ProductsPage = () => {
   const { getBrandByCategoryId, loading } = BrandService();
   const { id } = useParams();
   const [brands, setBrands] = useState<Brand[]>([]);
-  const { products, sort, setSort, fetchProducts, productLoading } =
-    useProductContext();
+  const {
+    products,
+    sort,
+    setSort,
+    fetchProducts,
+    productLoading,
+    pagination,
+    brandIds,
+  } = useProductContext();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchBrandByCate();
     if (id) {
-      fetchProducts({ category_id: id, sort: "popular" });
+      fetchProducts({
+        category_id: id,
+        sort: "popular",
+        page: pagination.page,
+        size: pagination.size,
+        brand_id: brandIds,
+      });
     }
-  }, [id]);
+  }, [id, pagination, brandIds]);
 
   //fetch brand to filter for product
   const fetchBrandByCate = async () => {

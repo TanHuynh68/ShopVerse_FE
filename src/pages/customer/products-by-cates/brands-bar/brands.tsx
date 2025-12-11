@@ -7,11 +7,12 @@ interface BrandsProps {
   brands: Brand[];
 }
 const Brands = ({ brands }: BrandsProps) => {
-  const { brandIds, setBrandIds } = useProductContext();
+  const { brandIds,pagination, setBrandIds, setPagination, } = useProductContext();
 
   const handleAddId = (checked: boolean | string, id: string) => {
     if (!brandIds.includes(id) && checked) {
       setBrandIds([...brandIds, id]);
+      setPagination({...pagination, page:1})
     } else {
       setBrandIds(brandIds.filter((brandId) => brandId != id));
     }

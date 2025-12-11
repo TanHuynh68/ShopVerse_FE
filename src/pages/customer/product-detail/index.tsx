@@ -8,7 +8,7 @@ const ProductDetailPage = () => {
   const { product, products, fetchProducts } = useProduct();
   useEffect(() => {
     if (product) {
-      fetchProducts({ category_id: product.category_id._id, sort: "popular" });
+      fetchProducts({ category_id: product.category_id._id, sort: "popular", page: 1, size: 5, brand_id: []});
     }
   }, [product]);
   return (

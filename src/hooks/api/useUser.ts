@@ -1,6 +1,7 @@
 import UserService, { updateProfileValue, uploadAvatarValues } from "@/services/user.service";
 import { User } from "@/types/user.type";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const useUser = () => {
   const { getUserProfile, uploadAvatar, updateProfile, loading } = UserService();
@@ -20,6 +21,7 @@ const useUser = () => {
     const response = await uploadAvatar(values);
     if (response.status_code === 200) {
       fetchUserProfile();
+      toast.success('Cập nhật ảnh đại diện thành công!');
       return response;
     }
     return null;
@@ -29,6 +31,7 @@ const useUser = () => {
     console.log(values)
     const response = await updateProfile(values);
     if (response.status_code === 200) {
+       toast.success('Cập nhật thông tin cá nhân thành công!');
       fetchUserProfile();
       return response;
     }
