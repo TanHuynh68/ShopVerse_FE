@@ -11,6 +11,7 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+import { Link } from "react-router-dom";
 interface LoginFormProps {
   handleLogin: (values: LoginFormsData) => void;
 }
@@ -66,8 +67,16 @@ export function LoginForm({ handleLogin }: LoginFormProps) {
               )}
             />
           </div>
+          <div className="flex justify-end  text-sm">
+            {/* <Link to={"/"} className="hover:text-blue-500">
+              Quên mật khẩu ?
+            </Link> */}
+            <Link className="hover:text-blue-500" to={"/"}>
+              Quay về trang chủ
+            </Link>
+          </div>
           <Button type="submit" className="w-full">
-            Login
+            Đăng nhập
           </Button>
         </div>
         <div className="text-center text-sm">

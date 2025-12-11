@@ -20,9 +20,11 @@ const NavAuth = () => {
   const navigate = useNavigate();
   const { fetchUserProfile, profile } = useUser();
   const dispatch = useDispatch();
-  useEffect(() => {
-    fetchUserProfile();
-  }, []);
+
+  isLoggedIn() &&
+    useEffect(() => {
+      fetchUserProfile();
+    }, []);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -50,9 +52,13 @@ const NavAuth = () => {
         </>
       ) : (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild >
+          <DropdownMenuTrigger asChild>
             <Avatar>
-              <AvatarImage className="h-8 w-8" src={profile?.avatar || 'https://github.com/shadcn.png'} alt="hình đại diện" />
+              <AvatarImage
+                className="h-8 w-8"
+                src={profile?.avatar || "https://github.com/shadcn.png"}
+                alt="hình đại diện"
+              />
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="start">

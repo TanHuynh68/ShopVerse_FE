@@ -4,6 +4,9 @@ import { formatVND } from "@/utils/format";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useCartContext } from "@/hooks/api/useCartContext";
 import Delivery from "./delivery";
+import { toast } from "sonner";
+import { isLoggedIn } from "@/utils/auth";
+import { useNavigate } from "react-router-dom";
 
 interface RightSectionProps {
   className?: string;
@@ -18,7 +21,12 @@ interface AddProductToCartProps {
 }
 const RightSection = ({ className, product }: RightSectionProps) => {
   const { handLeAddToCart, fetchMyCart } = useCartContext();
+  const navigate = useNavigate();
 
+  const handleToastUserHaveToLogin = () => {
+    toast.error("Bạn phải đăng nhập để thểm sản phẩm vào giỏ hàng");
+    navigate('/auth/login')
+  };
   const refetchMyCart = async (values: AddProductToCartProps) => {
     const response = await handLeAddToCart(values);
     if (response) {
@@ -32,21 +40,33 @@ const RightSection = ({ className, product }: RightSectionProps) => {
       <div className="flex gap-4 items-center">
         <div className="mt-2">{formatVND(product?.price || 0)}</div>
         <div className="flex gap-2 mt-2">
-          <Button
-            onClick={() =>
-              refetchMyCart({
-                productId: (product && product._id) || "",
-                name: (product && product.name) || "",
-                price: (product && product.price) || 0,
-                quantity: 1,
-              })
-            }
-            className="cursor-pointer"
-            size={"lg"}
-            variant={"outline"}
-          >
-            Thêm vào giỏ hàng
-          </Button>
+          {isLoggedIn() ? (
+            <Button
+              onClick={() =>
+                refetchMyCart({
+                  productId: (product && product._id) || "",
+                  name: (product && product.name) || "",
+                  price: (product && product.price) || 0,
+                  quantity: 1,
+                })
+              }
+              className="cursor-pointer"
+              size={"lg"}
+              variant={"outline"}
+            >
+              Thêm vào giỏ hàng
+            </Button>
+          ) : (
+            <Button
+              onClick={handleToastUserHaveToLogin}
+              className="cursor-pointer"
+              size={"lg"}
+              variant={"outline"}
+            >
+              Thêm vào giỏ hàng
+            </Button>
+          )}
+
           {/* <Button className="cursor-pointer" size={"lg"} variant={"destructive"}>
           Mua ngay
         </Button> */}

@@ -20,6 +20,9 @@ const useDashboard = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [cates, setCates] = useState<DashboardCategory[]>([]);
   const [brands, setBrands] = useState<DashboardBrand[]>([]);
+  const [products, setProducts] = useState<DashboardProduct[]>([]);
+  const [profile, setAdminProfile] = useState<User | null>(null);
+
   const {
     craeteProducts,
     getDashboard,
@@ -32,8 +35,6 @@ const useDashboard = () => {
     getAdminProfile,
     loading,
   } = DashboardService();
-  const [products, setProducts] = useState<DashboardProduct[]>([]);
-  const [profile, setAdminProfile] = useState<User | null>(null);
 
   const fetchAdminProfile = async () => {
     const response = await getAdminProfile();

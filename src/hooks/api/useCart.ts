@@ -1,5 +1,6 @@
 import CartService from "@/services/cart.service";
 import { Cart } from "@/types/cart.type";
+import { isLoggedIn } from "@/utils/auth";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -7,8 +8,8 @@ const useCart = () => {
   const { getMyCart, addItemIntoCart, getTotalPrice, updateQuantity, loading } = CartService();
   const [cart, setCart] = useState<Cart[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  
-  useEffect(() => {
+
+  isLoggedIn() && useEffect(() => {
     fetchMyCart();
   }, []);
 
@@ -42,8 +43,8 @@ const useCart = () => {
       return response;
     }
     return null;
-  }; 
-  
+  };
+
   return { cart, isLoading: loading, totalPrice, handLeAddToCart, fetchMyCart, fetchTotalPrice, handleUpdateQuantity };
 };
 

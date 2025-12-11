@@ -7,9 +7,7 @@ export interface paginationProducts {
   size: number;
   page: number;
 }
-// export interface totalPages{
-//   totalPages: number
-// }
+
 const useProduct = () => {
   const { getProducts, getProduct, getBestSellingProducts, loading } =
     ProductService();
