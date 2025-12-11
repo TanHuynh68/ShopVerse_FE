@@ -1,7 +1,6 @@
 import {
   CartPage,
   CustomerOrdersPage,
-  MyTransactions,
   PaymentFailedPage,
   PaymentProcessPage,
   PaymentSuccessPage,
@@ -11,8 +10,8 @@ import {
 } from "@/pages";
 
 import { CustomerLayout } from "@/components/layouts";
-import { ProductProvider } from "@/hooks/useProductContext ";
-import { CartProvider } from "@/hooks/useCartContext";
+import { ProductProvider } from "@/hooks/api/useProductContext ";
+import { CartProvider } from "@/hooks/api/useCartContext";
 import { CUSTOMER_PATH } from "./customerPath";
 
 export const customerRoutes = [
@@ -59,10 +58,6 @@ export const customerRoutes = [
       {
         path: CUSTOMER_PATH.CUSTOMER_ORDERS_PAGE,
         element: <CustomerOrdersPage />,
-      },
-      {
-        path: CUSTOMER_PATH.CUSTOMER_TRANSACTIONS_PAGE,
-        element: <MyTransactions />,
       },
     ],
   },

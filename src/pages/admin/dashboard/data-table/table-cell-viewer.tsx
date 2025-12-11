@@ -4,7 +4,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/components/use-mobile";
 import z from "zod";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import { Separator } from "@/components/ui/separator";

@@ -1,6 +1,6 @@
 'use client';
 
-import { formatBytes, useFileUpload, type FileWithPreview } from '@/hooks/use-file-upload';
+import { formatBytes, useFileUpload, type FileWithPreview } from '@/hooks/components/use-file-upload';
 import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { TriangleAlert, User, X } from 'lucide-react';

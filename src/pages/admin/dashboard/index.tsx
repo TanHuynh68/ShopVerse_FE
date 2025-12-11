@@ -7,7 +7,7 @@ import { userColumn } from "./columns/user/user-column";
 import { brandColumn } from "./columns/brand-column";
 import { focusDocuments } from "./columns/focus-documents";
 import { productColumns } from "./columns/product/product-column";
-import { useDashboardContext } from "@/hooks/useDashboardContext";
+import { useDashboardContext } from "@/hooks/api/useDashboardContext";
 
 export default function Page() {
   const {

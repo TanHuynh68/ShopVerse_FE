@@ -3,7 +3,7 @@
 import {
   formatBytes,
   useFileUpload,
-} from "@/hooks/use-file-upload";
+} from "@/hooks/components/use-file-upload";
 import {
   Alert,
   AlertContent,

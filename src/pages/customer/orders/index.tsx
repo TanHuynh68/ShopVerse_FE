@@ -1,6 +1,6 @@
-import useOrder from "@/hooks/useOrder";
+import useOrder from "@/hooks/api/useOrder";
 import OrderCard from "./order-card";
-import usePayment from "@/hooks/usePayment";
+import usePayment from "@/hooks/api/usePayment";
 
 const CustomerOrders = () => {
   const { orders } = useOrder();

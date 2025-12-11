@@ -23,7 +23,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ProductFormData, productFormSchema } from "./validation";
 import { ImageUpload } from "./upload-images";
-import { useDashboardContext } from "@/hooks/useDashboardContext";
+import { useDashboardContext } from "@/hooks/api/useDashboardContext";
 
 interface CreateNewProductProps {
   onclose: any;

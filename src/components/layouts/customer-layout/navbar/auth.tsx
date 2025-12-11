@@ -53,12 +53,6 @@ const NavAuth = () => {
               Tài khoản của tôi
               </Link>
             </DropdownMenuLabel>
-            <DropdownMenuLabel
-              className="cursor-pointer"
-              onClick={() => navigate("/transactions")}
-            >
-              Lịch sử giao dịch
-            </DropdownMenuLabel>
             <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
               Đăng xuất
             </DropdownMenuItem>

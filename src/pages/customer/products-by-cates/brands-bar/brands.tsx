@@ -1,7 +1,7 @@
 import { Brand } from "../../../../types/brand.type";
 import { Checkbox } from "@/components/ui/checkbox";
 import SubTitle from "@/components/common/sub-title";
-import { useProductContext } from "@/hooks/useProductContext ";
+import { useProductContext } from "@/hooks/api/useProductContext ";
 
 interface BrandsProps {
   brands: Brand[];

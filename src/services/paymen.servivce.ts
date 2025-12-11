@@ -1,6 +1,6 @@
 import { HTTP_METHOD } from "@/constants/enum";
-import useApiService from "@/hooks/useApi";
-import { createPaymentValues } from "@/hooks/usePayment";
+import useApiService from "@/hooks/api/useApi";
+import { createPaymentValues } from "@/hooks/api/usePayment";
 import { useCallback } from "react";
 
 const PaymentService = () => {

@@ -9,19 +9,9 @@ import {
   DashboardProduct,
   DashboardStats,
 } from "@/types/dashboard";
+import { User } from "@/types/user.type";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-
-export interface User {
-  _id: string;
-  name: string;
-  email: string;
-  isActive: boolean;
-  role: string;
-  createdAt: string; // hoặc Date nếu bạn parse JSON thành Date
-  updatedAt: string; // hoặc Date
-  isDeleted: boolean;
-}
 
 const useDashboard = () => {
   const [dashboardData, setDashboardData] = useState<DashboardStats | null>(
@@ -39,16 +29,26 @@ const useDashboard = () => {
     getOrders,
     getTransactions,
     getCategories,
+    getAdminProfile,
     loading,
   } = DashboardService();
   const [products, setProducts] = useState<DashboardProduct[]>([]);
+  const [profile, setAdminProfile] = useState<User | null>(null);
 
+  const fetchAdminProfile = async () => {
+    const response = await getAdminProfile();
+    if (response.status_code === 200) {
+      setAdminProfile(response.data);
+      return response;
+    }
+    return [];
+  };
   useEffect(() => {
     fetchUsers();
   }, []);
 
   const adminCreateProduct = async (values: ProductFormData) => {
-    console.log('useDashboard: ',values )
+    console.log('useDashboard: ', values)
     const response = await craeteProducts(values);
     if (response.status_code === 200) {
       toast.success("Tạo sản phẩm thành công");
@@ -57,7 +57,7 @@ const useDashboard = () => {
     }
     return null;
   };
- 
+
   const fetchBrands = async (values: getDashboardValues) => {
     const response = await getBrands(values);
     if (response.status_code === 200) {
@@ -128,6 +128,7 @@ const useDashboard = () => {
     brands,
     cates,
     products,
+    adminProfile: profile,
     fetchDashboard,
     fetchUsers,
     fetchBrands,
@@ -135,7 +136,8 @@ const useDashboard = () => {
     fetchProducts,
     fetchTransactions,
     fetchCategories,
-    adminCreateProduct
+    adminCreateProduct,
+    fetchAdminProfile
   };
 };
 

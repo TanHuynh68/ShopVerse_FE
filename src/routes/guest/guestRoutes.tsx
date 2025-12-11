@@ -1,4 +1,4 @@
-import { CartProvider } from "@/hooks/useCartContext";
+import { CartProvider } from "@/hooks/api/useCartContext";
 import { CustomerLayout } from "../../components/layouts";
 import { HomePage } from "../../pages";
 import { USER_PATH } from "./guestPath";

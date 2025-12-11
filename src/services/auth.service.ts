@@ -1,5 +1,5 @@
 import { HTTP_METHOD, ROLE } from "@/constants/enum";
-import useApiService from "@/hooks/useApi";
+import useApiService from "@/hooks/api/useApi";
 import { LoginFormsData } from "@/pages/auth/login/login.schema";
 import { useCallback } from "react";
 import { toast } from "sonner";

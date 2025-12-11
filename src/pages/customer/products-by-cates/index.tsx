@@ -3,7 +3,7 @@ import CategoriesBar from "./brands-bar";
 import { useEffect, useState } from "react";
 import { Brand } from "../../../types/brand.type";
 import { BrandService } from "@/services";
-import { useProductContext } from "@/hooks/useProductContext ";
+import { useProductContext } from "@/hooks/api/useProductContext ";
 import { Spinner } from "@/components/common/spinner";
 import { USER_PATH } from "@/routes/guest/guestPath";
 import ProductFilterBar from "./filter-bar";

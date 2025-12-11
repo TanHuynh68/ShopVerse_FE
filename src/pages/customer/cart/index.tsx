@@ -1,8 +1,8 @@
 import ProductItem from "@/components/common/product-item";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { useCartContext } from "@/hooks/useCartContext";
-import useOrder from "@/hooks/useOrder";
+import { useCartContext } from "@/hooks/api/useCartContext";
+import useOrder from "@/hooks/api/useOrder";
 import { formatVND } from "@/utils/format";
 import { useEffect } from "react";
 

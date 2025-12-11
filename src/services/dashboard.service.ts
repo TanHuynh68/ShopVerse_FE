@@ -1,5 +1,5 @@
 import { HTTP_METHOD } from "@/constants/enum";
-import useApiService from "@/hooks/useApi";
+import useApiService from "@/hooks/api/useApi";
 import { ProductFormData } from "@/pages/admin/dashboard/columns/product/validation";
 import { useCallback } from "react";
 
@@ -10,6 +10,15 @@ export interface getDashboardValues {
 
 const DashboardService = () => {
   const { callApi, loading, setIsLoading } = useApiService();
+
+   const getAdminProfile = useCallback(async () => {
+    try {
+      const response = await callApi(HTTP_METHOD.GET, `users/admin-profile`);
+      return response;
+    } catch (e: any) {
+      console.log(e?.response?.data);
+    }
+  }, [callApi]);
 
   const getDashboard = useCallback(
     async (values: getDashboardValues) => {
@@ -149,6 +158,7 @@ const DashboardService = () => {
     getTransactions,
     getProducts,
     getCategories,
+    getAdminProfile
   };
 };
 

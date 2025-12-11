@@ -4,8 +4,8 @@ import { AppSidebar } from "@/components/layouts/admin-layout/app-sidebar"
 import { SiteHeader } from "@/components/layouts/admin-layout/site-header"
 import { Outlet } from "react-router-dom"
 import './theme.css'
-
 export default function DashboardLayout() {
+
   return (
     <SidebarProvider
       defaultOpen={true}

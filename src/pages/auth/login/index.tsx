@@ -1,4 +1,4 @@
-import useAuth from "@/hooks/useAuth";
+import useAuth from "@/hooks/api/useAuth";
 import { LoginForm } from "./login-form";
 
 export default function LoginPage() {

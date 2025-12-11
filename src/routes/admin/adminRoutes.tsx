@@ -1,7 +1,7 @@
 import { AdminDasboard, AdminMessagePage } from "@/pages";
 import DashboardLayout from "@/components/layouts/admin-layout";
 import { ADMIN_PATH } from "./adminPath";
-import { DashboardProvider } from "@/hooks/useDashboardContext";
+import { DashboardProvider } from "@/hooks/api/useDashboardContext";
 
 export const adminRoutes = [
   {

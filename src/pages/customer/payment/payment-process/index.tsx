@@ -1,6 +1,6 @@
 import { Spinner } from "@/components/common/spinner";
 import ENV from "@/config/env";
-import useTransaction from "@/hooks/useTransaction";
+import useTransaction from "@/hooks/api/useTransaction";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 

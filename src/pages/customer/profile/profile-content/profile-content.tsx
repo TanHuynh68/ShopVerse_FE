@@ -17,29 +17,34 @@ import { Badge } from "@/components/ui/badge";
 import { User } from "@/types/user.type";
 import { useState } from "react";
 import { updateProfileValue } from "@/services/user.service";
-import { DataTableDemo2 } from "@/components/common/data-table";
+import { TransactionTable } from "./transaction-table";
+import { Transaction } from "@/types/transaction";
 
 interface ProfileContentProps {
   info: User;
   handleUploadProfile: (values: updateProfileValue) => Promise<any>;
+  transactions: Transaction[];
+  fetchMyTransactions: () => Promise<any>;
 }
 
 export default function ProfileContent({
   info,
   handleUploadProfile,
+  fetchMyTransactions,
+  transactions,
 }: ProfileContentProps) {
   const [data, setData] = useState<updateProfileValue>({
     name: info.name,
     phone: info.phone || "",
   });
-  console.log("data: ", data);
+
   return (
     <Tabs defaultValue="personal" className="space-y-6">
       <TabsList className="grid w-full grid-cols-4">
         <TabsTrigger value="personal">Thông tin cá nhân</TabsTrigger>
-        <TabsTrigger value="account">Account</TabsTrigger>
-        <TabsTrigger value="security">Security</TabsTrigger>
-        <TabsTrigger value="notifications">Notifications</TabsTrigger>
+        <TabsTrigger value="account">Tài khoản=</TabsTrigger>
+        <TabsTrigger value="security">Bảo mật</TabsTrigger>
+        <TabsTrigger value="notifications">Lịch sử giao dịch</TabsTrigger>
       </TabsList>
 
       {/* Personal Information */}
@@ -251,7 +256,7 @@ export default function ProfileContent({
 
       {/* Notification Settings */}
       <TabsContent value="notifications" className="space-y-6">
-       <DataTableDemo2/>
+        <TransactionTable fetchMyTransactions={fetchMyTransactions} transactions={transactions} />
       </TabsContent>
     </Tabs>
   );

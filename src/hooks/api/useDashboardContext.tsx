@@ -5,6 +5,7 @@ import { userColumn } from "@/pages/admin/dashboard/columns/user/user-column";
 import { getDashboardValues } from "@/services/dashboard.service";
 import { DashboardBrand, DashboardCategory, DashboardProduct } from "@/types/dashboard";
 import { ProductFormData } from "@/pages/admin/dashboard/columns/product/validation";
+import { User } from "@/types/user.type";
 
 interface useDashboardContextValues {
   dataTable: dataTableValues;
@@ -17,10 +18,12 @@ interface useDashboardContextValues {
   fetchUsers: any;
   products: DashboardProduct[];
   isLoading: boolean;
+  adminProfile: User | null;
   fetchBrands:  (values: getDashboardValues) => Promise<any>;
   fetchProducts: (values: getDashboardValues) => Promise<any>;
   fetchCategories: (values: getDashboardValues) => Promise<any>;
   adminCreateProduct: (values: ProductFormData) => Promise<any>;
+  fetchAdminProfile: () => Promise<any>;
 }
 
 const Context = createContext<useDashboardContextValues | undefined>(undefined);

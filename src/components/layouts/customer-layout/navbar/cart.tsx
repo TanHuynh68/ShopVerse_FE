@@ -6,7 +6,7 @@ import {
 import { ShoppingCart } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { useCartContext } from "@/hooks/useCartContext";
+import { useCartContext } from "@/hooks/api/useCartContext";
 import { formatVND } from "@/utils/format";
 import { Link } from "react-router-dom";
 import { CUSTOMER_PATH } from "@/routes/customer/customerPath";

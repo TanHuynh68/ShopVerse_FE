@@ -1,6 +1,6 @@
 // product-context.tsx
 import { createContext, useContext } from "react";
-import useProduct from "@/hooks/useProduct";
+import useProduct from "@/hooks/api/useProduct";
 
 const ProductContext = createContext<ReturnType<typeof useProduct> | null>(null);
 
