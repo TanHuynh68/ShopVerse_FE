@@ -9,15 +9,21 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { logout } from "@/redux/userSlice";
+import { Avatar } from "@/components/ui/avatar";
+import { AvatarImage } from "@radix-ui/react-avatar";
+import useUser from "@/hooks/api/useUser";
+import { useEffect } from "react";
 
 const NavAuth = () => {
   const navigate = useNavigate();
-  console.log("isLoggedIn: ", isLoggedIn());
-
+  const { fetchUserProfile, profile } = useUser();
   const dispatch = useDispatch();
+  useEffect(() => {
+    fetchUserProfile();
+  }, []);
+
   const handleLogout = () => {
     dispatch(logout());
     // toast.success(MESSAGE.LOGOUT_SUCCESSFULLY);
@@ -44,14 +50,14 @@ const NavAuth = () => {
         </>
       ) : (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <User className="h-6 w-6 cursor-pointer" />
+          <DropdownMenuTrigger asChild >
+            <Avatar>
+              <AvatarImage className="h-8 w-8" src={profile?.avatar || 'https://github.com/shadcn.png'} alt="hình đại diện" />
+            </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="start">
             <DropdownMenuLabel className="cursor-pointer">
-              <Link to={'profile'}>
-              Tài khoản của tôi
-              </Link>
+              <Link to={"profile"}>Tài khoản của tôi</Link>
             </DropdownMenuLabel>
             <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
               Đăng xuất

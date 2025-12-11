@@ -5,7 +5,7 @@ const OrderIcon = () => {
   return (
     <Link to={"/orders"} >
      <div className="cursor-pointer">
-         <ListOrderedIcon />
+         <ListOrderedIcon className="h-8 w-8"/>
      </div>
     </Link>
   );

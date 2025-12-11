@@ -33,6 +33,11 @@ export default function ProfileContent({
     name: info.name,
     phone: info.phone || "",
   });
+    const initValue = {
+    name: info.name,
+    phone: info.phone || "",
+  }
+  const checkValueChange = JSON.stringify(data) != JSON.stringify(initValue);
 
   return (
     <Tabs defaultValue="personal" className="space-y-6">
@@ -96,7 +101,7 @@ export default function ProfileContent({
             </div> */}
             <div className="flex justify-end">
               <Button
-                disabled={isLoading}
+                disabled={checkValueChange === true ? isLoading : true}
                 onClick={() => handleUploadProfile(data)}
               >
                 Cập nhật

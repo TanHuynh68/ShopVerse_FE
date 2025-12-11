@@ -18,7 +18,7 @@ const NavCart = () => {
         <HoverCardTrigger>
           {" "}
           <div className="relative inline-flex">
-            <ShoppingCart className="h-6 w-6" /> {/* Your base icon */}
+            <ShoppingCart className="h-8 w-8" /> {/* Your base icon */}
             {cart.length > 0 && cart[0].items.length > 0 && (
               <Badge
                 variant="destructive" // Or another suitable variant
