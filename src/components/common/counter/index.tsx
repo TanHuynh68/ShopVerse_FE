@@ -10,19 +10,25 @@ interface CountButtonProps {
   quantityNow?: number;
   setQuantityNow?: any;
 }
-const CountButton = ({ quantityNow ,setQuantityNow,  handle, item, cartId, isDisableCountQuantity}: CountButtonProps) => {
- 
+const CountButton = ({
+  quantityNow,
+  setQuantityNow,
+  handle,
+  item,
+  cartId,
+  isDisableCountQuantity,
+}: CountButtonProps) => {
   const handleMinus = (quan: number) => {
     if (quan) {
-      setQuantityNow(quan-1)
-      handle(cartId ,quan - 1, item && item.productId._id);
+      setQuantityNow(quan - 1);
+      handle(cartId, quan - 1, item && item.productId._id);
     }
   };
 
   const handlePlus = (quan: number) => {
-    if (quan ) {
-      setQuantityNow(quan+1)
-      handle(cartId ,quan + 1, item &&  item.productId._id);
+    if (quan) {
+      setQuantityNow(quan + 1);
+      handle(cartId, quan + 1, item && item.productId._id);
     }
   };
 

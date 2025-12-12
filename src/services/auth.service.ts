@@ -2,35 +2,39 @@ import { HTTP_METHOD, ROLE } from "@/constants/enum";
 import useApiService from "@/hooks/api/useApi";
 import { LoginFormsData } from "@/pages/auth/login/login.schema";
 import { useCallback } from "react";
-import { toast } from "sonner";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "@/redux/userSlice";
-import { DecodedUserRaw} from "@/types/auth.type";
+import { DecodedUserRaw } from "@/types/auth.type";
 import { ADMIN_PATH } from "@/routes/admin/adminPath";
+import { RegisterFormsData } from "@/pages/auth/register/validation";
+export interface VerifyFormData {
+    email: string;
+    verifyCode: string;
+}
+
 const AuthService = () => {
     const { callApi, loading, setIsLoading } = useApiService();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    
+
     const login = useCallback(
         async (values: LoginFormsData) => {
             try {
                 const response = await callApi(HTTP_METHOD.POST, `/auth/login`, values);
-                     console.log("response: ",response)
+                console.log("response: ", response)
                 if (response?.status_code === 200) {
                     const token = response?.data?.accessToken;
                     if (token) {
                         localStorage.setItem("token", token);
                         const decoded = jwtDecode<DecodedUserRaw>(token);
                         dispatch(loginSuccess(decoded.data));
-                        toast.success("Đăng nhập thành công!");
                         switch (decoded.data.role) {
                             case ROLE.ADMIN:
                                 console.log('admin')
-                                 console.log('user: ', decoded)
-                                navigate('/admin/'+ADMIN_PATH.ADMIN_DASHBOARD);
+                                console.log('user: ', decoded)
+                                navigate('/admin/' + ADMIN_PATH.ADMIN_DASHBOARD);
                                 break;
                             default:
                                 navigate("/");
@@ -40,13 +44,48 @@ const AuthService = () => {
                 }
                 return response;
             } catch (e: any) {
-                toast.error(e?.response?.data);
+                console.error(e?.response?.data);
             }
         },
         [callApi]
     );
 
-    return { login, loading, setIsLoading, };
+    const register = useCallback(
+        async (values: RegisterFormsData) => {
+            try {
+                const response = await callApi(HTTP_METHOD.POST, `auth/register`, values);
+                return response;
+            } catch (e: any) {
+                console.error(e?.response?.data);
+            }
+        },
+        [callApi]
+    );
+
+    const verify = useCallback(
+        async (values: VerifyFormData) => {
+            try {
+                const response = await callApi(HTTP_METHOD.POST, `auth/verify`, values);
+                return response;
+            } catch (e: any) {
+                console.error(e?.response?.data);
+            }
+        },
+        [callApi]
+    );
+
+    const resendOtpVerify = useCallback(
+        async (email: string) => {
+            try {
+                const response = await callApi(HTTP_METHOD.POST, `auth/resend-verify`, {email});
+                return response;
+            } catch (e: any) {
+                console.error(e?.response?.data);
+            }
+        },
+        [callApi]
+    );
+    return { login, register, verify, loading, setIsLoading, resendOtpVerify};
 };
 
 

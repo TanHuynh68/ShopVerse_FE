@@ -44,9 +44,9 @@ export function SectionCards({dashboardData}: SectionCardsProps) {
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>New Customers</CardDescription>
+          <CardDescription>Lợi nhuận</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            1,234
+          { dashboardData && formatVND(dashboardData?.revenue / 100 * 10 || 0)}
           </CardTitle>
           <CardAction>
             <Badge variant="outline">

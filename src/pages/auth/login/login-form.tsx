@@ -14,9 +14,10 @@ import {
 import { Link } from "react-router-dom";
 interface LoginFormProps {
   handleLogin: (values: LoginFormsData) => void;
+  isLoading: boolean;
 }
 
-export function LoginForm({ handleLogin }: LoginFormProps) {
+export function LoginForm({ handleLogin, isLoading }: LoginFormProps) {
   const form = useForm<LoginFormsData>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -75,14 +76,14 @@ export function LoginForm({ handleLogin }: LoginFormProps) {
               Quay về trang chủ
             </Link>
           </div>
-          <Button type="submit" className="w-full">
+          <Button disabled={isLoading} type="submit" className="w-full">
             Đăng nhập
           </Button>
         </div>
         <div className="text-center text-sm">
-          Don&apos;t have an account?{" "}
-          <a href="#" className="underline underline-offset-4">
-            Sign up
+          Bạn chưa có tài khoản ?{" "}
+          <a href="/auth/register" className="underline underline-offset-4">
+            Đăng ký
           </a>
         </div>
       </form>

@@ -1,14 +1,14 @@
+
 import useAuth from "@/hooks/api/useAuth";
-import { LoginForm } from "./login-form";
+import {RegisterForm} from "./register-form";
 
 export default function LoginPage() {
-  const {handleLogin, isLoading} = useAuth()
-
+  const {handleRegister, isLoading} = useAuth()
   return (
     <div className="grid min-h-svh ">
        <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-            <LoginForm isLoading={isLoading} handleLogin={handleLogin} />
+            <RegisterForm handleRegister={handleRegister} isLoading={isLoading} />
           </div>
         </div>
     </div>
