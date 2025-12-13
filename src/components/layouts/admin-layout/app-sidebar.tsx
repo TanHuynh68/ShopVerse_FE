@@ -12,6 +12,7 @@ import {
   IconSearch,
   IconSettings,
   IconMessage,
+  IconMail
 } from "@tabler/icons-react";
 
 import { NavDocuments } from "@/components/layouts/admin-layout/nav-documents";
@@ -55,6 +56,11 @@ export function AppSidebar(
         title: "Tin nhắn",
         url: "messages",
         icon: IconMessage,
+      },
+       {
+        title: "Email",
+        url: "mails",
+        icon: IconMail,
       },
     ],
     navClouds: [

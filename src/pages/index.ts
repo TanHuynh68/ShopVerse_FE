@@ -9,6 +9,7 @@ export { default as PaymentProcessPage } from "./customer/payment/payment-proces
 export { default as PaymentSuccessPage } from "./customer/payment/payment-success"
 export { default as PaymentFailedPage } from "./customer/payment/payment-failed"
 export { default as CustomerOrdersPage } from "./customer/orders"
-export { default as AdminDasboard } from "./admin/dashboard"
+export { default as AdminDashboardPage } from "./admin/dashboard"
+export { default as AdminMailPage} from "./admin/mail"
 export { default as Profile } from "./customer/profile"
 export { default as AdminMessagePage } from "./admin/message"

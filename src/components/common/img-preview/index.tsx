@@ -1,5 +1,5 @@
 "use client";
-import { ImageZoom } from "@/components/ui/shadcn-io/image-zoom";
+import { ImageZoom } from "@/components/ui/image-zoom"
 
 interface ImagePreviewProps {
   img: string;

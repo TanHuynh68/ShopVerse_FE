@@ -15,6 +15,7 @@ import { useState } from "react";
 import { updateProfileValue } from "@/services/user.service";
 import { TransactionTable } from "./transaction-table";
 import { Transaction } from "@/types/transaction";
+import ResetPasswordDialog from "./reset-password";
 
 interface ProfileContentProps {
   info: User;
@@ -33,18 +34,18 @@ export default function ProfileContent({
     name: info.name,
     phone: info.phone || "",
   });
-    const initValue = {
+  const initValue = {
     name: info.name,
     phone: info.phone || "",
-  }
+  };
   const checkValueChange = JSON.stringify(data) != JSON.stringify(initValue);
 
   return (
     <Tabs defaultValue="personal" className="space-y-6">
-      <TabsList className="grid w-full grid-cols-3">
+      <TabsList className="grid w-full grid-cols-4">
         <TabsTrigger value="personal">Thông tin cá nhân</TabsTrigger>
         <TabsTrigger value="account">Tài khoản</TabsTrigger>
-        {/* <TabsTrigger value="security">Bảo mật</TabsTrigger> */}
+        <TabsTrigger value="security">Bảo mật</TabsTrigger>
         <TabsTrigger value="notifications">Lịch sử giao dịch</TabsTrigger>
       </TabsList>
 
@@ -91,7 +92,7 @@ export default function ProfileContent({
                       phone: e.target.value,
                     })
                   }
-                  defaultValue={info.phone === "" ? "Chưa có" : info.phone}
+                  defaultValue={info.phone === null ? "Chưa có" : info.phone}
                 />
               </div>
             </div>
@@ -142,75 +143,29 @@ export default function ProfileContent({
       </TabsContent>
 
       {/* Security Settings */}
-      {/* <TabsContent value="security" className="space-y-6">
+      <TabsContent value="security" className="space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle>Security Settings</CardTitle>
+            <CardTitle>Cài đặt bảo mật</CardTitle>
             <CardDescription>
-              Manage your account security and authentication.
+              Quản lý bảo mật và xác thực tài khoản của bạn.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
-                  <Label className="text-base">Password</Label>
+                  <Label className="text-base">Mật khẩu</Label>
                   <p className="text-muted-foreground text-sm">
                     Last changed 3 months ago
                   </p>
                 </div>
-                <Button variant="outline">
-                  <Key className="mr-2 h-4 w-4" />
-                  Change Password
-                </Button>
-              </div>
-              <Separator />
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <Label className="text-base">Two-Factor Authentication</Label>
-                  <p className="text-muted-foreground text-sm">
-                    Add an extra layer of security to your account
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Badge
-                    variant="outline"
-                    className="border-green-200 bg-green-50 text-green-700"
-                  >
-                    Enabled
-                  </Badge>
-                  <Button variant="outline" size="sm">
-                    Configure
-                  </Button>
-                </div>
-              </div>
-              <Separator />
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <Label className="text-base">Login Notifications</Label>
-                  <p className="text-muted-foreground text-sm">
-                    Get notified when someone logs into your account
-                  </p>
-                </div>
-                <Switch defaultChecked />
-              </div>
-              <Separator />
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <Label className="text-base">Active Sessions</Label>
-                  <p className="text-muted-foreground text-sm">
-                    Manage devices that are logged into your account
-                  </p>
-                </div>
-                <Button variant="outline">
-                  <Shield className="mr-2 h-4 w-4" />
-                  View Sessions
-                </Button>
+                <ResetPasswordDialog/>
               </div>
             </div>
           </CardContent>
         </Card>
-      </TabsContent> */}
+      </TabsContent>
 
       {/* Notification Settings */}
       <TabsContent value="notifications" className="space-y-6">
