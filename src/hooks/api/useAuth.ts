@@ -5,8 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const useAuth = () => {
-  const { login, register, verify, resendOtpVerify, loading } = AuthService();
+  const { login, register, verify, resendOtpVerify, requestLoginGoogle, loading } = AuthService();
   const navigate = useNavigate();
+
+  const handleLoginGoogle = async (token: string) => {
+    const response = await requestLoginGoogle(token);
+    if (response.status_code === 200) {
+      toast.success("Đăng nhập thành công");
+      return response;
+    }
+     return null;
+  };
 
   const handleLogin = async (values: LoginFormsData) => {
     const response = await login(values);
@@ -48,7 +57,7 @@ const useAuth = () => {
     return null;
   };
 
-  return { isLoading: loading, handleLogin, handleRegister, handleVerify, handleResendOtpVerify };
+  return { isLoading: loading, handleLogin, handleLoginGoogle, handleRegister, handleVerify, handleResendOtpVerify };
 };
 
 export default useAuth;

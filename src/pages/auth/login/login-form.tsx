@@ -12,12 +12,19 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Link } from "react-router-dom";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import ENV from "@/config/env";
 interface LoginFormProps {
   handleLogin: (values: LoginFormsData) => void;
+  handleLoginGoogle: (token: string) => void;
   isLoading: boolean;
 }
 
-export function LoginForm({ handleLogin, isLoading }: LoginFormProps) {
+export function LoginForm({
+  handleLogin,
+  handleLoginGoogle,
+  isLoading,
+}: LoginFormProps) {
   const form = useForm<LoginFormsData>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -76,6 +83,17 @@ export function LoginForm({ handleLogin, isLoading }: LoginFormProps) {
               Quay về trang chủ
             </Link>
           </div>
+          {/* login with google */}
+          <GoogleOAuthProvider clientId={ENV.VITE_GOOGLE_CLIENT_ID}>
+            <GoogleLogin
+              onSuccess={(credentialResponse) =>
+                handleLoginGoogle(credentialResponse.credential || "")
+              }
+              onError={() => {
+                console.log("Login Failed");
+              }}
+            />
+          </GoogleOAuthProvider>
           <Button disabled={isLoading} type="submit" className="w-full">
             Đăng nhập
           </Button>

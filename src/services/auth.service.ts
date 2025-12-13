@@ -23,7 +23,6 @@ const AuthService = () => {
         async (values: LoginFormsData) => {
             try {
                 const response = await callApi(HTTP_METHOD.POST, `/auth/login`, values);
-                console.log("response: ", response)
                 if (response?.status_code === 200) {
                     const token = response?.data?.accessToken;
                     if (token) {
@@ -34,6 +33,34 @@ const AuthService = () => {
                             case ROLE.ADMIN:
                                 console.log('admin')
                                 console.log('user: ', decoded)
+                                navigate('/admin/' + ADMIN_PATH.ADMIN_DASHBOARD);
+                                break;
+                            default:
+                                navigate("/");
+                                break;
+                        }
+                    }
+                }
+                return response;
+            } catch (e: any) {
+                console.error(e?.response?.data);
+            }
+        },
+        [callApi]
+    );
+
+    const requestLoginGoogle = useCallback(
+        async (token: string) => {
+            try {
+                const response = await callApi(HTTP_METHOD.POST, `auth/login-google`, { token });
+                if (response?.status_code === 200) {
+                    const token = response?.data?.accessToken;
+                    if (token) {
+                        localStorage.setItem("token", token);
+                        const decoded = jwtDecode<DecodedUserRaw>(token);
+                        dispatch(loginSuccess(decoded.data));
+                        switch (decoded.data.role) {
+                            case ROLE.ADMIN:
                                 navigate('/admin/' + ADMIN_PATH.ADMIN_DASHBOARD);
                                 break;
                             default:
@@ -77,7 +104,7 @@ const AuthService = () => {
     const resendOtpVerify = useCallback(
         async (email: string) => {
             try {
-                const response = await callApi(HTTP_METHOD.POST, `auth/resend-verify`, {email});
+                const response = await callApi(HTTP_METHOD.POST, `auth/resend-verify`, { email });
                 return response;
             } catch (e: any) {
                 console.error(e?.response?.data);
@@ -85,7 +112,7 @@ const AuthService = () => {
         },
         [callApi]
     );
-    return { login, register, verify, loading, setIsLoading, resendOtpVerify};
+    return { login, register, verify, loading, setIsLoading, resendOtpVerify, requestLoginGoogle };
 };
 
 
