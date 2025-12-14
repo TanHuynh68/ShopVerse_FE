@@ -1,3 +1,4 @@
+
 import { LoginFormsData } from "@/pages/auth/login/login.schema";
 import { RegisterFormsData } from "@/pages/auth/register/validation";
 import AuthService, { VerifyFormData } from "@/services/auth.service";
@@ -5,8 +6,17 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const useAuth = () => {
-  const { login, register, verify, resendOtpVerify, requestLoginGoogle, loading } = AuthService();
+  const { login, register, verify, resendOtpVerify, requestLoginGoogle, forgotPassword, loading } = AuthService();
   const navigate = useNavigate();
+
+  const handleForgotPassword = async (email: string) => {
+    const response = await forgotPassword(email);
+    if (response.status_code === 200) {
+      navigate(`/auth/reset-new-password?${response.data}`)
+      return response;
+    }
+     return null;
+  };
 
   const handleLoginGoogle = async (token: string) => {
     const response = await requestLoginGoogle(token);
@@ -57,7 +67,7 @@ const useAuth = () => {
     return null;
   };
 
-  return { isLoading: loading, handleLogin, handleLoginGoogle, handleRegister, handleVerify, handleResendOtpVerify };
+  return { isLoading: loading, handleLogin, handleLoginGoogle, handleRegister, handleVerify, handleResendOtpVerify, handleForgotPassword };
 };
 
 export default useAuth;

@@ -130,8 +130,8 @@ export function RegisterForm({ isLoading, handleRegister }: RegisterFormProps) {
           </Button>
           <p className="text-center text-muted-foreground text-sm">
             Bạn đã có tài khoản?{" "}
-            <a className="hover:underline" href="#">
-              Đăng nhậo
+            <a className="hover:underline" href="/auth/login">
+              Đăng nhập
             </a>
           </p>
         </form>

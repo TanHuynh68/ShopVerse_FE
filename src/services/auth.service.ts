@@ -53,7 +53,7 @@ const AuthService = () => {
         async (token: string) => {
             try {
                 const response = await callApi(HTTP_METHOD.POST, `auth/login-google`, { token });
-                if (response?.status_code === 200) {
+                if (response?.status_code === 200 || response?.status_code === 201) {
                     const token = response?.data?.accessToken;
                     if (token) {
                         localStorage.setItem("token", token);
@@ -69,6 +69,18 @@ const AuthService = () => {
                         }
                     }
                 }
+                return response;
+            } catch (e: any) {
+                console.error(e?.response?.data);
+            }
+        },
+        [callApi]
+    );
+
+    const forgotPassword = useCallback(
+        async (email: string) => {
+            try {
+                const response = await callApi(HTTP_METHOD.POST, `auth/forgot-password`, {email});
                 return response;
             } catch (e: any) {
                 console.error(e?.response?.data);
@@ -112,7 +124,7 @@ const AuthService = () => {
         },
         [callApi]
     );
-    return { login, register, verify, loading, setIsLoading, resendOtpVerify, requestLoginGoogle };
+    return { login, register, verify, loading, setIsLoading, resendOtpVerify, requestLoginGoogle, forgotPassword };
 };
 
 

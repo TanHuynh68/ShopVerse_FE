@@ -75,10 +75,10 @@ export function LoginForm({
               )}
             />
           </div>
-          <div className="flex justify-end  text-sm">
-            {/* <Link to={"/"} className="hover:text-blue-500">
+          <div className="flex justify-between  text-sm">
+            <Link to={"/auth/forgot-password"} className="hover:text-blue-500">
               Quên mật khẩu ?
-            </Link> */}
+            </Link>
             <Link className="hover:text-blue-500" to={"/"}>
               Quay về trang chủ
             </Link>
