@@ -24,10 +24,15 @@ import {
 
 import { resetPasswordFormSchema } from "./reset-new-password-schema";
 import { Input } from "@/components/ui/input";
+import useAuth from "@/hooks/api/useAuth";
+import { useSearchParams } from "react-router-dom";
 
 const formSchema = resetPasswordFormSchema;
 
 export default function ResetPasswordPreview() {
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
+  const { handleResetNewPassword } = useAuth();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,16 +42,7 @@ export default function ResetPasswordPreview() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      // Assuming an async reset password function
-      console.log(values);
-      toast.success(
-        "Password reset successful. You can now log in with your new password."
-      );
-    } catch (error) {
-      console.error("Error resetting password", error);
-      toast.error("Failed to reset the password. Please try again.");
-    }
+    handleResetNewPassword(values.password, token || "");
   }
 
   return (

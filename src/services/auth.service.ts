@@ -77,10 +77,22 @@ const AuthService = () => {
         [callApi]
     );
 
+    const resetNewPassword = useCallback(
+        async (newPassword: string, token: string) => {
+            try {
+                const response = await callApi(HTTP_METHOD.PATCH, `auth/reset-new-password?token=${token}`, { newPassword });
+                return response;
+            } catch (e: any) {
+                console.error(e?.response?.data);
+            }
+        },
+        [callApi]
+    );
+
     const forgotPassword = useCallback(
         async (email: string) => {
             try {
-                const response = await callApi(HTTP_METHOD.POST, `auth/forgot-password`, {email});
+                const response = await callApi(HTTP_METHOD.POST, `auth/forgot-password`, { email });
                 return response;
             } catch (e: any) {
                 console.error(e?.response?.data);
@@ -124,7 +136,7 @@ const AuthService = () => {
         },
         [callApi]
     );
-    return { login, register, verify, loading, setIsLoading, resendOtpVerify, requestLoginGoogle, forgotPassword };
+    return { login, register, verify, loading, setIsLoading, resendOtpVerify, requestLoginGoogle, forgotPassword, resetNewPassword };
 };
 
 

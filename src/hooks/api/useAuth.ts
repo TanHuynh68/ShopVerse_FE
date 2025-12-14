@@ -6,13 +6,23 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const useAuth = () => {
-  const { login, register, verify, resendOtpVerify, requestLoginGoogle, forgotPassword, loading } = AuthService();
+  const { login, register, verify, resendOtpVerify, requestLoginGoogle, forgotPassword, resetNewPassword, loading } = AuthService();
   const navigate = useNavigate();
+
+   const handleResetNewPassword = async (newPassword: string, token: string) => {
+    const response = await resetNewPassword(newPassword, token);
+    if (response.status_code === 200) {
+      toast.success("Đặt lại mật khẩu thành công");
+      navigate(`/auth/login`)
+      return response;
+    }
+     return null;
+  };
 
   const handleForgotPassword = async (email: string) => {
     const response = await forgotPassword(email);
     if (response.status_code === 200) {
-      navigate(`/auth/reset-new-password?${response.data}`)
+      navigate(`/auth/reset-new-password?token=${response.data}`)
       return response;
     }
      return null;
@@ -67,7 +77,7 @@ const useAuth = () => {
     return null;
   };
 
-  return { isLoading: loading, handleLogin, handleLoginGoogle, handleRegister, handleVerify, handleResendOtpVerify, handleForgotPassword };
+  return { isLoading: loading,handleResetNewPassword, handleLogin, handleLoginGoogle, handleRegister, handleVerify, handleResendOtpVerify, handleForgotPassword };
 };
 
 export default useAuth;
