@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { USER_PATH } from "@/routes/guest/guestPath";
+import { GUEST_PATH } from "@/routes/guest/guestPath";
 
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,7 @@ export default function ErrorPage() {
           </h1>
           <p className="text-muted-foreground">Không tìm thấy trang</p>
         </div>
-        <div onClick={() => navigate(USER_PATH.HOME)}>
+        <div onClick={() => navigate(GUEST_PATH.HOME)}>
           <Button>Quay lại trang chủ</Button>
         </div>
       </div>

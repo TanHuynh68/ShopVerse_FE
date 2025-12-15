@@ -13,14 +13,18 @@ import { CustomerLayout } from "@/components/layouts";
 import { ProductProvider } from "@/hooks/api/useProductContext ";
 import { CartProvider } from "@/hooks/api/useCartContext";
 import { CUSTOMER_PATH } from "./customerPath";
+import { ProtectedRouteByRole } from "../authorization/protect";
+import { ROLE } from "@/constants/enum";
 
 export const customerRoutes = [
   {
     path: "",
     element: (
-      <CartProvider>
-        <CustomerLayout />
-      </CartProvider>
+      <ProtectedRouteByRole allowedRoles={[ROLE.CUSTOMER]}>
+        <CartProvider>
+          <CustomerLayout />
+        </CartProvider>
+      </ProtectedRouteByRole>
     ),
     children: [
       {
@@ -31,7 +35,7 @@ export const customerRoutes = [
           </ProductProvider>
         ),
       },
-       {
+      {
         path: CUSTOMER_PATH.CUSTOMER_PROFILE_PAGE,
         element: <Profile />,
       },

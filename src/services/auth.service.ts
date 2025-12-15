@@ -31,8 +31,6 @@ const AuthService = () => {
                         dispatch(loginSuccess(decoded.data));
                         switch (decoded.data.role) {
                             case ROLE.ADMIN:
-                                console.log('admin')
-                                console.log('user: ', decoded)
                                 navigate('/admin/' + ADMIN_PATH.ADMIN_DASHBOARD);
                                 break;
                             default:

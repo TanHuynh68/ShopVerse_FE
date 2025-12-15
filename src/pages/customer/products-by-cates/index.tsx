@@ -1,11 +1,10 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CategoriesBar from "./brands-bar";
 import { useEffect, useState } from "react";
 import { Brand } from "../../../types/brand.type";
 import { BrandService } from "@/services";
 import { useProductContext } from "@/hooks/api/useProductContext ";
 import { Spinner } from "@/components/common/spinner";
-import { USER_PATH } from "@/routes/guest/guestPath";
 import ProductFilterBar from "./filter-bar";
 
 const ProductsPage = () => {
@@ -21,8 +20,6 @@ const ProductsPage = () => {
     pagination,
     brandIds,
   } = useProductContext();
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchBrandByCate();
@@ -43,8 +40,6 @@ const ProductsPage = () => {
       const response = await getBrandByCategoryId(id);
       if (response) {
         setBrands(response.data);
-      } else {
-        navigate(USER_PATH.HOME);
       }
     }
   };
@@ -63,8 +58,8 @@ const ProductsPage = () => {
         <div className="w-[200px]">
           <CategoriesBar brands={brands} />
         </div>
-        <div>
-          {id && (
+        {id && products.length > 0 ? (
+          <div className="mb-5">
             <ProductFilterBar
               sort={sort}
               setSort={setSort}
@@ -72,9 +67,12 @@ const ProductsPage = () => {
               category_id={id}
               fetchProducts={fetchProducts}
             />
-          )}
-          <div className="mb-5"></div>
-        </div>
+          </div>
+        ) : (
+          <div className="h-[80vh] w-full flex justify-center items-center">
+            Chưa có sản phẩm nào.
+          </div>
+        )}
       </div>
     </div>
   );

@@ -3,10 +3,9 @@ import { toast } from "sonner";
 
 const initialState = {
   role: '',
-  id: '',
+  account_id: '',
   name: '',
-  avatar: '',
-  exp: 0
+  email: '',
 };
 
 export const userSlice = createSlice({

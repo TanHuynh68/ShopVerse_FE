@@ -1,4 +1,4 @@
-export enum USER_PATH {
+export enum GUEST_PATH {
   HOME = "/",
 }
 

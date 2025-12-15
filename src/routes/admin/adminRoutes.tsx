@@ -2,13 +2,17 @@ import { AdminDashboardPage, AdminMailPage, AdminMessagePage } from "@/pages";
 import DashboardLayout from "@/components/layouts/admin-layout";
 import { ADMIN_PATH } from "./adminPath";
 import { DashboardProvider } from "@/hooks/api/useDashboardContext";
+import { ProtectedRouteByRole } from "../authorization/protect";
+import { ROLE } from "@/constants/enum";
 
 export const adminRoutes = [
   {
     path: "/admin",
     element: (
       <DashboardProvider>
-        <DashboardLayout />
+        <ProtectedRouteByRole allowedRoles={[ROLE.ADMIN]}>
+          <DashboardLayout />
+        </ProtectedRouteByRole>
       </DashboardProvider>
     ),
     children: [
@@ -20,7 +24,7 @@ export const adminRoutes = [
         path: ADMIN_PATH.ADMIN_MESSAGES,
         element: <AdminMessagePage />,
       },
-       {
+      {
         path: ADMIN_PATH.ADMIN_MAIL,
         element: <AdminMailPage />,
       },

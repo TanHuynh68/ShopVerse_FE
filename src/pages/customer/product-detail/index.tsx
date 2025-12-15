@@ -8,7 +8,13 @@ const ProductDetailPage = () => {
   const { product, products, fetchProducts } = useProduct();
   useEffect(() => {
     if (product) {
-      fetchProducts({ category_id: product.category_id._id, sort: "popular", page: 1, size: 5, brand_id: []});
+      fetchProducts({
+        category_id: product.category_id._id,
+        sort: "popular",
+        page: 1,
+        size: 5,
+        brand_id: [],
+      });
     }
   }, [product]);
   return (
@@ -24,6 +30,11 @@ const ProductDetailPage = () => {
           products={products}
           category={product?.category_id._id}
         />
+      )}
+      {!product && (
+        <div className="h-[80vh] w-full flex justify-center items-center">
+          Không tìm thấy sản phẩm nào.
+        </div>
       )}
     </div>
   );

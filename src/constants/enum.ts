@@ -9,7 +9,7 @@ export enum HTTP_METHOD {
 }
 
 export enum ROLE {
-  CUSTOMER = "CUSTOMER",
+  CUSTOMER = "USER",
   ADMIN = "ADMIN",
 }
 

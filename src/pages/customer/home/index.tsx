@@ -12,6 +12,7 @@ const HomePage = () => {
   const [cates, setCates] = useState<Cate[]>([]);
   const {productBestSellings, fetchProductBestSellings} = useProduct()
 
+
   useEffect(() => {
     fetchCates();
     fetchProductBestSellings()

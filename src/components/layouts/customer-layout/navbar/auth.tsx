@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { AUTH_PATH } from "@/routes/auth/authPath";
+import { AUTH_PATH } from "@/routes/authentication/authPath";
 import { isLoggedIn } from "@/utils/auth";
 import { Link, useNavigate } from "react-router-dom";
 import {
