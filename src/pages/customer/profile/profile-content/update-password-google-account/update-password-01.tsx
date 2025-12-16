@@ -1,9 +1,8 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import UpdatePasswordForm from './update-password-form'
 
-import ResetPasswordForm from './reset-password-form'
-
-const ResetPassword = () => {
+const UpdatePassword = () => {
   return (
     <div className='relative flex h-auto items-center justify-center overflow-x-hidden '>
       <div className='absolute'>
@@ -19,11 +18,11 @@ const ResetPassword = () => {
 
         <CardContent className='space-y-'>
           {/* ResetPassword Form */}
-          <ResetPasswordForm />
+          <UpdatePasswordForm />
         </CardContent>
       </Card>
     </div>
   )
 }
 
-export default ResetPassword
+export default UpdatePassword

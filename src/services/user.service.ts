@@ -1,5 +1,6 @@
 import { HTTP_METHOD } from "@/constants/enum";
 import useApiService from "@/hooks/api/useApi";
+import { ResetPasswordFormValues } from "@/pages/customer/profile/profile-content/reset-password/reset-password-form";
 import { useCallback } from "react";
 export interface uploadAvatarValues {
   avatar: File;
@@ -36,7 +37,7 @@ const UserService = () => {
     [callApi]
   );
 
-   const updateProfile = useCallback(async (values: updateProfileValue) => {
+  const updateProfile = useCallback(async (values: updateProfileValue) => {
     try {
       const response = await callApi(HTTP_METHOD.PUT, `users/update-profile`, values);
       return response;
@@ -44,7 +45,27 @@ const UserService = () => {
       console.log(e?.response?.data);
     }
   }, [callApi]);
-  return { loading, setIsLoading, getUserProfile, uploadAvatar, updateProfile };
+
+  const resetPassword = useCallback(async (data: ResetPasswordFormValues) => {
+    try {
+      const response = await callApi(HTTP_METHOD.PATCH, `users/reset-password`, data);
+      return response;
+    } catch (e: any) {
+      console.log(e?.response?.data);
+    }
+  }, [callApi]);
+
+  // when user register = google account, password will null => must be update password before user can use function change password (user must be have password to change password)
+  const updatePasswordGoogleAccount = useCallback(async (newPassword: string) => {
+    try {
+      const response = await callApi(HTTP_METHOD.PATCH, `users/update-password-google-account`, { newPassword });
+      return response;
+    } catch (e: any) {
+      console.log(e?.response?.data);
+    }
+  }, [callApi]);
+
+  return { loading, setIsLoading, getUserProfile, uploadAvatar, updateProfile, updatePasswordGoogleAccount, resetPassword };
 };
 
 export default UserService;

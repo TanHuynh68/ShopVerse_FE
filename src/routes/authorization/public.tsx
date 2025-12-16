@@ -20,7 +20,7 @@ const PublicRoute = ({ children }: PublicRouteProps) => {
       case ROLE.CUSTOMER:
         return <Navigate to={GUEST_PATH.HOME} replace />;
       case ROLE.ADMIN:
-        return <Navigate to={`/auth/${ADMIN_PATH.ADMIN_DASHBOARD}`} replace />;
+        return <Navigate to={`/admin/${ADMIN_PATH.ADMIN_DASHBOARD}`} replace />;
     }
   }
   // chưa login thì vẫn render

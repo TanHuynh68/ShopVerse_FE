@@ -1,17 +1,22 @@
 "use client";
-
 import { useState } from "react";
-
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
+import useUser from "@/hooks/api/useUser";
+export interface ResetPasswordFormValues {
+  oldPassword: string;
+  newPassword: string;
+}
 const ResetPasswordForm = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+  const [data, setData] = useState<ResetPasswordFormValues>({
+    oldPassword: "",
+    newPassword: "",
+  });
     useState(false);
+  const { handleResetPassword, isLoading } = useUser();
 
   return (
     <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
@@ -21,7 +26,9 @@ const ResetPasswordForm = () => {
         </Label>
         <div className="relative">
           <Input
-            id="password"
+            onChange={(e) => setData({ ...data, oldPassword: e.target.value })}
+            id="oldPassword"
+            name="oldPassword"
             type={isPasswordVisible ? "text" : "password"}
             placeholder="••••••••••••••••"
             className="pr-9"
@@ -47,7 +54,9 @@ const ResetPasswordForm = () => {
         </Label>
         <div className="relative">
           <Input
-            id="password"
+            onChange={(e) => setData({ ...data, newPassword: e.target.value })}
+            id="newPassword"
+            name="newPassword"
             type={isPasswordVisible ? "text" : "password"}
             placeholder="••••••••••••••••"
             className="pr-9"
@@ -66,36 +75,13 @@ const ResetPasswordForm = () => {
         </div>
       </div>
 
-      {/* Confirm Password */}
-      <div className="w-full space-y-1">
-        <Label className="leading-5" htmlFor="confirmPassword">
-          Xác nhận mật khẩu
-        </Label>
-        <div className="relative">
-          <Input
-            id="confirmPassword"
-            type={isConfirmPasswordVisible ? "text" : "password"}
-            placeholder="••••••••••••••••"
-            className="pr-9"
-          />
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() =>
-              setIsConfirmPasswordVisible((prevState) => !prevState)
-            }
-            className="text-muted-foreground focus-visible:ring-ring/50 absolute inset-y-0 right-0 rounded-l-none hover:bg-transparent"
-          >
-            {isConfirmPasswordVisible ? <EyeOffIcon /> : <EyeIcon />}
-            <span className="sr-only">
-              {isConfirmPasswordVisible ? "Hide password" : "Show password"}
-            </span>
-          </Button>
-        </div>
-      </div>
-
-      <Button className="w-full" type="submit">
-        Set New Password
+      <Button
+        className="w-full"
+        type="submit"
+        disabled={isLoading}
+        onClick={() => handleResetPassword(data)}
+      >
+        Đổi mật khẩu
       </Button>
     </form>
   );

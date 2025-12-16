@@ -14,7 +14,7 @@ const ResetPasswordDialog = () => {
         <DialogTrigger asChild>
           <Button variant="outline">
             <Key className="mr-2 h-4 w-4" />
-            Change Password
+            Đổi mật khẩu
           </Button>
         </DialogTrigger>
         <DialogContent >

@@ -30,10 +30,12 @@ export default function ProfileContent({
   handleUploadProfile,
   transactions,
 }: ProfileContentProps) {
+
   const [data, setData] = useState<updateProfileValue>({
     name: info.name,
     phone: info.phone || "",
   });
+  
   const initValue = {
     name: info.name,
     phone: info.phone || "",
@@ -160,7 +162,9 @@ export default function ProfileContent({
                     Last changed 3 months ago
                   </p>
                 </div>
-                <ResetPasswordDialog/>
+               {
+                  <ResetPasswordDialog/>
+               }
               </div>
             </div>
           </CardContent>

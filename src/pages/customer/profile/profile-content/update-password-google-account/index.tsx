@@ -1,11 +1,8 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import ResetPassword from "./reset-password-01";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+
 import { Button } from "@/components/ui/button";
 import { Key } from "lucide-react";
+import UpdatePassword from "./update-password-01";
 
 const ResetPasswordDialog = () => {
   return (
@@ -14,11 +11,11 @@ const ResetPasswordDialog = () => {
         <DialogTrigger asChild>
           <Button variant="outline">
             <Key className="mr-2 h-4 w-4" />
-            Change Password
+            Cập nhật mật khẩu
           </Button>
         </DialogTrigger>
-        <DialogContent >
-          <ResetPassword />
+        <DialogContent>
+          <UpdatePassword />
         </DialogContent>
       </form>
     </Dialog>
