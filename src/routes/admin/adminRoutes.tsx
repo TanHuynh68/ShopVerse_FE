@@ -1,4 +1,4 @@
-import { AdminDashboardPage, AdminMailPage, AdminMessagePage } from "@/pages";
+import { AdminActivityPage, AdminDashboardPage, AdminMailPage, AdminMessagePage } from "@/pages";
 import DashboardLayout from "@/components/layouts/admin-layout";
 import { ADMIN_PATH } from "./adminPath";
 import { DashboardProvider } from "@/hooks/api/useDashboardContext";
@@ -16,6 +16,10 @@ export const adminRoutes = [
       </DashboardProvider>
     ),
     children: [
+      {
+        path: ADMIN_PATH.ADMIN_ACTIVITY_LOG,
+        element: <AdminActivityPage />,
+      },
       {
         path: ADMIN_PATH.ADMIN_DASHBOARD,
         element: <AdminDashboardPage />,
