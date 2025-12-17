@@ -1,5 +1,7 @@
 import {
   CartPage,
+  CustomerBlogDetailPage,
+  CustomerBlogPage,
   CustomerOrdersPage,
   PaymentFailedPage,
   PaymentProcessPage,
@@ -27,6 +29,22 @@ export const customerRoutes = [
       </ProtectedRouteByRole>
     ),
     children: [
+      {
+        path: CUSTOMER_PATH.CUSTOMER_BLOG_DETAIL_PAGE,
+        element: (
+          <ProductProvider>
+            <CustomerBlogDetailPage />
+          </ProductProvider>
+        ),
+      },
+      {
+        path: CUSTOMER_PATH.CUSTOMER_BLOG_PAGE,
+        element: (
+          <ProductProvider>
+            <CustomerBlogPage />
+          </ProductProvider>
+        ),
+      },
       {
         path: CUSTOMER_PATH.PRODUCT_BY_CATEGORY,
         element: (

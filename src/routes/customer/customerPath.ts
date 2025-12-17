@@ -9,4 +9,6 @@ export enum CUSTOMER_PATH {
   CUSTOMER_ORDERS_PAGE = "/orders",
   CUSTOMER_TRANSACTIONS_PAGE = "/transactions",
   CUSTOMER_PROFILE_PAGE = "/profile",
+  CUSTOMER_BLOG_PAGE = "/blog",
+  CUSTOMER_BLOG_DETAIL_PAGE = "/blog-detail",
 }
