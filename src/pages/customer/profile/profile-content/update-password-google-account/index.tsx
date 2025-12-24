@@ -1,10 +1,12 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-
 import { Button } from "@/components/ui/button";
 import { Key } from "lucide-react";
 import UpdatePassword from "./update-password-01";
+import useUser from "@/hooks/api/useUser";
 
-const ResetPasswordDialog = () => {
+const UpdatePasswordGoogleAccount = () => {
+  const { handleUpdatePasswordGoogleAccount } = useUser();
+  
   return (
     <Dialog>
       <form>
@@ -15,11 +17,11 @@ const ResetPasswordDialog = () => {
           </Button>
         </DialogTrigger>
         <DialogContent>
-          <UpdatePassword />
+          <UpdatePassword handleUpdatePasswordGoogleAccount={handleUpdatePasswordGoogleAccount}/>
         </DialogContent>
       </form>
     </Dialog>
   );
 };
 
-export default ResetPasswordDialog;
+export default UpdatePasswordGoogleAccount;

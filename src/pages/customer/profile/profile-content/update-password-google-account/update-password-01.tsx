@@ -1,8 +1,11 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import UpdatePasswordForm from './update-password-form'
+interface UpdatePasswordProps{
+  handleUpdatePasswordGoogleAccount: (newPasswword: string)=> Promise<any>
+}
 
-const UpdatePassword = () => {
+const UpdatePassword = ({handleUpdatePasswordGoogleAccount}: UpdatePasswordProps) => {
   return (
     <div className='relative flex h-auto items-center justify-center overflow-x-hidden '>
       <div className='absolute'>
@@ -18,7 +21,7 @@ const UpdatePassword = () => {
 
         <CardContent className='space-y-'>
           {/* ResetPassword Form */}
-          <UpdatePasswordForm />
+          <UpdatePasswordForm handleUpdatePasswordGoogleAccount={handleUpdatePasswordGoogleAccount}/>
         </CardContent>
       </Card>
     </div>

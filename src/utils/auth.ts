@@ -8,6 +8,6 @@ export const isLoggedIn = () => {
 };
 
 export const useCurrentUser = () => {
-  const user = useSelector((store: any) => store.user);
+  const user = useSelector((store: RootState) => store.user);
   return user;
 };

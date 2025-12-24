@@ -31,8 +31,8 @@ const useUser = () => {
   const handleUpdatePasswordGoogleAccount = async (newPassword: string) => {
     const response = await updatePasswordGoogleAccount(newPassword);
     if (response.status_code === 200) {
-      fetchUserProfile();
       toast.success('Cập nhật mật khẩu thành công!');
+      setTimeout(() => handleLogout(), 2000)
       return response;
     }
     return null;

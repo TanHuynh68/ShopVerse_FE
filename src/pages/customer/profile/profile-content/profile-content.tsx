@@ -16,6 +16,8 @@ import { updateProfileValue } from "@/services/user.service";
 import { TransactionTable } from "./transaction-table";
 import { Transaction } from "@/types/transaction";
 import ResetPasswordDialog from "./reset-password";
+import { useCurrentUser } from "@/utils/auth";
+import UpdatePasswordGoogleAccount from "./update-password-google-account";
 
 interface ProfileContentProps {
   info: User;
@@ -30,12 +32,12 @@ export default function ProfileContent({
   handleUploadProfile,
   transactions,
 }: ProfileContentProps) {
-
   const [data, setData] = useState<updateProfileValue>({
     name: info.name,
     phone: info.phone || "",
   });
-  
+  const user = useCurrentUser();
+  console.log("user: ", user);
   const initValue = {
     name: info.name,
     phone: info.phone || "",
@@ -162,9 +164,12 @@ export default function ProfileContent({
                     Last changed 3 months ago
                   </p>
                 </div>
-               {
-                  <ResetPasswordDialog/>
-               }
+                  
+                {user.isPasswordExisted != true ? (
+                  <UpdatePasswordGoogleAccount />
+                ) : (
+                  <ResetPasswordDialog />
+                )}
               </div>
             </div>
           </CardContent>

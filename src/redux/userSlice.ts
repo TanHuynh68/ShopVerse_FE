@@ -1,11 +1,13 @@
+import { ROLE } from "@/constants/enum";
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 
 const initialState = {
-  role: '',
+  role: ROLE.ADMIN || ROLE.CUSTOMER,
   account_id: '',
   name: '',
   email: '',
+  isPasswordExisted: false
 };
 
 export const userSlice = createSlice({
