@@ -3,9 +3,21 @@ import LeftSection from "./left-section";
 import RightSection from "./right-section";
 import RelatedProducts from "./related-products";
 import { useEffect } from "react";
+import CustomerReview from "./reviews";
+import useReview from "@/hooks/api/useReview";
 
 const ProductDetailPage = () => {
   const { product, products, fetchProducts } = useProduct();
+  const {
+    reviews,
+    page,
+    setPage,
+    setTotalPages,
+    totalPages,
+    fetchReviewByProduct,
+    handleCreateReview,
+  } = useReview();
+
   useEffect(() => {
     if (product) {
       fetchProducts({
@@ -17,6 +29,13 @@ const ProductDetailPage = () => {
       });
     }
   }, [product]);
+
+  useEffect(() => {
+    if (product) {
+      fetchReviewByProduct({ id: product._id, page: page, size: 2 });
+    }
+  }, [product, page]);
+
   return (
     <div>
       {product && (
@@ -34,6 +53,23 @@ const ProductDetailPage = () => {
       {!product && (
         <div className="h-[80vh] w-full flex justify-center items-center">
           Không tìm thấy sản phẩm nào.
+        </div>
+      )}
+      {reviews.length > 0 && product ? (
+        <CustomerReview
+          handleCreateReview={handleCreateReview}
+          reviews={reviews}
+          setPage={setPage}
+          totalPages={totalPages}
+          setTotalPages={setTotalPages}
+          product={product}
+          isSuccess={() =>
+            fetchReviewByProduct({ id: product._id, page: page, size: 2 })
+          }
+        />
+      ) : (
+        <div className="h-[80vh] w-full flex justify-center items-center">
+          Không tìm thấy đánh giá nào.
         </div>
       )}
     </div>
