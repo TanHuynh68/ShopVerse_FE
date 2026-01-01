@@ -16,6 +16,8 @@ const ProductDetailPage = () => {
     totalPages,
     fetchReviewByProduct,
     handleCreateReview,
+    handleUpdateLike,
+    setProductId
   } = useReview();
 
   useEffect(() => {
@@ -27,6 +29,7 @@ const ProductDetailPage = () => {
         size: 5,
         brand_id: [],
       });
+      setProductId(product._id)
     }
   }, [product]);
 
@@ -55,7 +58,7 @@ const ProductDetailPage = () => {
           Không tìm thấy sản phẩm nào.
         </div>
       )}
-      {reviews.length > 0 && product ? (
+      {product && (
         <CustomerReview
           handleCreateReview={handleCreateReview}
           reviews={reviews}
@@ -63,14 +66,11 @@ const ProductDetailPage = () => {
           totalPages={totalPages}
           setTotalPages={setTotalPages}
           product={product}
+          handleUpdateLike={handleUpdateLike}
           isSuccess={() =>
             fetchReviewByProduct({ id: product._id, page: page, size: 2 })
           }
         />
-      ) : (
-        <div className="h-[80vh] w-full flex justify-center items-center">
-          Không tìm thấy đánh giá nào.
-        </div>
       )}
     </div>
   );

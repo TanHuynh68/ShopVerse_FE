@@ -1,17 +1,31 @@
 import ReviewService, {
   createReviewsValues,
   getReviewsByProductQuery,
+  updateLikeValues,
 } from "@/services/reviews.service";
 import { Review } from "@/types/review.type";
 import { useState } from "react";
 import { toast } from "sonner";
 
 const useReview = () => {
-  const { getReviewsByProduct, createReviews, loading } = ReviewService();
+  const { getReviewsByProduct, createReviews, updateLike, loading } =
+    ReviewService();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  // set productId when access product detail page to fetchReviewByProduct after called handleUpdateLike
+  const [productId, setProductId] = useState<string>("");
 
+  console.log("productId: ", productId);
+  const handleUpdateLike = async (values: updateLikeValues) => {
+    const response = await updateLike(values);
+    if (response && response.status_code === 200) {
+      toast.success(response.message);
+      fetchReviewByProduct({ id: productId, page: page, size: 2 });
+      return response;
+    }
+    return null;
+  };
 
   const handleCreateReview = async (values: createReviewsValues) => {
     const response = await createReviews(values);
@@ -26,7 +40,7 @@ const useReview = () => {
     const response = await getReviewsByProduct(query);
     if (response.status_code === 200) {
       setReviews(response.data);
-      setTotalPages(response.totalPages)
+      setTotalPages(response.totalPages);
       return response;
     }
     return null;
@@ -40,7 +54,9 @@ const useReview = () => {
     totalPages,
     setTotalPages,
     fetchReviewByProduct,
-    handleCreateReview
+    handleCreateReview,
+    handleUpdateLike,
+    setProductId,
   };
 };
 

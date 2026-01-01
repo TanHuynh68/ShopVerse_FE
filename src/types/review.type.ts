@@ -7,7 +7,7 @@ export interface Review {
   createdAt: string; // ISO date
   updatedAt: string; // ISO date
   comment?: string;
-  likes: number;
+  likes: string[];
 }
 
 export interface Reviewer {

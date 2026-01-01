@@ -22,7 +22,10 @@ import {
 } from "@/components/ui/pagination";
 import { Review } from "@/types/review.type";
 import { formatDateMonthYearVN } from "@/utils/format";
-import { createReviewsValues } from "@/services/reviews.service";
+import {
+  createReviewsValues,
+  updateLikeValues,
+} from "@/services/reviews.service";
 import { Product } from "@/types/product.type";
 
 interface StoreData {
@@ -49,6 +52,7 @@ interface CustomerReviewProps {
   handleCreateReview: (values: createReviewsValues) => Promise<any>;
   isSuccess: () => void;
   product: Product;
+  handleUpdateLike: (values: updateLikeValues) => Promise<any>;
 }
 
 const CustomerReview = ({
@@ -58,27 +62,27 @@ const CustomerReview = ({
   handleCreateReview,
   isSuccess,
   product,
+  handleUpdateLike,
 }: CustomerReviewProps) => {
   const storeData: StoreData = {
-    pageTitle: "Customer Reviews",
+    pageTitle: "Đánh giá của khách hàng",
     pageDescription:
-      "Read what our customers have to say about their experience with our products and services.",
-    formTitle: "Submit Your Review",
-    formDescription: "Share your experience with our community",
-    nameLabel: "Name",
+      "Đọc những gì khách hàng nói về trải nghiệm của họ với sản phẩm và dịch vụ của chúng tôi.",
+    formTitle: "Gửi đánh giá của bạn",
+    formDescription: "Chia sẻ trải nghiệm của bạn với cộng đồng",
+    nameLabel: "Họ và tên",
     emailLabel: "Email",
-    reviewLabel: "Write Your Review",
-    namePlaceholder: "John Doe",
-    emailPlaceholder: "mail@example.com",
-    reviewPlaceholder: "Write here...",
-    submitButtonText: "Submit Review",
-    submittingButtonText: "Submitting...",
+    reviewLabel: "Viết đánh giá của bạn",
+    namePlaceholder: "Nguyễn Văn A",
+    emailPlaceholder: "email@example.com",
+    reviewPlaceholder: "Viết tại đây...",
+    submitButtonText: "Gửi đánh giá",
+    submittingButtonText: "Đang gửi...",
     reviews: reviews,
   };
 
   const [currentPage, setCurrentPage] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLiked, setIsLiked] = useState<Record<string, boolean>>({});
   const [rating, setRating] = useState<number>(0);
   const [hoveredStar, setHoveredStar] = useState<number>(0);
 
@@ -113,140 +117,140 @@ const CustomerReview = ({
       </div>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        <div className="space-y-6 lg:col-span-2">
-          {reviews.map((review) => (
-            <Card key={review._id} className="transition-all hover:shadow-md">
-              <CardContent>
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex items-start gap-4">
-                    <Avatar className="bg-muted size-12">
-                      <AvatarImage
-                        src={review.reviewer.avatar}
-                        alt={`${review.reviewer.name}'s avatar`}
-                      />
-                      <AvatarFallback>
-                        {review.reviewer.name.substring(0, 2)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <h3 className="font-medium">{review.reviewer.name}</h3>
-                      <div className="text-muted-foreground mt-1 flex items-center gap-2 text-sm">
-                        <div
-                          className="flex"
-                          aria-label={`Rated ${review.rating} out of 5`}
-                        >
-                          {Array(5)
-                            .fill(0)
-                            .map((_, i) => (
-                              <Star
-                                key={i}
-                                className={cn(
-                                  "size-4",
-                                  i < review.rating
-                                    ? "fill-foreground text-foreground"
-                                    : "text-foreground fill-transparent"
-                                )}
-                              />
-                            ))}
+        {reviews.length > 0 ? (
+          <div className="space-y-6 lg:col-span-2">
+            {reviews.map((review) => (
+              <Card key={review._id} className="transition-all hover:shadow-md">
+                <CardContent>
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-4">
+                      <Avatar className="bg-muted size-12">
+                        <AvatarImage
+                          src={review.reviewer.avatar}
+                          alt={`${review.reviewer.name}'s avatar`}
+                        />
+                        <AvatarFallback>
+                          {review.reviewer.name.substring(0, 2)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <h3 className="font-medium">{review.reviewer.name}</h3>
+                        <div className="text-muted-foreground mt-1 flex items-center gap-2 text-sm">
+                          <div
+                            className="flex"
+                            aria-label={`Rated ${review.rating} out of 5`}
+                          >
+                            {Array(5)
+                              .fill(0)
+                              .map((_, i) => (
+                                <Star
+                                  key={i}
+                                  className={cn(
+                                    "size-4",
+                                    i < review.rating
+                                      ? "fill-foreground text-foreground"
+                                      : "text-foreground fill-transparent"
+                                  )}
+                                />
+                              ))}
+                          </div>
+                          <span>•</span>
+                          <time
+                            dateTime={
+                              new Date(review.createdAt)
+                                .toISOString()
+                                .split("T")[0]
+                            }
+                            className="flex items-center"
+                          >
+                            <Calendar className="me-1 size-3" />
+                            {formatDateMonthYearVN(review.createdAt)}
+                          </time>
                         </div>
-                        <span>•</span>
-                        <time
-                          dateTime={
-                            new Date(review.createdAt)
-                              .toISOString()
-                              .split("T")[0]
-                          }
-                          className="flex items-center"
-                        >
-                          <Calendar className="me-1 size-3" />
-                          {formatDateMonthYearVN(review.createdAt)}
-                        </time>
                       </div>
                     </div>
                   </div>
-                </div>
-                <p className="text-muted-foreground mt-4">{review.comment}</p>
-                <div className="mt-4 flex gap-4">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() =>
-                      setIsLiked((prev) => ({
-                        ...prev,
-                        [review._id]: !prev[review._id],
-                      }))
-                    }
-                    className="text-muted-foreground hover:bg-primary/10 hover:text-primary cursor-pointer"
-                    aria-label={`${
-                      isLiked[review._id] ? "Unlike" : "Like"
-                    } this review`}
-                  >
-                    <ThumbsUp
-                      className={cn(
-                        "me-2 size-4",
-                        isLiked[review._id] && "fill-current"
-                      )}
-                    />
-                    <span>{review.likes + (isLiked[review._id] ? 1 : 0)}</span>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-muted-foreground hover:bg-primary/10 hover:text-primary cursor-pointer"
-                    aria-label="View comments"
-                  >
-                    <MessageCircle className="me-2 size-4" />
-                    {/* <span>{review.comment}</span> */}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-          {totalPages > 1 && (
-            <Pagination className="mt-6">
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious
-                    onClick={() => {
-                      setCurrentPage(currentPage - 1), setPage(currentPage - 1);
-                    }}
-                    className={
-                      currentPage === 1
-                        ? "pointer-events-none opacity-50"
-                        : "cursor-pointer"
-                    }
-                  />
-                </PaginationItem>
-                {Array.from({ length: totalPages }).map((_, i) => (
-                  <PaginationItem key={i}>
-                    <PaginationLink
-                      onClick={() => {
-                        setCurrentPage(i + 1), setPage(i + 1);
-                      }}
-                      isActive={currentPage === i + 1}
-                      className="cursor-pointer"
+                  <p className="text-muted-foreground mt-4">{review.comment}</p>
+                  <div className="mt-4 flex gap-4">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleUpdateLike({reviewId: review._id})}
+                      className="text-muted-foreground hover:bg-primary/10 hover:text-primary cursor-pointer"
                     >
-                      {i + 1}
-                    </PaginationLink>
+                      <ThumbsUp
+                        className={cn(
+                        )}
+                      />
+                      <span>
+                        {review.likes.length}
+                      </span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-muted-foreground hover:bg-primary/10 hover:text-primary cursor-pointer"
+                      aria-label="View comments"
+                    >
+                      <MessageCircle className="me-2 size-4" />
+                      {/* <span>{review.comment}</span> */}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+            {totalPages > 1 && (
+              <Pagination className="mt-6">
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      onClick={() => {
+                        setCurrentPage(currentPage - 1),
+                          setPage(currentPage - 1);
+                      }}
+                      className={
+                        currentPage === 1
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
+                    />
                   </PaginationItem>
-                ))}
-                <PaginationItem>
-                  <PaginationNext
-                    onClick={() => {
-                      setCurrentPage(currentPage + 1), setPage(currentPage + 1);
-                    }}
-                    className={
-                      currentPage === totalPages
-                        ? "pointer-events-none opacity-50"
-                        : "cursor-pointer"
-                    }
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          )}
-        </div>
-
+                  {Array.from({ length: totalPages }).map((_, i) => (
+                    <PaginationItem key={i}>
+                      <PaginationLink
+                        onClick={() => {
+                          setCurrentPage(i + 1), setPage(i + 1);
+                        }}
+                        isActive={currentPage === i + 1}
+                        className="cursor-pointer"
+                      >
+                        {i + 1}
+                      </PaginationLink>
+                    </PaginationItem>
+                  ))}
+                  <PaginationItem>
+                    <PaginationNext
+                      onClick={() => {
+                        setCurrentPage(currentPage + 1),
+                          setPage(currentPage + 1);
+                      }}
+                      className={
+                        currentPage === totalPages
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            )}
+          </div>
+        ) : (
+          <div className="lg:col-span-2 h-full w-full flex justify-center items-center">
+            Không tìm thấy đánh giá nào.
+          </div>
+        )}
+        {/* Submit form */}
         <div className="lg:sticky lg:top-8 lg:h-fit">
           <Card>
             <CardHeader>

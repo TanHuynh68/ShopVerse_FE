@@ -15,6 +15,10 @@ export interface createReviewsValues{
     product: string // product id
 }
 
+export interface updateLikeValues{
+    reviewId: string;
+}
+
 const ReviewService = () => {
     const { callApi, loading, setIsLoading } = useApiService();
 
@@ -42,7 +46,19 @@ const ReviewService = () => {
         [callApi]
     );
 
-    return { loading, setIsLoading, getReviewsByProduct, createReviews };
+    const updateLike = useCallback(
+        async (values: updateLikeValues) => {
+            try {
+                const response = await callApi(HTTP_METHOD.PATCH, `reviews/update-like`, values);
+                return response;
+            } catch (e: any) {
+                console.error(e?.response?.data);
+            }
+        },
+        [callApi]
+    );
+
+    return { loading, setIsLoading, getReviewsByProduct, createReviews, updateLike };
 };
 
 export default ReviewService;
